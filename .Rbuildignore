@@ -1,3 +1,8 @@
 ^deviant\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+
+Local
+notebooks
+releases
+reports
