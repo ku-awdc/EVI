@@ -1,4 +1,4 @@
 library(testthat)
-library(deviant)
+library(EVI)
 
-test_check("deviant")
+test_check("EVI")
