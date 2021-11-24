@@ -2,7 +2,8 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 
-Local
+local
 notebooks
 releases
 reports
+^data-raw$
