@@ -269,7 +269,7 @@ library(ggplot2)
   sp2<-ggplot(data_int14, aes(x=Days))+
     geom_point(aes(y=log(Cases), color=Index>0), size=0.5)+
     scale_color_manual(values=c("grey69", "red3"))+
-    labs(y = "log(Cases)", x="")+
+    labs(y = "ln(Cases)", x="")+
     theme(legend.position = "none")
   sp2
   
@@ -277,7 +277,7 @@ library(ggplot2)
   sp3<-ggplot(data, aes(x=Days))+
     geom_point(aes(y=log(cases_1), col=pvs), size=0.5)+
     geom_point(aes(y=log(cases_0)), col="grey69", size=0.5)+
-    labs(y = "log(Cases)", x="")+
+    labs(y = "ln(Cases)", x="")+
     scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
     labs(color= "PPV")+
     theme(legend.position = c(0.95, 0.3),
@@ -290,7 +290,7 @@ library(ggplot2)
   sp4<-ggplot(data, aes(x=Days))+
     geom_point(aes(y=log(cases_0), col=pvn), size=0.5)+
     geom_point(aes(y=log(cases_1)), col="grey69", size=0.5)+
-    labs(y = "log(Cases)")+
+    labs(y = "ln(Cases)")+
     scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
     labs(color= "NPV")+
     theme(legend.position = c(0.95, 0.3),
