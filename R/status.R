@@ -1,4 +1,3 @@
-#'  Description to be added
 #'  Case definition 
 #'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file
 #A rise in the mean of the number of cases between two consecutive weeks that exceeds a threshold r

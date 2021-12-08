@@ -1,4 +1,3 @@
-#'  Description to be added
 #'  Calculates and returns the standard deviation of a vector
 #' @param x numeric vector
 #'

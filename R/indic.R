@@ -1,4 +1,3 @@
-#'  Description to be added
 #'  Indicator function
 #'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file
 #' Returns the EVI index/model prediction - 1/0

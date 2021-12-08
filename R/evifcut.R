@@ -1,4 +1,3 @@
-#'  Description to be added (#test which cut-off c & lag)
 #' Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1) 
 #' @param evi numeric vector as returned from the evi function
 #' @param cases numeric vector - number of new cases per day/any other time interval

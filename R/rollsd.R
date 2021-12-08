@@ -1,4 +1,3 @@
-#'  Description to be added (rolling sd)
 #' Rolling standard deviation
 #' -A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data
 #' @param cases numeric vector - number of cases per day (or any other time interval)

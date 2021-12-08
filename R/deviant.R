@@ -1,5 +1,12 @@
 #' The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
 #' 
+#' From the indic and status functions a 2x2 table can be constructed - 
+#' indic - represents the model prediction at the specified cut-off value 
+#' status - represents the cases (true cases)
+#'                                   Case definition - Status function
+#' Indic function output |               1            |       0
+#' at cut-off value c    |  1         Se*prev         |     (1-Sp) * (1-prev)
+#' Model prediction      |  0         (1-Se)*prev     |    Sp * (1-prev)
 #' 
 #' Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
 #' @param new_cases numeric vector calculated from the mova function?
