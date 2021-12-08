@@ -1,9 +1,11 @@
-source("mova.r")
-source("medvol.r")
-source("evi.r")
-
 deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14, lag_1=7, c_1=7){
-
+  source("mova.r")
+  source("medvol.r")
+  source("evi.r")
+  source("evifcut.r")
+  source("indic.r")
+  source("status.r")
+  
   #desired detection difference
   w_s=7 # Na paei pano!########################3
   
