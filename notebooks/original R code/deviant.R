@@ -7,7 +7,7 @@ deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14, lag_1=7, c_
   source("status.r")
   
   #desired detection difference
-  w_s=7 # Na paei pano!########################3
+  w_s=7 # Na paei pano!########################
   
   
   #calculate the moving average of new confrimed cases
