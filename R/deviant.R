@@ -1,19 +1,32 @@
-#'  The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
-#'
-#' @param new_cases explanation
-#' @param ratio explanation
-#' @param start_cases explanation
-#' @param lag_1 initial lag
-#' @param lag_max maximum lag
-#' @param c_1 initial cut of point
+#' The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
+#' 
+#' 
+#' Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
+#' @param new_cases numeric vector calculated from the mova function?
+#' @param ratio threshold value for case definition - ratio=1/1.2{default} as defined above 
+#' @param start_cases interget - first observations "burn-in" of the time series
+#' @param lag_1 initial value for the rolling windows size lag_1=7{default}
+#' @param lag_max maximum value for the rolling window size lag_max=30{default}
+#' @param c_1 initital value for the threshold value of model prediction
 #' @param w_s desired detection difference
 #' @param c_s cut off point range
 #'
 #'
 #' @examples
-#' deviant(new_cases, ratio, lag_max, start_cases, lag_1, c_1, w_s, c_s)
-#'
+#' new_cases = rbinom(100,10,0.5) 
+#' ratio = 1/1.2
+#' lag_1 = 7
+#' lag_max=30
+#' start_cases=14
+#' c_1=7
+#' w_s=7
+#' c_s=seq(0.01,0.5,0.01)
+#' deviant(new_cases, ratio, lag_max, start_cases, lag_1, c_1, w_s, c_s) - this step will take some time
+#' 
 #' @export
+#' Data frame with columns
+#' Date, EVI, Cases, Index, PPV, NPV, Rolling window size, Cut-off values, Sensitivity, Specificity
+
 deviant=function(new_cases, ratio=1/1.2, lag_1=7, lag_max=30, start_cases=14, c_1=7, w_s =7,
                  c_s=seq(0.01,0.5, 0.01)){
   source("mova.r")
