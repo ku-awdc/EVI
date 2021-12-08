@@ -36,12 +36,12 @@
 
 deviant=function(new_cases, ratio=1/1.2, lag_1=7, lag_max=30, start_cases=14, c_1=7, w_s =7,
                  c_s=seq(0.01,0.5, 0.01)){
-  source("mova.r")
-  source("medvol.r")
-  source("evi.r")
-  source("evifcut.r")
-  source("indic.r")
-  source("status.r")
+  #source("mova.r")
+  #source("medvol.r")
+  #source("evi.r")
+  #source("evifcut.r")
+  #source("indic.r")
+  #source("status.r")
 
   #calculate the moving average of new confrimed cases
   cases=mova(new_cases)

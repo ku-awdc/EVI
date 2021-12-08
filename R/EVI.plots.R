@@ -1,7 +1,7 @@
 #'  Descriptive figures demonstrating the predictive capabilities of EVI.
 #'
 #' @param graph Type of graph to be plotted
-#' @param ln If the data would be transformed through the natural logarithm befor plotting.
+#' @param ln If the data would be transformed through the natural logarithm before plotting.
 #'
 #'
 #' @examples
