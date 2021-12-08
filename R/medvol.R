@@ -1,4 +1,4 @@
-#' Example function and help file
+#'  Description to be added
 #'
 #' @param x explanation of argument
 #'

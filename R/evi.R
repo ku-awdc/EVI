@@ -4,11 +4,10 @@
 #'
 #'
 #' @examples
-#' evi(x)
+#' evi(rollsd)
 #'
 #' @export
 evi = function(rollsd) {
-
   evi=rep(NA,length(rollsd))
   for (i in 2:length(rollsd)){
     evi[i]= (rollsd[i]-rollsd[i-1])/rollsd[i-1]

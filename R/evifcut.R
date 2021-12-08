@@ -7,7 +7,7 @@
 #' @param ratio explanation
 ##'
 #' @examples
-#' medvol(x)
+#' evifcut(evi, cases, rate, w_s, ratio)
 #'
 #' @export
 evifcut = function(evi, cases, rate, w_s, ratio) {

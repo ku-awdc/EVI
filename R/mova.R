@@ -4,7 +4,8 @@
 #' @param int rolling window
 #'
 #' @examples
-#' cases=mova(c(2,2,1,4,9,10,23,10,9,10,14,12,10),7)
+#' cases=c(2,2,1,4,9,10,23,10,9,10,14,12,10)
+#' mova_cases=mova(cases, 7)
 #'
 #' @export
 mova=function(cases, int=7){

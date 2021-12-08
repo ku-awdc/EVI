@@ -5,7 +5,7 @@
 #' @param cases explanation
 #'
 #' @examples
-#' medvol(x)
+#' indic(evi, cut, cases)
 #'
 #' @export
 indic = function(evi, cut, cases) {

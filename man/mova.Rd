@@ -15,6 +15,7 @@ mova(cases, int = 7)
 Example function and help file
 }
 \examples{
-cases=mova(c(2,2,1,4,9,10,23,10,9,10,14,12,10),7)
+cases=c(2,2,1,4,9,10,23,10,9,10,14,12,10)
+mova_cases=mova(cases, 7)
 
 }
