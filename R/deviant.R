@@ -27,7 +27,6 @@
 #' deviant(Italy$Cases, ratio, lag_max, start_cases) - this step will take some time
 #'
 #' @export
-#' EVI_output
 
 deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
   source("mova.r")
@@ -170,5 +169,5 @@ deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
   EVI_output<<-(EVI_out)
-
+  return(EVI_output)
 }

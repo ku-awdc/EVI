@@ -22,7 +22,7 @@
 #' 0.1612903
 #'
 #' @export
-#' sens spec testsin prev
+#' evifcut
 
 evifcut = function(evi, cases, rate, w_s=7, ratio=1/1.2) {
 
@@ -51,5 +51,6 @@ evifcut = function(evi, cases, rate, w_s=7, ratio=1/1.2) {
   testsin=length(which(test_p==1))/(length(cases)-w_s)
   prev=length(which(true_p==1))/(length(cases)-w_s)
 
-  return(list(sens=sens, spec=spec, testsin=testsin, prev=prev))
+  evifcut<-list(sens=sens, spec=spec, testsin=testsin, prev=prev)
+  return(evifcut)
 }

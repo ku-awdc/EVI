@@ -8,9 +8,9 @@
 #' 5.922577
 #'
 #' @export
-#' x
 medvol=function(x){
-  return(sd(x))
+  sdx<-sd(x)
+  return(sdx)
 }
 
 

@@ -15,7 +15,6 @@
 #'
 #'
 #' @export
-#' ind
 indic = function(evi, cut, cases) {
   ind=rep(NA,length(evi))
   for (i in 3:length(evi)){

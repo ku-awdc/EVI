@@ -13,7 +13,6 @@
 #' 9.428571 10.714286 12.142857 12.571429
 #' 12.571429
 #' @export
-#' n_cases
 mova=function(cases, int=7){
   ncases=rep(NA, length(cases))
   for (i in 1:length(cases)){
