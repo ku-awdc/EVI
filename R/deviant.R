@@ -29,13 +29,13 @@
 #' @export
 
 deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
-  source("mova.r")
-  source("medvol.r")
-  source("evi.r")
-  source("evifcut.r")
-  source("indic.r")
-  source("status.r")
-  source("rollsd.r")
+  #source("mova.r")
+  #source("medvol.r")
+  #source("evi.r")
+  #source("evifcut.r")
+  #source("indic.r")
+  #source("status.r")
+  #source("rollsd.r")
   lag_1=7
   c_1=0.1
   w_s =7
