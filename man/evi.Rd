@@ -2,17 +2,22 @@
 % Please edit documentation in R/evi.R
 \name{evi}
 \alias{evi}
-\title{Description to be added}
+\title{Epidemic Volatility Index calcuation
+Calculates the relative change of standard deviation between two consecutive rolling windows}
 \usage{
 evi(rollsd)
 }
 \arguments{
-\item{rollsd}{explanation of argument}
+\item{rollsd}{numeric vector - returned from the rollsd() function}
 }
 \description{
-Description to be added
+Epidemic Volatility Index calcuation
+Calculates the relative change of standard deviation between two consecutive rolling windows
 }
 \examples{
-evi(rollsd)
+cases <- rbinom(100,10,0.5)
+a <- rollsd(cases)
+evi(a)
+NA NA -0.183503419  0.000000000 -0.051316702  2.399346342 -0.026448667  0.049499536 â€¦.
 
 }

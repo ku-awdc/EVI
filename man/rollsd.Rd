@@ -2,20 +2,33 @@
 % Please edit documentation in R/rollsd.R
 \name{rollsd}
 \alias{rollsd}
-\title{Description to be added (rolling sd)}
+\title{Rolling standard deviation
+-A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data}
 \usage{
-rollsd(cases, lag_t)
+rollsd(cases, lag_t = 7)
 }
 \arguments{
-\item{cases}{explanation of argument}
+\item{cases}{numeric vector - number of cases per day (or any other time interval)}
 
-\item{lag_t}{explanation of argument}
+\item{lag_t}{rolling window size (lag_t=7{default})}
 }
 \description{
-Description to be added (rolling sd)
+Rolling standard deviation
+-A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data
 }
 \examples{
+First example
 cases=c(2,2,1,4,9,10,23,10,9,10,14,12,10)
 rollsd(cases,lag_t)
+NA 0.0000000 0.5773503 1.2583057
+3.2093613 3.8815804 7.7827648 7.4578179
+6.9006556 5.8227796 5.0803075 4.8941170
+4.8941170
+
+
+Second example
+cases = rbinom(100,10,0.5)
+rollsd(cases,30)
+
 
 }

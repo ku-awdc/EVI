@@ -2,21 +2,34 @@
 % Please edit documentation in R/indic.R
 \name{indic}
 \alias{indic}
-\title{Description to be added}
+\title{Indicator function
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+
+Returns the EVI index/model prediction - 1/0
+}}
 \usage{
 indic(evi, cut, cases)
 }
 \arguments{
-\item{evi}{explanation of argument}
+\item{evi}{numeric vector (obtained from the evi function)}
 
-\item{cut}{explanation}
+\item{cut}{threshold value 0<=c<=1 (to get a positive result)}
 
-\item{cases}{explanation}
+\item{cases}{number of new cases per day (or any other time interval)}
 }
 \description{
-Description to be added
+Indicator function
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+
+Returns the EVI index/model prediction - 1/0
+}
 }
 \examples{
-indic(evi, cut, cases)
+evi: as obtained from before
+cut <- 0.01
+cases <- rbinom(100,10,0.5)
+indic(evi,cut,cases)
+NA NA  0  0  0  0  0  1  0  0  â€¦
+
 
 }

@@ -2,21 +2,28 @@
 % Please edit documentation in R/status.R
 \name{status}
 \alias{status}
-\title{Description to be added}
+\title{Case definition
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+}}
 \usage{
-status(cases, w_s, ratio)
+status(cases, w_s = 7, ratio = 1/1.2)
 }
 \arguments{
-\item{cases}{explanation of argument}
+\item{cases}{numeric vector - number of new cases per day/any other time interval}
 
-\item{w_s}{explanation of argument}
+\item{w_s}{time interval/validation time w_s=7{default}}
 
-\item{ratio}{explanation of argument}
+\item{ratio}{threshold value for the case definition (ratio = 1/1.2 {default})}
 }
 \description{
-Description to be added
+Case definition
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+}
 }
 \examples{
+cases <- rbinom(100,10,0.5)
+w_s <- 7
+ratio <- 1/1.2
 status(cases, w_s, ratio)
-
+NA  0  0  0  0  0  0  0  1  1
 }
