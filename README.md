@@ -5,8 +5,9 @@ EVI: the epidemic volatility Index as an early-warning tool
 
 To install the current source from GitHub use:
 
-    install.packages("devtools")
+    install.packages(c("devtools", "remotes")
     require(devtools)
+    require(remotes)
     remotes::install_github("ku-awdc/EVI")
     
 
@@ -29,3 +30,9 @@ To run EVI analysis on the example data:
 To create a plot of the analysed data 
 
     evi.graphs(Italy)
+    
+The basic two functions of the EVI analysis are deviant() and evi.graphs(). For help:  
+    
+    ?deviant
+    ?evi.graphs
+

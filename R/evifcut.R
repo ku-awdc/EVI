@@ -1,38 +1,29 @@
-#' Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1)
-#' @param evi numeric vector as returned from the evi function
-#' @param cases numeric vector - number of new cases per day/any other time interval
-#' @param rate threshold value for model prediction - test outcome # defined as c in the indic function
-#' @param w_s time interval - validation time w_s=7{default}
-#' @param ratio threshold value for case definition ratio=1/1.2{dedault}
+#' Function that calculates the sensitivity and specificity at a specific cut-off value
+#' @param evi numeric vector - object (obtained from the evi function and stored as ev)
+#' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
+#' @param cut threshold value 0<=c<=1 - expetation in the future number of cases
+#' @param w_s (Cannot be changed) time interval - validation time w_s=7{default}
+#' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
 ##'
 #' @examples
-#' evi: numeric vector as returned from the evi function
-#' cases <- rbinom(100,10,0.5)
-#' rate = 0.01
-#' w_s = 7
-#' ratio = 1/1.2
-#' evifcut(evi, cases, rate, w_s, ratio)
-#' $sens
-#' 0.1333333
-#' $spec
-#' 0.8611111
-#' $testsin
-#' 0.1290323
-#' $prev
-#' 0.1612903
-#'
+#'#' data(Italy)
+#' cases = mova(Italy$ncases)
+#' roll = rollsd(cases)
+#' ev = evi(roll)
+#' evifcut(ev, cases, 0.01, 7, 0.2)
+
 #' @export
-#' evifcut
 
-evifcut = function(evi, cases, rate, w_s=7, ratio=1/1.2) {
+evifcut = function(evi, cases, cut, w_s=7, r=0.2) {
 
+  ratio = 1/(1+r)
   test_p=rep(NA, length(cases))
   true_p=rep(NA, length(cases))
 
 
 
   for (i in w_s:(length(cases)-w_s)){
-    if (evi[i]>=rate && cases[i]>mean(cases[i:(i-6)]))
+    if (evi[i]>=cut && cases[i]>mean(cases[i:(i-6)]))
     {test_p[i]=1}
     else
     {test_p[i]=0}

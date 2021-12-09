@@ -1,34 +1,27 @@
 #' The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
-#'
-#' From the indic and status functions a 2x2 table can be constructed -
-#' indic - represents the model prediction at the specified cut-off value
-#' status - represents the cases (true cases)
-#'                                   Case definition - Status function
-#' Indic function output |               1            |       0
-#' at cut-off value c    |  1         Se x prev         |     (1-Sp) x (1-prev)
-#' Model prediction      |  0         (1-Se) x prev     |    Sp x (1-prev)
-#'
-#' Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
-#' @param new_cases numeric vector calculated from the mova function?
-#' @param ratio threshold value for case definition - ratio=1/1.2{default} as defined above
-#' @param start_cases interget - first observations "burn-in" of the time series
-#' @param lag_max maximum value for the rolling window size lag_max=30{default}
-#' @param lag_1 (Cannot be changed) initial value for the rolling windows size, lag_1=7,
-#' @param c_1 (Cannot be changed)initital value for the threshold value of model prediction, c_1=0.1
-#' @param w_s (Cannot be changed) desired detection difference, w_s=7
+#' Calculates and stores as a data frame the sensitivity, specificity, ppv, npv for a range of cut-off values (cut) and number of consecutive rolling windows (lag_t) so that to find the optimal cut-off value and lag_t integer value that maximizes the Youden Index (Se + Sp -1)
+#' 
+
+#' @param new_cases time series data
+#' @param cum True of False; True if the time series data are stored as cummulative data cum=FALSE {default}
+#' @param r_a rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed
+#' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
+#' @param start_cases interger - first observations "burn-in" of the time series
+#' @param lag_1 (Cannot be changed) initial minimum value for the rolling windows size, lag_1=7
+#' @param lag_max (Cannot be changed) integer maximum value for the number of consecutive rolling windows
+#' @param c_1 (Cannot be changed) initital threshold value for the expetation in the future number of cases, c_1=0.1{default}
+#' @param w_s (Cannot be changed) desired detection difference - time interval - validation time w_s=7{default}
 #' @param c_s (Cannot be changed) cut off point range, c_s=seq(0.01,0.5, 0.01)
 #'
 #'
 #' @examples
 #' data(Italy)
-#' ratio = 1/1.2
-#' lag_max=30
-#' start_cases=14
-#' deviant(Italy$Cases, ratio, lag_max, start_cases) - this step will take some time
+#' deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30) 
+#' This step should take some time and the time elapsed will be printed
 #'
 #' @export
 
-deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
+deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, start_cases=14, lag_max=30){
   #source("mova.r")
   #source("medvol.r")
   #source("evi.r")
@@ -36,15 +29,19 @@ deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
   #source("indic.r")
   #source("status.r")
   #source("rollsd.r")
+  start_time = Sys.time()
+  ratio=1/(1+r)
   lag_1=7
-  c_1=0.1
+  c_1=0.01
   w_s =7
   c_s=seq(0.01,0.5, 0.01)
 
+  if (cum == TRUE) cases = c(new_cases[1], diff(new_cases))
+  
+ 
   #calculate the moving average of new confrimed cases
-  cases=mova(new_cases)
-
-
+  cases=mova(new_cases,r_a)
+  
   roll=rollsd(cases[1:start_cases],lag_1)
   ev=evi(roll)
   ind=indic(ev,c_1, cases[1:start_cases])
@@ -165,9 +162,16 @@ deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
   Cases=cases
   Index=ind
 
-
+  end_time = Sys.time()
+  
+  time_elapsed = end_time - start_time  
+  
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
   EVI_output<<-(EVI_out)
-  return(EVI_output)
+  
+  total_time = c("The elapsed time was", time_elapsed)
+  
+  return(c(EVI_output, total_time))
+
 }

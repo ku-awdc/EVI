@@ -1,18 +1,17 @@
 #'  Indicator function
-#'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file
+#'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table 
 #' Returns the EVI index/model prediction - 1/0
 
-#' @param evi numeric vector (obtained from the evi function)
-#' @param cut threshold value 0<=c<=1 (to get a positive result)
-#' @param cases number of new cases per day (or any other time interval)
+#' @param evi numeric vector - object (obtained from the evi function and stored as ev)
+#' @param cut threshold value 0<=c<=1 - expetation in the future number of cases
+#' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
 #'
 #' @examples
-#' evi: as obtained from before
-#' cut <- 0.01
-#' cases <- rbinom(100,10,0.5)
-#' indic(evi,cut,cases)
-#' NA NA  0  0  0  0  0  1  0  0  …
-#'
+#' data(Italy)
+#' cases = mova(Italy$ncases)
+#' roll = rollsd(cases)
+#' ev = evi(roll)
+#' ind=indic(ev, 0.01, cases)
 #'
 #' @export
 indic = function(evi, cut, cases) {
