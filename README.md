@@ -11,3 +11,16 @@ To install a stable version from the drat repository use:
 
     ## Will be added once a stable version is available
 
+## Basic functions of EVI package
+
+To load some example data:
+
+    data("Italy")
+    
+To run EVI analysis on the example data:
+
+    deviant(Italy$ncases)
+
+To create a plot of the analysed data 
+
+    evi.graphs(Italy)
