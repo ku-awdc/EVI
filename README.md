@@ -5,7 +5,10 @@ EVI: the epidemic volatility Index as an early-warning tool
 
 To install the current source from GitHub use:
 
+    install.packages("devtools")
+    require(devtools)
     remotes::install_github("ku-awdc/EVI")
+    
 
 To install a stable version from the drat repository use:
 
