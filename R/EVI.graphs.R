@@ -1,15 +1,15 @@
 #'  Descriptive figures demonstrating the predictive capabilities of EVI.
 #'
-#' @param graph Type of graph to be plotted
+#' @param graph Type of graph to be plotted. Default is cases, but "pv_plus" or "pv_minus" can also be chosen.
 #' @param ln If the data would be transformed through the natural logarithm before plotting.
 #'
 #'
 #' @examples
-#' evi.plot(graph=c("cases",ln=T))
+#' evi.plot(graph=c("cases",ln=T)) #
 #'
 #' @export
 
-evi.graphs=function(EVI_output,graph=c("cases","pv_plus","pv_minus"), ln=T) {
+evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
 
   library(ggplot2)
   library(cowplot)
