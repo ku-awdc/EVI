@@ -12,7 +12,8 @@
 
 #'
 #' @export
-#' evi: numeric vector - relative change of sd
+#' evi
+
 evi = function(rollsd) {
   evi=rep(NA,length(rollsd))
   for (i in 2:length(rollsd)){

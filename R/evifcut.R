@@ -1,4 +1,4 @@
-#' Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1) 
+#' Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1)
 #' @param evi numeric vector as returned from the evi function
 #' @param cases numeric vector - number of new cases per day/any other time interval
 #' @param rate threshold value for model prediction - test outcome # defined as c in the indic function
@@ -20,9 +20,9 @@
 #' 0.1290323
 #' $prev
 #' 0.1612903
-#' 
+#'
 #' @export
-#' List (sensitivity, specificity, apparent prevalence/model prediction, true prevalence/case definition)
+#' sens spec testsin prev
 
 evifcut = function(evi, cases, rate, w_s=7, ratio=1/1.2) {
 

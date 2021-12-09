@@ -11,15 +11,15 @@
 #' 3.2093613 3.8815804 7.7827648 7.4578179
 #' 6.9006556 5.8227796 5.0803075 4.8941170
 #' 4.8941170
-#' 
-#' 
+#'
+#'
 #' Second example
 #' cases = rbinom(100,10,0.5)
 #' rollsd(cases,30)
-#' 
-#' 
+#'
+#'
 #' @export
-#' numeric vector - Rolling standard deviation
+#' rollsd
 rollsd = function(cases, lag_t=7) {
   rollsd=rep(NA,length(cases))
   for (i in 1:lag_t){

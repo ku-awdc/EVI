@@ -15,8 +15,7 @@
 #'
 #'
 #' @export
-#' Numeric vector of 0 and 1 (needs to boolean better) that contains the model prediction at the specified cut-off value
-
+#' ind
 indic = function(evi, cut, cases) {
   ind=rep(NA,length(evi))
   for (i in 3:length(evi)){

@@ -29,17 +29,17 @@ indic - represents the model prediction at the specified cut-off value
 status - represents the cases (true cases)
 Case definition - Status function
 Indic function output |               1            |       0
-at cut-off value c    |  1         Se*prev         |     (1-Sp) * (1-prev)
-Model prediction      |  0         (1-Se)*prev     |    Sp * (1-prev)
+at cut-off value c    |  1         Se x prev         |     (1-Sp) x (1-prev)
+Model prediction      |  0         (1-Se) x prev     |    Sp x (1-prev)
 }
 \details{
 Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
 }
 \examples{
-load(Itdat)
+data(Italy)
 ratio = 1/1.2
 lag_max=30
 start_cases=14
-deviant(Itdat, ratio, lag_max, start_cases) - this step will take some time
+deviant(Italy$Cases, ratio, lag_max, start_cases) - this step will take some time
 
 }

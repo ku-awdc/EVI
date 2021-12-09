@@ -1,43 +1,42 @@
 #' The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
-#' 
-#' From the indic and status functions a 2x2 table can be constructed - 
-#' indic - represents the model prediction at the specified cut-off value 
+#'
+#' From the indic and status functions a 2x2 table can be constructed -
+#' indic - represents the model prediction at the specified cut-off value
 #' status - represents the cases (true cases)
 #'                                   Case definition - Status function
 #' Indic function output |               1            |       0
-#' at cut-off value c    |  1         Se*prev         |     (1-Sp) * (1-prev)
-#' Model prediction      |  0         (1-Se)*prev     |    Sp * (1-prev)
-#' 
+#' at cut-off value c    |  1         Se x prev         |     (1-Sp) x (1-prev)
+#' Model prediction      |  0         (1-Se) x prev     |    Sp x (1-prev)
+#'
 #' Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
 #' @param new_cases numeric vector calculated from the mova function?
-#' @param ratio threshold value for case definition - ratio=1/1.2{default} as defined above 
+#' @param ratio threshold value for case definition - ratio=1/1.2{default} as defined above
 #' @param start_cases interget - first observations "burn-in" of the time series
 #' @param lag_max maximum value for the rolling window size lag_max=30{default}
-#' @param lag_1 (Cannot be changed) initial value for the rolling windows size, lag_1=7, 
+#' @param lag_1 (Cannot be changed) initial value for the rolling windows size, lag_1=7,
 #' @param c_1 (Cannot be changed)initital value for the threshold value of model prediction, c_1=0.1
 #' @param w_s (Cannot be changed) desired detection difference, w_s=7
 #' @param c_s (Cannot be changed) cut off point range, c_s=seq(0.01,0.5, 0.01)
 #'
 #'
 #' @examples
-#' load(Itdat)
+#' data(Italy)
 #' ratio = 1/1.2
 #' lag_max=30
 #' start_cases=14
-#' deviant(Itdat, ratio, lag_max, start_cases) - this step will take some time
-#' 
+#' deviant(Italy$Cases, ratio, lag_max, start_cases) - this step will take some time
+#'
 #' @export
-#' Data frame with columns
-#' Date, EVI, Cases, Index, PPV, NPV, Rolling window size, Cut-off values, Sensitivity, Specificity
+#' EVI_output
 
 deviant=function(new_cases, ratio=1/1.2, lag_max=30, start_cases=14){
-  #source("mova.r")
-  #source("medvol.r")
-  #source("evi.r")
-  #source("evifcut.r")
-  #source("indic.r")
-  #source("status.r")
-  #source("rollsd.r")
+  source("mova.r")
+  source("medvol.r")
+  source("evi.r")
+  source("evifcut.r")
+  source("indic.r")
+  source("status.r")
+  source("rollsd.r")
   lag_1=7
   c_1=0.1
   w_s =7

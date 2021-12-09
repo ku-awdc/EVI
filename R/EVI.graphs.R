@@ -9,7 +9,7 @@
 #'
 #' @export
 
-evi.plot=function(EVI_output,graph=c("cases","pv_plus","pv_minus"), ln=T) {
+evi.graphs=function(EVI_output,graph=c("cases","pv_plus","pv_minus"), ln=T) {
 
   library(ggplot2)
   library(cowplot)

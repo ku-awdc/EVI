@@ -8,7 +8,7 @@
 #' 5.922577
 #'
 #' @export
-#' Standard deviation of x
+#' x
 medvol=function(x){
   return(sd(x))
 }
