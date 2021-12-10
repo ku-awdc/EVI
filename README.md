@@ -8,7 +8,7 @@ To install the current source from GitHub use:
     install.packages(c("devtools", "remotes")
     require(devtools)
     require(remotes)
-    remotes::install_github("ku-awdc/EVI")
+    remotes::install_github("ku-awdc/EVI", force = TRUE, dependecies = TRUE)
     
 
 To install a stable version from the drat repository use:
