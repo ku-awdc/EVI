@@ -1,5 +1,5 @@
 # EVI
-EVI: the Epidemic Volatility Index as an early-warning tool for epidemic waves
+EVI: the epidemic volatility Index as an early-warning tool
 
 ## Installation
 
@@ -19,7 +19,7 @@ To install a stable version from the drat repository use:
 
     require(EVI)
 
-To load example data:
+To load some example data:
 
     data("Italy")
     
@@ -31,7 +31,7 @@ To create a plot of the analysed data:
 
     evi.graphs(Italy)
     
-The basic two functions of the EVI analysis are deviant() and evi.graphs(). For help on these functions type:  
+The basic two functions of the EVI analysis are deviant() and evi.graphs(). For help:  
     
     ?deviant
     ?evi.graphs
