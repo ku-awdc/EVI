@@ -15,6 +15,6 @@ evi.graphs(EVI_output, graph = c("cases"), ln = T)
 Descriptive figures demonstrating the predictive capabilities of EVI.
 }
 \examples{
-evi.plot(graph=c("cases",ln=T)) #
+evi.graphs(EVI_output, graph=c("cases",ln=T)) #
 
 }

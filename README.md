@@ -40,7 +40,7 @@ The basic two functions of the EVI analysis are deviant() and evi.graphs(). For 
 
 In case an error during download occur try the following
 
-    Lefteri add your solution
+    Add solution
 
 
 
