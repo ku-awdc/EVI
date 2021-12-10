@@ -1,7 +1,7 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @import cowplot,
+#' @import cowplot
 #' @import ggplot2
 
 # The following block is used by usethis to automatically manage
