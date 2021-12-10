@@ -2,44 +2,70 @@
 % Please edit documentation in R/deviant.R
 \name{deviant}
 \alias{deviant}
-\title{The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.}
+\title{This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
+with each row corresponding to each time point. For each time point the stored variables are:
+dates the date for each time point (with origin 01-01-1970)
+Days the serial number of the time point
+EVI the estimate EVI at this time point
+Cases the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
+Index takes values 1 or 0 for the issuance of an early warning or not
+pvs the positive predictive value at this time point
+pvn the negative predictive value at this time point
+lag_all the selected rolling window size for EVI calculation at this time point
+c_all the selected cut-off (c_all) for issuing an early warning at this time point
+se_all the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+the positive and negative predictive value (ppv and npv, respectively) at this time point}
 \usage{
-deviant(new_cases, ratio = 1/1.2, lag_max = 30, start_cases = 14)
+deviant(
+  new_cases,
+  cum = FALSE,
+  r_a = 7,
+  r = 0.2,
+  start_cases = 14,
+  lag_max = 30
+)
 }
 \arguments{
-\item{new_cases}{numeric vector calculated from the mova function?}
+\item{new_cases}{time series data}
 
-\item{ratio}{threshold value for case definition - ratio=1/1.2{default} as defined above}
+\item{cum}{True of False; True if the time series data are stored as cummulative data cum=FALSE {default}}
 
-\item{lag_max}{maximum value for the rolling window size lag_max=30{default}}
+\item{r_a}{rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed}
 
-\item{start_cases}{interget - first observations "burn-in" of the time series}
+\item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
 
-\item{lag_1}{(Cannot be changed) initial value for the rolling windows size, lag_1=7,}
+\item{start_cases}{integer - first observations "burn-in" of the time series}
 
-\item{c_1}{(Cannot be changed)initital value for the threshold value of model prediction, c_1=0.1}
+\item{lag_max}{(Cannot be changed) integer maximum value for the number of consecutive rolling windows}
 
-\item{w_s}{(Cannot be changed) desired detection difference, w_s=7}
+\item{lag_1}{(Cannot be changed) initial minimum value for the rolling windows size, lag_1=7}
+
+\item{c_1}{(Cannot be changed) initital threshold value for the expetation in the future number of cases, c_1=0.1{default}}
+
+\item{w_s}{(Cannot be changed) desired detection difference - time interval - validation time w_s=7{default}}
 
 \item{c_s}{(Cannot be changed) cut off point range, c_s=seq(0.01,0.5, 0.01)}
 }
 \description{
-From the indic and status functions a 2x2 table can be constructed -
-indic - represents the model prediction at the specified cut-off value
-status - represents the cases (true cases)
-Case definition - Status function
-Indic function output |               1            |       0
-at cut-off value c    |  1         Se x prev         |     (1-Sp) x (1-prev)
-Model prediction      |  0         (1-Se) x prev     |    Sp x (1-prev)
-}
-\details{
-Optimization function that finds that optimal cut-off value that maximizes the Youden index and based on that cut-off value calculates PPN, NPV etc
+This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
+with each row corresponding to each time point. For each time point the stored variables are:
+dates the date for each time point (with origin 01-01-1970)
+Days the serial number of the time point
+EVI the estimate EVI at this time point
+Cases the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
+Index takes values 1 or 0 for the issuance of an early warning or not
+pvs the positive predictive value at this time point
+pvn the negative predictive value at this time point
+lag_all the selected rolling window size for EVI calculation at this time point
+c_all the selected cut-off (c_all) for issuing an early warning at this time point
+se_all the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+the positive and negative predictive value (ppv and npv, respectively) at this time point
 }
 \examples{
 data(Italy)
-ratio = 1/1.2
-lag_max=30
-start_cases=14
-deviant(Italy$Cases, ratio, lag_max, start_cases) - this step will take some time
+deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30) 
+This step should take some time and the time elapsed will be printed
 
 }

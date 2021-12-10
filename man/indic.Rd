@@ -3,7 +3,7 @@
 \name{indic}
 \alias{indic}
 \title{Indicator function
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
 
 Returns the EVI index/model prediction - 1/0
 }}
@@ -11,25 +11,24 @@ Returns the EVI index/model prediction - 1/0
 indic(evi, cut, cases)
 }
 \arguments{
-\item{evi}{numeric vector (obtained from the evi function)}
+\item{evi}{numeric vector - object (obtained from the evi function and stored as ev)}
 
-\item{cut}{threshold value 0<=c<=1 (to get a positive result)}
+\item{cut}{threshold value 0<=c<=1 - expetation in the future number of cases}
 
-\item{cases}{number of new cases per day (or any other time interval)}
+\item{cases}{moving average for the time series epidemic data - obtained and stored as cases from the mova function}
 }
 \description{
 Indicator function
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
 
 Returns the EVI index/model prediction - 1/0
 }
 }
 \examples{
-evi: as obtained from before
-cut <- 0.01
-cases <- rbinom(100,10,0.5)
-indic(evi,cut,cases)
-NA NA  0  0  0  0  0  1  0  0  â€¦
-
+data(Italy)
+cases = mova(Italy$ncases)
+roll = rollsd(cases)
+ev = evi(roll)
+ind=indic(ev, 0.01, cases)
 
 }

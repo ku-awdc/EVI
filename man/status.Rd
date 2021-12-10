@@ -3,27 +3,27 @@
 \name{status}
 \alias{status}
 \title{Case definition
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+Case definition
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
 }}
 \usage{
-status(cases, w_s = 7, ratio = 1/1.2)
+status(cases, w_s = 7, r = 0.2)
 }
 \arguments{
-\item{cases}{numeric vector - number of new cases per day/any other time interval}
+\item{cases}{numeric vector - moving average for the time series epidemic data - obtained and stored as cases from the mova function}
 
-\item{w_s}{time interval/validation time w_s=7{default}}
+\item{w_s}{(Cannot be changed) time interval - validation time w_s=7{default}}
 
-\item{ratio}{threshold value for the case definition (ratio = 1/1.2 {default})}
+\item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
 }
 \description{
 Case definition
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table - see pdf file}{
+Case definition
+\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
 }
 }
 \examples{
-cases <- rbinom(100,10,0.5)
-w_s <- 7
-ratio <- 1/1.2
-status(cases, w_s, ratio)
-NA  0  0  0  0  0  0  0  1  1
+data(Italy)
+cases = mova(Italy$ncases)
+status = status(cases, 7, 0.2)
 }

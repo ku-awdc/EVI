@@ -2,38 +2,28 @@
 % Please edit documentation in R/evifcut.R
 \name{evifcut}
 \alias{evifcut}
-\title{Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1)}
+\title{Function that calculates the sensitivity and specificity at a specific cut-off value}
 \usage{
-evifcut(evi, cases, rate, w_s = 7, ratio = 1/1.2)
+evifcut(evi, cases, cut, w_s = 7, r = 0.2)
 }
 \arguments{
-\item{evi}{numeric vector as returned from the evi function}
+\item{evi}{numeric vector - object (obtained from the evi function and stored as ev)}
 
-\item{cases}{numeric vector - number of new cases per day/any other time interval}
+\item{cases}{moving average for the time series epidemic data - obtained and stored as cases from the mova function}
 
-\item{rate}{threshold value for model prediction - test outcome # defined as c in the indic function}
+\item{cut}{threshold value 0<=c<=1 - expetation in the future number of cases}
 
-\item{w_s}{time interval - validation time w_s=7{default}}
+\item{w_s}{(Cannot be changed) time interval - validation time w_s=7{default}}
 
-\item{ratio}{threshold value for case definition ratio=1/1.2{dedault}}
+\item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
 }
 \description{
-Function that calculates the sensitivity and specificity in a range of cut-off values so that to find the cut-off value that maximizes the Youden Index (Se + Sp -1)
+Function that calculates the sensitivity and specificity at a specific cut-off value
 }
 \examples{
-evi: numeric vector as returned from the evi function
-cases <- rbinom(100,10,0.5)
-rate = 0.01
-w_s = 7
-ratio = 1/1.2
-evifcut(evi, cases, rate, w_s, ratio)
-$sens
-0.1333333
-$spec
-0.8611111
-$testsin
-0.1290323
-$prev
-0.1612903
-
+#' data(Italy)
+cases = mova(Italy$ncases)
+roll = rollsd(cases)
+ev = evi(roll)
+evifcut(ev, cases, 0.01, 7, 0.2)
 }

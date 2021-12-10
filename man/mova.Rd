@@ -4,25 +4,26 @@
 \alias{mova}
 \title{Example function and help file for mova.r
 Moving Average
+Moving Average
 Calculate the moving average for the time series epidemic data}
 \usage{
-mova(cases, int = 7)
+mova(cases, r_a = 7)
 }
 \arguments{
 \item{cases}{time series data}
 
-\item{int}{rolling window/time interval on which the moving average will be calculated}
+\item{r_a}{rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed}
 }
 \description{
 Example function and help file for mova.r
 Moving Average
+Moving Average
 Calculate the moving average for the time series epidemic data
 }
 \examples{
-cases=c(2,2,1,4,9,10,23,10,9,10,14,12,10)
-mova=mova(cases, 7)
-2.000000  2.000000  1.666667  2.250000
-3.600000  4.666667  7.285714  8.428571
-9.428571 10.714286 12.142857 12.571429
-12.571429
+data(Italy)
+7-day moving average
+mova(Italy$ncases, r_a=7)
+14-day moving average
+mova(Italy$ncases, r_a=14)
 }

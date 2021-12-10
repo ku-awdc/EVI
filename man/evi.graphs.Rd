@@ -4,10 +4,10 @@
 \alias{evi.graphs}
 \title{Descriptive figures demonstrating the predictive capabilities of EVI.}
 \usage{
-evi.graphs(EVI_output, graph = c("cases", "pv_plus", "pv_minus"), ln = T)
+evi.graphs(EVI_output, graph = c("cases"), ln = T)
 }
 \arguments{
-\item{graph}{Type of graph to be plotted}
+\item{graph}{Type of graph to be plotted. Default is cases, but "pv_plus" or "pv_minus" can also be chosen.}
 
 \item{ln}{If the data would be transformed through the natural logarithm before plotting.}
 }
@@ -15,6 +15,6 @@ evi.graphs(EVI_output, graph = c("cases", "pv_plus", "pv_minus"), ln = T)
 Descriptive figures demonstrating the predictive capabilities of EVI.
 }
 \examples{
-evi.plot(graph=c("cases",ln=T))
+evi.plot(graph=c("cases",ln=T)) #
 
 }
