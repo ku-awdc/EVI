@@ -27,7 +27,7 @@ To run EVI analysis on the example data:
 
     deviant(Italy$ncases)
 
-To create a plot of the analysed data 
+To create a plot of the analysed data: 
 
     evi.graphs(Italy)
     
