@@ -1,6 +1,17 @@
-#' The main function of the EVI package that utilizes all secondary functions and the evi rolling function to give early warnings.
-#' Calculates and stores as a data frame the sensitivity, specificity, ppv, npv for a range of cut-off values (cut) and number of consecutive rolling windows (lag_t) so that to find the optimal cut-off value and lag_t integer value that maximizes the Youden Index (Se + Sp -1)
-#' 
+#' This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame 
+#' with each row corresponding to each time point. For each time point the stored variables are:
+#' dates: the date for each time point (with origin 01-01-1970)
+#' Days: the serial number of the time point 
+#' EVI: the estimate EVI at this time point
+#' Cases: the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
+#' Index: takes values 1 or 0 for the issuance of an early warning or not
+#' pvs: the positive predictive value at this time point
+#' pvn: the negative predictive value at this time point
+#' lag_all: the selected rolling window size for EVI calculation at this time point 
+#' c_all:the selected cut-off (c_all) for issuing an early warning at this time point
+#' se_all:the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+#' sp_all: the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+#' the positive and negative predictive value (ppv and npv, respectively) at this time point 
 
 #' @param new_cases time series data
 #' @param cum True of False; True if the time series data are stored as cummulative data cum=FALSE {default}
