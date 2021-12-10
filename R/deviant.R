@@ -17,7 +17,7 @@
 #' @param cum True of False; True if the time series data are stored as cummulative data cum=FALSE {default}
 #' @param r_a rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed
 #' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
-#' @param start_cases interger - first observations "burn-in" of the time series
+#' @param start_cases integer - first observations "burn-in" of the time series
 #' @param lag_1 (Cannot be changed) initial minimum value for the rolling windows size, lag_1=7
 #' @param lag_max (Cannot be changed) integer maximum value for the number of consecutive rolling windows
 #' @param c_1 (Cannot be changed) initital threshold value for the expetation in the future number of cases, c_1=0.1{default}
