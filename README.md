@@ -35,4 +35,12 @@ The basic two functions of the EVI analysis are deviant() and evi.graphs(). For 
     
     ?deviant
     ?evi.graphs
+    
+## Troubleshooting
+
+In case an error during downloading occur try the following
+
+    Lefteri add your solution
+
+
 
