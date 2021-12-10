@@ -2,10 +2,7 @@
 % Please edit documentation in R/mova.R
 \name{mova}
 \alias{mova}
-\title{Example function and help file for mova.r
-Moving Average
-Moving Average
-Calculate the moving average for the time series epidemic data}
+\title{Function that calculates the moving average of a series of data}
 \usage{
 mova(cases, r_a = 7)
 }

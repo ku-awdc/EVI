@@ -7,8 +7,6 @@
 evifcut(evi, cases, cut, w_s = 7, r = 0.2)
 }
 \arguments{
-\item{evi}{numeric vector - object (obtained from the evi function and stored as ev)}
-
 \item{cases}{moving average for the time series epidemic data - obtained and stored as cases from the mova function}
 
 \item{cut}{threshold value 0<=c<=1 - expetation in the future number of cases}
@@ -18,7 +16,7 @@ evifcut(evi, cases, cut, w_s = 7, r = 0.2)
 \item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
 }
 \description{
-Function that calculates the sensitivity and specificity at a specific cut-off value
+@param evi numeric vector - object (obtained from the evi function and stored as ev)
 }
 \examples{
 #' data(Italy)

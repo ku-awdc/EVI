@@ -1,5 +1,6 @@
 #' Function that calculates the sensitivity and specificity at a specific cut-off value
-#' @param evi numeric vector - object (obtained from the evi function and stored as ev)
+#'
+#'  @param evi numeric vector - object (obtained from the evi function and stored as ev)
 #' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
 #' @param cut threshold value 0<=c<=1 - expetation in the future number of cases
 #' @param w_s (Cannot be changed) time interval - validation time w_s=7{default}

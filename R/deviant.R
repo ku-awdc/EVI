@@ -1,17 +1,19 @@
-#' This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame 
+#' This function  produces the Epidemic Volatility index based output data
+#'
+#' This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
 #' with each row corresponding to each time point. For each time point the stored variables are:
 #' dates the date for each time point (with origin 01-01-1970)
-#' Days the serial number of the time point 
+#' Days the serial number of the time point
 #' EVI the estimate EVI at this time point
 #' Cases the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
 #' Index takes values 1 or 0 for the issuance of an early warning or not
 #' pvs the positive predictive value at this time point
 #' pvn the negative predictive value at this time point
-#' lag_all the selected rolling window size for EVI calculation at this time point 
+#' lag_all the selected rolling window size for EVI calculation at this time point
 #' c_all the selected cut-off (c_all) for issuing an early warning at this time point
 #' se_all the sensitivity (Se) and specificity (Sp) of EVI up to this time point
 #' sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-#' the positive and negative predictive value (ppv and npv, respectively) at this time point 
+#' the positive and negative predictive value (ppv and npv, respectively) at this time point
 
 #' @param new_cases time series data
 #' @param cum True of False; True if the time series data are stored as cummulative data cum=FALSE {default}
@@ -26,9 +28,9 @@
 #'
 #'
 #' @examples
-#' data(Italy)
-#' deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30) 
-#' This step should take some time and the time elapsed will be printed
+#' data("Italy")
+#' deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30)
+#' #This step should take some time and the time elapsed will be printed
 #'
 #' @export
 
@@ -48,11 +50,11 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, start_cases=14, lag_max=3
   c_s=seq(0.01,0.5, 0.01)
 
   if (cum == TRUE) cases = c(new_cases[1], diff(new_cases))
-  
- 
+
+
   #calculate the moving average of new confrimed cases
   cases=mova(new_cases,r_a)
-  
+
   roll=rollsd(cases[1:start_cases],lag_1)
   ev=evi(roll)
   ind=indic(ev,c_1, cases[1:start_cases])
@@ -174,15 +176,15 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, start_cases=14, lag_max=3
   Index=ind
 
   end_time = Sys.time()
-  
-  time_elapsed = end_time - start_time  
-  
+
+  time_elapsed = end_time - start_time
+
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
   EVI_output<<-(EVI_out)
-  
+
   total_time = c("The elapsed time was", time_elapsed)
-  
+
   return(c(EVI_output, total_time))
 
 }

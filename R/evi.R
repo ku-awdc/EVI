@@ -1,4 +1,5 @@
-#' Epidemic Volatility Index calcuation
+#' Epidemic Volatility Index calculation
+#'
 #' Calculates the relative change of standard deviation between two consecutive rolling windows
 
 #' @param rollsd numeric vector - returned and stored as roll from the rollsd() function

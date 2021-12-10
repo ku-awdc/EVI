@@ -1,4 +1,6 @@
-#'  Case definition
+#' A function that produces the status variable based on a case definition
+#'
+#' Case definition
 #' Case definition
 #' ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table
 #  A rise in the mean of the number of cases between two consecutive weeks that exceeds a threshold r

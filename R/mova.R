@@ -1,3 +1,5 @@
+#' Function that calculates the moving average of a series of data
+#'
 #' Example function and help file for mova.r
 #' Moving Average
 #' Moving Average

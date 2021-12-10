@@ -2,10 +2,7 @@
 % Please edit documentation in R/status.R
 \name{status}
 \alias{status}
-\title{Case definition
-Case definition
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
-}}
+\title{A function that produces the status variable based on a case definition}
 \usage{
 status(cases, w_s = 7, r = 0.2)
 }

@@ -2,20 +2,7 @@
 % Please edit documentation in R/deviant.R
 \name{deviant}
 \alias{deviant}
-\title{This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
-with each row corresponding to each time point. For each time point the stored variables are:
-dates the date for each time point (with origin 01-01-1970)
-Days the serial number of the time point
-EVI the estimate EVI at this time point
-Cases the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
-Index takes values 1 or 0 for the issuance of an early warning or not
-pvs the positive predictive value at this time point
-pvn the negative predictive value at this time point
-lag_all the selected rolling window size for EVI calculation at this time point
-c_all the selected cut-off (c_all) for issuing an early warning at this time point
-se_all the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-the positive and negative predictive value (ppv and npv, respectively) at this time point}
+\title{This function  produces the Epidemic Volatility index based output data}
 \usage{
 deviant(
   new_cases,
@@ -64,8 +51,8 @@ sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
 the positive and negative predictive value (ppv and npv, respectively) at this time point
 }
 \examples{
-data(Italy)
-deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30) 
-This step should take some time and the time elapsed will be printed
+data("Italy")
+deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30)
+#This step should take some time and the time elapsed will be printed
 
 }

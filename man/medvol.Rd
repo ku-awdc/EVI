@@ -2,7 +2,7 @@
 % Please edit documentation in R/medvol.R
 \name{medvol}
 \alias{medvol}
-\title{Calculates and returns the standard deviation of a vector}
+\title{Function that calculates the standard deviation}
 \usage{
 medvol(x)
 }

@@ -1,5 +1,6 @@
-#'  Indicator function
-#'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table 
+#'  Function that produces an indicator index
+#'
+#'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table
 #' Returns the EVI index/model prediction - 1/0
 
 #' @param evi numeric vector - object (obtained from the evi function and stored as ev)

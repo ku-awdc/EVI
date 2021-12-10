@@ -2,11 +2,7 @@
 % Please edit documentation in R/indic.R
 \name{indic}
 \alias{indic}
-\title{Indicator function
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
-
-Returns the EVI index/model prediction - 1/0
-}}
+\title{Function that produces an indicator index}
 \usage{
 indic(evi, cut, cases)
 }
@@ -18,7 +14,6 @@ indic(evi, cut, cases)
 \item{cases}{moving average for the time series epidemic data - obtained and stored as cases from the mova function}
 }
 \description{
-Indicator function
 \subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
 
 Returns the EVI index/model prediction - 1/0

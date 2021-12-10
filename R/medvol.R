@@ -1,4 +1,6 @@
-#'  Calculates and returns the standard deviation of a vector
+#' Function that calculates the standard deviation
+#'
+#' Calculates and returns the standard deviation of a vector
 #' @param x numeric vector
 #'
 #'

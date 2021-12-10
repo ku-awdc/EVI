@@ -2,8 +2,7 @@
 % Please edit documentation in R/rollsd.R
 \name{rollsd}
 \alias{rollsd}
-\title{Rolling standard deviation
--A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data}
+\title{Rolling standard deviation}
 \usage{
 rollsd(cases, lag_t = 7)
 }
@@ -13,7 +12,6 @@ rollsd(cases, lag_t = 7)
 \item{lag_t}{integer - number of consecutive rolling windows (minimum/default value = 7, maximum recommended value = 30)}
 }
 \description{
-Rolling standard deviation
 -A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data
 }
 \examples{

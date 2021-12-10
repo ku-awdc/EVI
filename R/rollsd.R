@@ -1,4 +1,5 @@
 #' Rolling standard deviation
+#'
 #' -A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data
 #' @param cases numeric vector - number of cases per day (or any other time interval)
 #' @param lag_t integer - number of consecutive rolling windows (minimum/default value = 7, maximum recommended value = 30)
@@ -7,7 +8,7 @@
 #' data(Italy)
 #' cases = mova(Italy$ncases, r_a=7)
 #' roll = rollsd(cases,lag_t)
-#' 
+#'
 #'
 #' @export
 rollsd = function(cases, lag_t=7) {
