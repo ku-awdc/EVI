@@ -5,7 +5,7 @@
 #'
 #'
 #' @examples
-#' evi.plot(graph=c("cases",ln=T)) #
+#' evi.graphs(EVI_output, graph=c("cases",ln=T)) #
 #'
 #' @export
 

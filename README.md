@@ -21,15 +21,15 @@ To install a stable version from the drat repository use:
 
 To load some example data:
 
-    data("Italy")
+    data("sub_Italy")
     
 To run EVI analysis on the example data:
 
-    deviant(Italy$ncases)
+    deviant(sub_Italy$ncases)
 
 To create a plot of the analysed data: 
 
-    evi.graphs(Italy)
+    evi.graphs(EVI_output)
     
 The basic two functions of the EVI analysis are deviant() and evi.graphs(). For help on these functions type:  
     
