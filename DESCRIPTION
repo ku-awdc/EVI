@@ -38,11 +38,11 @@ Suggests:
     rmarkdown,
     spelling,
     testthat (>= 3.0.0)
+Imports:
+    ggplot2
+    cowplot
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-GB
 Depends: 
     R (>= 2.10)
-Imports: 
-    cowplot,
-    ggplot2

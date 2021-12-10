@@ -11,8 +11,10 @@
 
 evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
 
-  library(ggplot2)
-  library(cowplot)
+  list.of.packages <- c("ggplot2", "cowplot")
+  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+  if(length(new.packages)) install.packages(new.packages)
+
 
   EVI_output$cases_1=EVI_output$Cases*EVI_output$Index
   EVI_output$cases_1[EVI_output$cases_1 == 0] <- NA
