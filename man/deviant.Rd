@@ -35,7 +35,7 @@ deviant(
 \item{c_s}{(Cannot be changed) cut off point range, c_s=seq(0.01,0.5, 0.01)}
 }
 \description{
-This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
+This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame aaaaaaa
 with each row corresponding to each time point. For each time point the stored variables are:
 dates the date for each time point (with origin 01-01-1970)
 Days the serial number of the time point
