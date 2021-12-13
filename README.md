@@ -1,4 +1,4 @@
-# EVI - not ready yet! Official release date - Monday 13 Dec 22:00 CET
+# EVI - not ready yet! Official release date - Friday 17 Dec 22:00 CET
 EVI: the Epidemic Volatility Index as an early-warning tool for epidemic waves
 
 ## Installation
