@@ -2,18 +2,17 @@
 #'
 #' Example function and help file for mova.r
 #' Moving Average
-#' Moving Average
 #' Calculate the moving average for the time series epidemic data
 #'
 #' @param cases time series data
 #' @param r_a rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed
 #'
 #' @examples
-#' data(Italy)
+#' data("sub_Italy")
 #' 7-day moving average
-#' mova(Italy$ncases, r_a=7)
+#' mova(sub_Italy$ncases, r_a=7)
 #' 14-day moving average
-#' mova(Italy$ncases, r_a=14)
+#' mova(sub_Italy$ncases, r_a=14)
 #' @export
 mova=function(cases, r_a=7){
   ncases=rep(NA, length(cases))
@@ -22,4 +21,5 @@ mova=function(cases, r_a=7){
   }
   return(ncases)
 }
+
 

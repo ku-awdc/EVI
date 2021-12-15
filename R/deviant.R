@@ -34,22 +34,31 @@
 #'
 #' @export
 
-deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, start_cases=14, lag_max=30){
-  #source("mova.r")
-  #source("medvol.r")
-  #source("evi.r")
-  #source("evifcut.r")
-  #source("indic.r")
-  #source("status.r")
-  #source("rollsd.r")
+deviant=function(new_cases, cum = FALSE){
+  source("mova.r")
+  source("medvol.r")
+  source("evi.r")
+  source("evifcut.r")
+  source("indic.r")
+  source("status.r")
+  source("rollsd.r")
+  
+ 
+  
+  
   start_time = Sys.time()
+  start_cases=14
+  r=0.2
   ratio=1/(1+r)
   lag_1=7
-  c_1=0.01
+  c_1=7
+  r_a = 7
   w_s =7
-  c_s=seq(0.01,0.5, 0.01)
+  lag_max=30
+  
 
-  if (cum == TRUE) cases = c(new_cases[1], diff(new_cases))
+
+  if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
 
 
   #calculate the moving average of new confrimed cases
@@ -84,7 +93,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, start_cases=14, lag_max=3
     #lag_s=7
     lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 1)
     #lag_s=seq(lag_1,min(length(case_t),50), 1)
-
+    c_s=seq(0.01,0.5, 0.01)
     #all_j=NA
 
     all_lag=NA

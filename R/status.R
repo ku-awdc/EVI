@@ -11,15 +11,15 @@
 #'
 #'
 #' @examples
-#' data(Italy)
-#' cases = mova(Italy$ncases)
+#' data("sub_Italy")
+#' cases = mova(sub_Italy$ncases)
 #' status = status(cases, 7, 0.2)
 #' @export
 #'
 #'
 #'
-status = function(cases, w_s=7, r=0.2) {
-  ratio = 1/(1+r)
+status = function(cases, w_s, ratio) {
+  #ratio = 1/(1+r)
   status=rep(NA,length(cases))
   status[1]=NA
   for (i in 2:(length(cases)-w_s)){
