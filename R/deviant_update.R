@@ -51,7 +51,7 @@ deviant_update=function(new_cases, cum = FALSE){
   r=0.2
   ratio=1/(1+r)
   lag_1=7
-  c_1=7
+  c_1=0.01
   r_a = 7
   w_s =7
   lag_max=30
