@@ -1,13 +1,13 @@
-#'  Cases of the first 150 Covid-19 days of Italy.
+#'  Cases of the first 150 days of the Covid-19 pandemic in Italy.
 #'
-#' Dataframe containing the first 150 days of Covid-19 pandemic 
-#' in Italy and the EVI analysis
+#' A Dataframe containing the number of cases for the first 150 days of the Covid-19 pandemic 
+#' in Italy
 #'
 #' @format A data frame with 150 rows and 3 variables:
 #' \describe{
-#'   \item{dates}{ID of date}
-#'   \item{Cases}{Number of observed cases}
-#'   \item{Cum_Cases}{Cumulative number of observed cases}
+#'   \item{Date}{ID of date encoded with origin="01-01-1970"}
+#'   \item{Cases}{Number of newly observed cases per day}
+#'   \item{Cum_Cases}{Cumulative number of newly observed cases per day}
 #' }
 #' @source \url{https://github.com/CSSEGISandData/COVID-19}
 "Italy"
