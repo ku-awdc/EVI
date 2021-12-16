@@ -85,7 +85,7 @@ deviant_update=function(new_cases, cum = FALSE){
   lag_all[1:start_cases]=lag_1
   c_all[1:start_cases]=c_1
   
-  
+  diff= length(cases)-(nrow(EVI_output)+1)
   for (i in (nrow(EVI_output)+1): length(cases)){
     
     case_t=cases[1:i]
@@ -190,7 +190,9 @@ deviant_update=function(new_cases, cum = FALSE){
   
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
-  EVI_output_add<<-(EVI_out)
+  EVI_output_add<<-(EVI_out[(length(cases)-diff):length(cases),])
+  
+  EVI_output=rbind(EVI_output,EVI_output_add)
   
   total_time = c("The elapsed time was", time_elapsed)
   
