@@ -1,4 +1,4 @@
-#'  Cases of the first 150 Covid-19 days of Italy.
+#'  Cases of the first 150 days of the Covid-19 pandemic in Italy.
 #'
 #' A Dataframe containing the number of cases for the first 150 days of the Covid-19 pandemic 
 #' in Italy
