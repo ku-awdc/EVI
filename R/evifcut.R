@@ -7,8 +7,8 @@
 #' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
 ##'
 #' @examples
-#'#' data("sub_Italy")
-#' cases = mova(sub_Italy$ncases)
+#'#' data("Italy")
+#' cases = mova(Italy$Cases)
 #' roll = rollsd(cases)
 #' ev = evi(roll)
 #' evifcut(ev, cases, 0.01, 7, 0.2)

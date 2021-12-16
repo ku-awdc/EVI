@@ -5,8 +5,8 @@
 #' @param lag_t integer - number of consecutive rolling windows (minimum/default value = 7, maximum recommended value = 30)
 #'
 #' @examples
-#' data("sub_Italy")
-#' cases = mova(sub_Italy$ncases, r_a=7)
+#' data("Italy")
+#' cases = mova(Italy$Cases, r_a=7)
 #' roll = rollsd(cases,lag_t)
 #'
 #'

@@ -6,8 +6,8 @@
 #'
 #'
 #' @examples
-#' data("sub_Italy")
-#' cases = mova(sub_Italy$ncases)
+#' data("Italy")
+#' cases = mova(Italy$Cases)
 #' roll = rollsd(cases)
 #' ev = evi(roll)
 #'

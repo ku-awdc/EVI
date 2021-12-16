@@ -28,8 +28,8 @@
 #'
 #'
 #' @examples
-#' data("sub_Italy")
-#' deviant(sub_Italy$ncases, cum = FALSE, 0.2, 14, 30)
+#' data("Italy")
+#' deviant(Italy$Cases)
 #' #This step should take some time and the time elapsed will be printed
 #'
 #' @export

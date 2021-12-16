@@ -8,8 +8,8 @@
 #' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
 #'
 #' @examples
-#' data("sub_Italy")
-#' cases = mova(sub_Italy$ncases)
+#' data("Italy")
+#' cases = mova(Italy$Cases$ncases)
 #' roll = rollsd(cases)
 #' ev = evi(roll)
 #' ind=indic(ev, 0.01, cases)
