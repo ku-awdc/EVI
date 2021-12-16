@@ -21,4 +21,4 @@
 #'   \item{name}{Name of the Country}
 #' }
 #' @source \url{https://github.com/CSSEGISandData/COVID-19}
-"sub_Italy"
+"Italy"
