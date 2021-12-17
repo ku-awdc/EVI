@@ -33,23 +33,23 @@
 #' @export
 
 deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
-  source("mova.r")
-  source("medvol.r")
-  source("evi.r")
-  source("evifcut.r")
-  source("indic.r")
-  source("status.r")
-  source("rollsd.r")
-  
- 
-  
-  
+  #source("mova.r")
+  #source("medvol.r")
+  #source("evi.r")
+  #source("evifcut.r")
+  #source("indic.r")
+  #source("status.r")
+  #source("rollsd.r")
+
+
+
+
   start_time = Sys.time()
   start_cases=14
   lag_1=7
   c_1=0.01
   w_s =7
-  
+
 
 
   if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
@@ -178,14 +178,14 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   Cases=cases
   Index=ind
 
-  
+
 
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
   EVI_output<<-(EVI_out)
 
   end_time = Sys.time()
-  
+
   time_elapsed = end_time - start_time
 
   return(time_elapsed)

@@ -2,19 +2,24 @@
 % Please edit documentation in R/EVI.graphs.R
 \name{evi.graphs}
 \alias{evi.graphs}
-\title{Descriptive figures demonstrating the predictive capabilities of EVI.}
+\title{This function  produces  plots of the time series data with the EVI predictions.}
 \usage{
-evi.graphs(EVI_output, graph = c("cases"), ln = T)
+evi.graphs(EVI_output, graph = c("EVI"), ln = T)
 }
 \arguments{
-\item{graph}{Type of graph to be plotted. Default is cases, but "pv_plus" or "pv_minus" can also be chosen.}
+\item{graph}{Type of graph to be plotted. Options: "EVI", "PPV", "NPV"; "EVI" {default} is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher NPV.}
 
-\item{ln}{If the data would be transformed through the natural logarithm before plotting.}
+\item{ln}{TRUE or FALSE; If TRUE{default} the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.}
 }
 \description{
-Descriptive figures demonstrating the predictive capabilities of EVI.
+Three types of plots are generated:
+(i) A plot of the confirmed cases with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication.
+(ii) A plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher positive predictive value (PPV).
+(iii) A plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher negative predictive value (NPV).#'
 }
 \examples{
-evi.graphs(EVI_output, graph=c("cases",ln=T)) #
+evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T)
+evi.graphs(EVI_output=EVI_output, graph="PPV", ln=T)
+evi.graphs(EVI_output=EVI_output, graph="NPV", ln=T)
 
 }

@@ -2,25 +2,20 @@
 % Please edit documentation in R/status.R
 \name{status}
 \alias{status}
-\title{A function that produces the status variable based on a case definition}
+\title{A function that defines the true status based on the case definition}
 \usage{
-status(cases, w_s = 7, r = 0.2)
+status(cases, r)
 }
 \arguments{
-\item{cases}{numeric vector - moving average for the time series epidemic data - obtained and stored as cases from the mova function}
+\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
 
-\item{w_s}{(Cannot be changed) time interval - validation time w_s=7{default}}
-
-\item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
+\item{r}{0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days}
 }
 \description{
-Case definition
-Case definition
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
-}
+Status = 1 when the expected rise in the number of cases occurs and Status = 0 when the expected rise in the number of cases does not occur
 }
 \examples{
-data(Italy)
-cases = mova(Italy$ncases)
-status = status(cases, 7, 0.2)
+data("Italy")
+cases = mova(cases=Italy$Cases)
+status = status(cases=cases, r=0.2)
 }

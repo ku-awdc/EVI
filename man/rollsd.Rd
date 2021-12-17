@@ -4,20 +4,20 @@
 \alias{rollsd}
 \title{Rolling standard deviation}
 \usage{
-rollsd(cases, lag_t = 7)
+rollsd(cases, lag_t)
 }
 \arguments{
-\item{cases}{numeric vector - number of cases per day (or any other time interval)}
+\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
 
-\item{lag_t}{integer - number of consecutive rolling windows (minimum/default value = 7, maximum recommended value = 30)}
+\item{lag_t}{integer - the size of the rolling window for which the rolling standard deviation is calculated (minimum/default value = 7, maximum recommended value = 30)}
 }
 \description{
--A function for computing the rolling standard deviation (between two sd’s) for the time series epidemic data
+-A function to compute the rolling standard deviation for a time series
 }
 \examples{
-data(Italy)
-cases = mova(Italy$ncases, r_a=7)
-roll = rollsd(cases,lag_t)
+data("Italy")
+cases = mova(cases=Italy$Cases, r_a=7)
+roll = rollsd(cases=cases,lag_t=7)
 
 
 }

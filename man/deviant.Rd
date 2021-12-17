@@ -4,55 +4,39 @@
 \alias{deviant}
 \title{This function  produces the Epidemic Volatility index based output data}
 \usage{
-deviant(
-  new_cases,
-  cum = FALSE,
-  r_a = 7,
-  r = 0.2,
-  start_cases = 14,
-  lag_max = 30
-)
+deviant(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 }
 \arguments{
-\item{new_cases}{time series data}
+\item{new_cases}{the time series of the newly observed cases per unit of time (ideally per day)}
 
-\item{cum}{True of False; True if the time series data are stored as cummulative data cum=FALSE {default}}
+\item{cum}{TRUE or FALSE; TRUE {default} if the time series is recorded as cumulative number of reported cases and FALSE if newly reported cases per unit of time are recorded}
 
-\item{r_a}{rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed}
+\item{r_a}{The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the unnatural variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (e.g. r_a=14 or 30, respectively)}
 
-\item{r}{Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case}
+\item{r}{0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days}
 
-\item{start_cases}{integer - first observations "burn-in" of the time series}
-
-\item{lag_max}{(Cannot be changed) integer maximum value for the number of consecutive rolling windows}
-
-\item{lag_1}{(Cannot be changed) initial minimum value for the rolling windows size, lag_1=7}
-
-\item{c_1}{(Cannot be changed) initital threshold value for the expetation in the future number of cases, c_1=0.1{default}}
-
-\item{w_s}{(Cannot be changed) desired detection difference - time interval - validation time w_s=7{default}}
-
-\item{c_s}{(Cannot be changed) cut off point range, c_s=seq(0.01,0.5, 0.01)}
+\item{lag_max}{Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (30 days) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones}
 }
 \description{
-This is the main function of the EVI package that utilizes all secondary functions and gives as an output a data frame
-with each row corresponding to each time point. For each time point the stored variables are:
-dates the date for each time point (with origin 01-01-1970)
-Days the serial number of the time point
-EVI the estimate EVI at this time point
-Cases the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
-Index takes values 1 or 0 for the issuance of an early warning or not
-pvs the positive predictive value at this time point
-pvn the negative predictive value at this time point
-lag_all the selected rolling window size for EVI calculation at this time point
-c_all the selected cut-off (c_all) for issuing an early warning at this time point
-se_all the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-sp_all  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+This is the main function of the EVI package that the users should employ\n
+when they are analyzing a time series of observed cases per unit of time (ideally per day) for the first time.\n
+For each time point the stored variables are:\n
+Dates: the date for each time point (with origin 01-01-1970)\n
+Days: the serial number of the time point\n
+EVI: the estimated EVI at this time point\n
+Cases: the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a\n
+Index: takes values 1 or 0 for the issuance of an early warning or not, repsectively\n
+pvs: the positive predictive value at this time point\n
+pvn: the negative predictive value at this time point\n
+lag_all: the selected rolling window size for EVI calculation at this time point\n
+c_all: the selected cut-off (c_all) for issuing an early warning at this time point\n
+se_all: the sensitivity (Se) and specificity (Sp) of EVI up to this time point\n
+sp_all:  the sensitivity (Se) and specificity (Sp) of EVI up to this time point\n
 the positive and negative predictive value (ppv and npv, respectively) at this time point
 }
 \examples{
 data("Italy")
-deviant(Italy$ncases, cum = FALSE, 0.2, 14, 30)
+deviant(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
 #This step should take some time and the time elapsed will be printed
 
 }

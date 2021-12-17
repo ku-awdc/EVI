@@ -2,28 +2,25 @@
 % Please edit documentation in R/indic.R
 \name{indic}
 \alias{indic}
-\title{Function that produces an indicator index}
+\title{Function that produces the early warning}
 \usage{
 indic(evi, cut, cases)
 }
 \arguments{
-\item{evi}{numeric vector - object (obtained from the evi function and stored as ev)}
+\item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation}
 
-\item{cut}{threshold value 0<=c<=1 - expetation in the future number of cases}
+\item{cut}{threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
 
-\item{cases}{moving average for the time series epidemic data - obtained and stored as cases from the mova function}
+\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
 }
 \description{
-\subsection{The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table}{
-
-Returns the EVI index/model prediction - 1/0
-}
+Index = 1 when an ealy warning warning is issued and Index=0 when when an ealy warning warning is not issued
 }
 \examples{
-data(Italy)
-cases = mova(Italy$ncases)
-roll = rollsd(cases)
-ev = evi(roll)
-ind=indic(ev, 0.01, cases)
+data("Italy")
+cases = mova(cases=Italy$Cases, r_a=7)
+roll = rollsd(cases=cases, lag_t=7)
+ev = evi(rollsd=roll)
+ind=indic(evi=ev, cut=0.01, cases=cases)
 
 }
