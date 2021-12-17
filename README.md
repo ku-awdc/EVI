@@ -8,7 +8,7 @@ To install the current source from GitHub use:
     install.packages(c("devtools", "remotes")
     require(devtools)
     require(remotes)
-    remotes::install_github("ku-awdc/EVI", force = TRUE, dependecies = TRUE)
+    remotes::install_github("ku-awdc/EVI")
     
 
 To install a stable version from the drat repository use:
@@ -40,7 +40,7 @@ The basic two functions of the EVI analysis are deviant() and evi.graphs(). For 
 
 In case an error during download occur try the following
 
-    Add solution
+    remotes::install_github("ku-awdc/EVI", force = TRUE, dependecies = TRUE)
 
 
 
