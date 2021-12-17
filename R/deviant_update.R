@@ -13,8 +13,14 @@
 #'
 #'
 #' @examples
-#' data("Italy")
-#' deviant_update(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
+#' Let’s say we have first observed only the 148 cases from the Italian data. We initially run the deviant function:
+#’ data("Italy")
+#' deviant(new_cases=Italy$Cases[1:148], cum=F, r_a=7, r=0.2, lag_max=30)
+#’ As a new observation (or observations) comes in, we need to update our output file 
+#' by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing: 
+#' deviant_update(new_cases=Italy$Cases[1:149], cum=F, r_a=7, r=0.2, lag_max=30)
+#' This has as a result an updated output file (the “EVI_output” file) with 149 rows
+#' after the addition of the row from the analysis of the newly observed data.
 #'
 #' @export
 #' 
