@@ -43,6 +43,9 @@
 #' #This step should take some time and the time elapsed will be printed
 #'
 #' @export
+#' 
+#' @references 
+#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
 
 deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #source("mova.r")
