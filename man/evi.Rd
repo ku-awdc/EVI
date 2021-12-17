@@ -2,7 +2,7 @@
 % Please edit documentation in R/evi.R
 \name{evi}
 \alias{evi}
-\title{Epidemic Volatility Index calculation}
+\title{Calulation of the Epidemic Volatility Index}
 \usage{
 evi(rollsd)
 }
@@ -10,12 +10,12 @@ evi(rollsd)
 \item{rollsd}{numeric vector - returned and stored as roll from the rollsd() function}
 }
 \description{
-Calculates the relative change of standard deviation between two consecutive rolling windows
+Calculates the relative change in the standard deviation between two consecutive rolling windows
 }
 \examples{
-data(Italy)
-cases = mova(Italy$ncases)
-roll = rollsd(cases)
-ev = evi(roll)
+data("Italy")
+cases = mova(cases=Italy$Cases)
+roll = rollsd(cases=cases)
+ev = evi(rollsd=roll)
 
 }
