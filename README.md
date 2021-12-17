@@ -21,11 +21,11 @@ To install a stable version from the drat repository use:
 
 To load some example data:
 
-    data("sub_Italy")
+    data("Italy")
     
 To run EVI analysis on the example data:
 
-    deviant(sub_Italy$ncases)
+    deviant(Italy$Cases)
 
 To create a plot of the analysed data: 
 
