@@ -18,20 +18,33 @@ deviant(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 \item{lag_max}{Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (30 days) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones}
 }
 \description{
-This is the main function of the EVI package that the users should employ\n
-when they are analyzing a time series of observed cases per unit of time (ideally per day) for the first time.\n
-For each time point the stored variables are:\n
-Dates: the date for each time point (with origin 01-01-1970)\n
-Days: the serial number of the time point\n
-EVI: the estimated EVI at this time point\n
-Cases: the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a\n
-Index: takes values 1 or 0 for the issuance of an early warning or not, repsectively\n
-pvs: the positive predictive value at this time point\n
-pvn: the negative predictive value at this time point\n
-lag_all: the selected rolling window size for EVI calculation at this time point\n
-c_all: the selected cut-off (c_all) for issuing an early warning at this time point\n
-se_all: the sensitivity (Se) and specificity (Sp) of EVI up to this time point\n
-sp_all:  the sensitivity (Se) and specificity (Sp) of EVI up to this time point\n
+This is the main function of the EVI package that the users should employ
+when they are analyzing a time series of observed cases per unit of time (ideally per day) for the first time
+}
+\details{
+For each time point the stored variables are:
+
+Dates: the date for each time point (with origin 01-01-1970)
+
+Days: the serial number of the time point
+
+EVI: the estimated EVI at this time point
+
+Cases: the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
+
+Index: takes values 1 or 0 for the issuance of an early warning or not, repsectively
+
+pvs: the positive predictive value at this time point
+
+pvn: the negative predictive value at this time point
+
+lag_all: the selected rolling window size for EVI calculation at this time point
+
+c_all: the selected cut-off (c_all) for issuing an early warning at this time point
+
+se_all: the sensitivity (Se) and specificity (Sp) of EVI up to this time point
+
+sp_all:  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
 the positive and negative predictive value (ppv and npv, respectively) at this time point
 }
 \examples{
