@@ -16,15 +16,15 @@
 #' Let’s say we have first observed only the 148 cases from the Italian data. We initially run the deviant function:
 #’ data("Italy")
 #' deviant(new_cases=Italy$Cases[1:148], cum=F, r_a=7, r=0.2, lag_max=30)
-#’ As a new observation (or observations) comes in, we need to update our output file 
-#' by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing: 
+#’ As a new observation (or observations) comes in, we need to update our output file
+#' by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing:
 #' deviant_update(new_cases=Italy$Cases[1:149], cum=F, r_a=7, r=0.2, lag_max=30)
 #' This has as a result an updated output file (the “EVI_output” file) with 149 rows
 #' after the addition of the row from the analysis of the newly observed data.
 #'
 #' @export
-#' 
-#' @references 
+#'
+#' @references
 #' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
 
 
@@ -185,5 +185,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   EVI_output=rbind(EVI_output,EVI_out_add)
 
   EVI_output<<-(EVI_output)
+
+  return(EVI_output)
 
 }

@@ -25,7 +25,7 @@ After running the deviant_update function the output of the deviant function is 
 \examples{
 Letâ€™s say we have first observed only the 148 cases from the Italian data. We initially run the deviant function:
 deviant(new_cases=Italy$Cases[1:148], cum=F, r_a=7, r=0.2, lag_max=30)
-by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing: 
+by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing:
 deviant_update(new_cases=Italy$Cases[1:149], cum=F, r_a=7, r=0.2, lag_max=30)
 This has as a result an updated output file (the â€œEVI_outputâ€ file) with 149 rows
 after the addition of the row from the analysis of the newly observed data.
