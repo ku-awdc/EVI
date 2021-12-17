@@ -7,8 +7,9 @@
 \title{EVI: Epidemic Volatility Index as an Early-Warning Tool}
 \description{
 This is an R package implementing the epidemic volatility index (EVI), as 
-    discussed by Kostoulas et. al. (in press). The package is currently in
-    development.
+    discussed by Kostoulas et. al. (2021). EVI is a new, conceptually simple, early warning tool for oncoming epidemic waves. 
+    EVI is based on the volatility of newly reported cases per unit of time,
+    ideally per day, and issues an early warning when the volatility change rate exceeds a threshold.
 }
 \author{
 \strong{Maintainer}: Polychronis Kostoulas \email{pkost@uth.gr}

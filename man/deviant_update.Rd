@@ -23,7 +23,14 @@ the deviant _update function is used to obtain the EVI output and estimates for 
 After running the deviant_update function the output of the deviant function is also updated with a new row of data for each nealy observed time point.
 }
 \examples{
-data("Italy")
-deviant_update(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
+Letâ€™s say we have first observed only the 148 cases from the Italian data. We initially run the deviant function:
+deviant(new_cases=Italy$Cases[1:148], cum=F, r_a=7, r=0.2, lag_max=30)
+by adding the EVI output for the new case(s) as a new row(s). This is done by using the deviant_update function by typing: 
+deviant_update(new_cases=Italy$Cases[1:149], cum=F, r_a=7, r=0.2, lag_max=30)
+This has as a result an updated output file (the â€œEVI_outputâ€ file) with 149 rows
+after the addition of the row from the analysis of the newly observed data.
 
+}
+\references{
+Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
 }

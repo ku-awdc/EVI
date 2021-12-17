@@ -23,3 +23,6 @@ evi.graphs(EVI_output=EVI_output, graph="PPV", ln=T)
 evi.graphs(EVI_output=EVI_output, graph="NPV", ln=T)
 
 }
+\references{
+Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
+}
