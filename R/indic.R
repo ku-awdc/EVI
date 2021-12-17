@@ -1,18 +1,17 @@
-#'  Function that produces an indicator index
+#'  Function that produces the early warning
 #'
-#'  ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table
-#' Returns the EVI index/model prediction - 1/0
+#' Index = 1 when an ealy warning warning is issued and Index=0 when when an ealy warning warning is not issued
 
-#' @param evi numeric vector - object (obtained from the evi function and stored as ev)
-#' @param cut threshold value 0<=c<=1 - expetation in the future number of cases
-#' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
+#' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation
+#' @param cut threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
+#' @param cases numeric vector with a number of cases per unit of time (i.e., daily)
 #'
 #' @examples
 #' data("Italy")
-#' cases = mova(Italy$Cases$ncases)
-#' roll = rollsd(cases)
-#' ev = evi(roll)
-#' ind=indic(ev, 0.01, cases)
+#' cases = mova(cases=Italy$Cases, r_a=7)
+#' roll = rollsd(cases=cases, lag_t=7)
+#' ev = evi(rollsd=roll)
+#' ind=indic(evi=ev, cut=0.01, cases=cases)
 #'
 #' @export
 indic = function(evi, cut, cases) {

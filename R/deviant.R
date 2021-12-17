@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' data("Italy")
-#' deviant(Italy$Cases)
+#' deviant(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
 #' #This step should take some time and the time elapsed will be printed
 #'
 #' @export
@@ -46,7 +46,6 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   
   start_time = Sys.time()
   start_cases=14
-  ratio=1/(1+r)
   lag_1=7
   c_1=0.01
   w_s =7

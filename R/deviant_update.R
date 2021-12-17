@@ -14,12 +14,11 @@
 #'
 #' @examples
 #' data("Italy")
-#' deviant(Italy$Cases)
-#' #This step should take some time
+#' deviant_update(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
 #'
 #' @export
 
-deviant_update=function(new_cases, cum = FALSE){
+deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   source("mova.r")
   source("medvol.r")
   source("evi.r")
@@ -31,15 +30,12 @@ deviant_update=function(new_cases, cum = FALSE){
   
   
   
- 
+
   start_cases=14
-  r=0.2
-  ratio=1/(1+r)
   lag_1=7
   c_1=0.01
-  r_a = 7
   w_s =7
-  lag_max=30
+  
   
   
   

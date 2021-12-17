@@ -1,25 +1,22 @@
-#' A function that produces the status variable based on a case definition
+#' A function that defines the true status based on the case definition
 #'
-#' Case definition
-#' Case definition
-#' ### The 0 and 1 outcomes from the status and indic function are used to create the 2x2 table
-#  A rise in the mean of the number of cases between two consecutive weeks that exceeds a threshold r
-
-#' @param cases numeric vector - moving average for the time series epidemic data - obtained and stored as cases from the mova function
-#' @param w_s  (Cannot be changed) time interval - validation time w_s=7{default}
-#' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
+#' Status = 1 when the expected rise in the number of cases occurs and Status = 0 when the expected rise in the number of cases does not occur
+#'
+#' @param cases numeric vector with a number of cases per unit of time (i.e., daily)
+#' @param r 0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days
 #'
 #'
 #' @examples
-#' data("sub_Italy")
-#' cases = mova(sub_Italy$ncases)
-#' status = status(cases, 7, 0.2)
+#' data("Italy")
+#' cases = mova(cases=Italy$Cases)
+#' status = status(cases=cases, r=0.2)
 #' @export
 #'
 #'
 #'
-status = function(cases, w_s, ratio) {
-  #ratio = 1/(1+r)
+status = function(cases, r) {
+  ratio = 1/(1+r)
+  w_s=7
   status=rep(NA,length(cases))
   status[1]=NA
   for (i in 2:(length(cases)-w_s)){

@@ -10,11 +10,13 @@
 #'
 #'
 #' @examples
-#' evi.graphs(EVI_output)
+#' evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T)
+#' evi.graphs(EVI_output=EVI_output, graph="PPV", ln=T)
+#' evi.graphs(EVI_output=EVI_output, graph="NPV", ln=T)
 #'
 #' @export
 
-evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
+evi.graphs=function(EVI_output,graph=c("EVI"), ln=T) {
 
   list.of.packages <- c("ggplot2", "cowplot")
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]

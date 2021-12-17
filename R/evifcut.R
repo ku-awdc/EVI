@@ -1,24 +1,23 @@
-#' Function that calculates the sensitivity and specificity at a specific cut-off value
+#' Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size
 #'
-#'  @param evi numeric vector - object (obtained from the evi function and stored as ev)
-#' @param cases moving average for the time series epidemic data - obtained and stored as cases from the mova function
-#' @param cut threshold value 0<=c<=1 - expetation in the future number of cases
-#' @param w_s (Cannot be changed) time interval - validation time w_s=7{default}
-#' @param r Threshold value (0<=r<=1, r=0.2{default}) for the minimum increase in the mean number of cases between two consecutive weeks that if present defines a case
+#' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation
+#' @param cases numeric vector with a number of cases per unit of time (i.e., daily)
+#' @param cut threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
+#' @param r 0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days
 ##'
 #' @examples
 #'#' data("Italy")
-#' cases = mova(Italy$Cases)
-#' roll = rollsd(cases)
-#' ev = evi(roll)
-#' evifcut(ev, cases, 0.01, 7, 0.2)
-#' # rate = cut
+#' cases = mova(cases=Italy$Cases)
+#' roll = rollsd(cases=cases)
+#' ev = evi(rollsd=roll)
+#' evifcut(evi=ev, cases=cases, cut=0.01, r=0.2)
 
 #' @export
 
-evifcut = function(evi, cases, cut, w_s, ratio) {
-
-  #ratio = 1/(1+r)
+evifcut = function(evi, cases, cut, r) {
+  
+  w_s=7
+  ratio = 1/(1+r)
   test_p=rep(NA, length(cases))
   true_p=rep(NA, length(cases))
 
