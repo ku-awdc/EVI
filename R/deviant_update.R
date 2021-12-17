@@ -174,7 +174,6 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   EVI_output=rbind(EVI_output,EVI_out_add)
   
-  
-  return(EVI_output_add)
+  EVI_output<<-(EVI_output)
   
 }
