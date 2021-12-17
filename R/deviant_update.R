@@ -28,9 +28,6 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   source("rollsd.r")
   
   
-  
-  
-
   start_cases=14
   lag_1=7
   c_1=0.01
@@ -48,7 +45,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   roll=rollsd(cases[1:start_cases],lag_1)
   ev=evi(roll)
   ind=indic(ev,c_1, cases[1:start_cases])
-  status=status(cases[1:start_cases],w_s,ratio)
+  status=status(cases[1:start_cases],r)
   
   #initiate chain for positive predictive value
   pvs=rep(NA, length(cases))
@@ -66,7 +63,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   lag_all[1:start_cases]=lag_1
   c_all[1:start_cases]=c_1
   
-  diff= length(cases)-(nrow(EVI_output)+1)
+  diff= length(cases)-(nrow(EVI_output) +1)
   for (i in (nrow(EVI_output)+1): length(cases)){
     
     case_t=cases[1:i]
@@ -88,7 +85,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
       roll_t=rollsd(case_t,j)
       ev_t=evi(roll_t)
       for (l in c_s){
-        evicut_t=evifcut(ev_t, case_t, l, w_s, ratio)
+        evicut_t=evifcut(ev_t, case_t, l, r)
         new_j=j
         new_l=l
         new_se=evicut_t$sens
@@ -137,7 +134,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     
     ev_n=evi(roll_n)
     ind_n=indic(ev_n,c_n, case_t)
-    evicut_n=evifcut(ev_n, case_t, c_n, w_s, ratio)
+    evicut_n=evifcut(ev_n, case_t, c_n, r)
     
     roll=c(roll,roll_n[i])
     ev=c(ev,ev_n[i])
@@ -160,17 +157,22 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   }
   
   
-  Days=(1:length(cases))
-  EVI=ev
-  Cases=cases
-  Index=ind
+  Days=((length(cases)-diff):length(cases))
+  EVI=ev[((length(ev)-diff):length(ev))]
+  Cases=cases[((length(cases)-diff):length(cases))]
+  Index=ind[((length(ind)-diff):length(ind))]
+  pvs=pvs[((length(pvs)-diff):length(pvs))]
+  pvn=pvn[((length(pvn)-diff):length(pvn))]
+  lag_all=lag_all[((length(lag_all)-diff):length(lag_all))]
+  c_all=c_all[((length(c_all)-diff):length(c_all))]
+  se_all=se_all[((length(se_all)-diff):length(se_all))]
+  sp_all=sp_all[((length(sp_all)-diff):length(sp_all))]
   
     
-  EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
+  EVI_out_add=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
-  EVI_output_add<<-(EVI_out[(length(cases)-diff):length(cases),])
-  
-  EVI_output=rbind(EVI_output,EVI_output_add)
+
+  EVI_output=rbind(EVI_output,EVI_out_add)
   
   
   return(EVI_output_add)
