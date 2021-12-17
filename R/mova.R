@@ -5,7 +5,7 @@
 #' Calculate the moving average for the time series epidemic data
 #'
 #' @param cases time series data
-#' @param r_a rolling window size/time interval on which the moving average will be calculated - number of consecutive observations per rolling window. Usually the 7-day moving average rather than the actually observed cases are analyzed
+#' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the unnatural variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (e.g. r_a=14 or 30, respectively)
 #'
 #' @examples
 #' data("Italy")
