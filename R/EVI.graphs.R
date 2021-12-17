@@ -39,39 +39,35 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
       geom_point(aes(y=(Cases), color=Index>0), size=0.5)+
       scale_color_manual(values=c("grey69", "red3"))+
       theme(legend.position = "none")+
-      labs(y = "Cases", x="Days") +
-    ggtitle(label = "Daily confirmed cases for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the original scale")
-  }
+      labs(y = "Cases", x="Days")
+      }
 
   if (graph=="cases" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=log(Cases), color=Index>0), size=0.5)+
       scale_color_manual(values=c("grey69", "red3"))+
       theme(legend.position = "none")+
-      labs(y = "ln(Cases)", x="Days") +
-      ggtitle(label = "Daily confirmed cases for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the logarithmic scale")
-  }
+      labs(y = "ln(Cases)", x="Days")
+     }
 
   if (graph=="pv_plus" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=(cases_1), col=pvs), size=0.5)+
       geom_point(aes(y=(cases_0)), col="grey69", size=0.5)+
       labs(y = "Cases", x="")+
-      ggtitle(label = "Positive predictive values for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the original scale") +
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
       labs(color= "PPV")+
       theme(legend.position = c(0.95, 0.3),
             legend.title = element_text(size=10),
             legend.text = element_text(size=8),
             legend.key.height = unit(0.5, 'cm'))
-  }
+      }
 
   if (graph=="pv_plus" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=log(cases_1), col=pvs), size=0.5)+
       geom_point(aes(y=log(cases_0)), col="grey69", size=0.5)+
       labs(y = "ln(Cases)", x="")+
-      ggtitle(label = "Positive predictive values for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the logarithmic scale") +
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
       labs(color= "PPV")+
       theme(legend.position = c(0.95, 0.3),
@@ -85,7 +81,6 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
       geom_point(aes(y=(cases_0), col=pvn), size=0.5)+
       geom_point(aes(y=(cases_1)), col="grey69", size=0.5)+
       labs(y = "Cases")+
-      ggtitle(label = "Negative predictive values for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the original scale") +
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
       labs(color= "NPV")+
       theme(legend.position = c(0.95, 0.3),
@@ -100,7 +95,6 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
       geom_point(aes(y=log(cases_0), col=pvn), size=0.5)+
       geom_point(aes(y=log(cases_1)), col="grey69", size=0.5)+
       labs(y = "ln(Cases)")+
-      ggtitle(label = "Negative predictive values for the first 150 days\nof the Covid-19 pandemic in Italy", subtitle = "Data are presented on the logarithmic scale") +
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1))+
       labs(color= "NPV")+
       theme(legend.position = c(0.95, 0.3),
