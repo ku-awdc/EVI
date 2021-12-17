@@ -1,14 +1,12 @@
-#'  This function  produces descriptive figures for the Epidemic Volatility index based output data
+#'  This function  produces  plots of the time series data with the EVI predictions.
 #'
-#' Three types of graphs can be plotted with the data presented either on the original scale or the logarithmic case.
-#' The first type of graph is the confirmed cases represented as dots. Red dots correspond to time points when an early warning was issued and indicate that, according to the defined criterion, an increase in the mean of expected cases equal or higher to twenty percent is expected in the coming week. 
-#' Grey dots correspond to time points without an early warning indication.
-#' The second and third type of graphs, respectively, are the positive and negative predictive values at each time point, depending on whether or not an early warning was issued. 
-#' Higher color intensity corresponds to predictive values closer to the value of 1..
+#' Three types of plots are generated: 
+#' (i) A plot of the confirmed cases with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. 
+#' (ii) A plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher positive predictive value (PPV). 
+#' (iii) A plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher negative predictive value (NPV).#' 
 #' 
-#' 
-#' @param graph Type of graph to be plotted. Options: "cases", "pv_plus", "pv_minus"; If "cases" is selected{defalut} the daily number of confirmed cases is plotted. If "pv_plus" or "pv_minus" is selected the positive or negative predictive values are plotted, respectively.
-#' @param ln TRUE or FALSE; If TRUE{default} the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
+#' @param graph Type of graph to be plotted. Options: "EVI", "PPV", "NPV"; "EVI" {default} is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher NPV. 
+#' @param ln  TRUE or FALSE; If TRUE{default} the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
 #'
 #'
 #' @examples
@@ -34,7 +32,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
   EVI_output$pvs=EVI_output$pvs*EVI_output$Index
   EVI_output$pvs[EVI_output$pvs == 0] <- NA
 
-  if (graph=="cases" && ln==F) {
+  if (graph=="EVI" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=(Cases), color=Index>0), size=0.5)+
       scale_color_manual(values=c("grey69", "red3"))+
@@ -42,7 +40,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
       labs(y = "Cases", x="Days")
       }
 
-  if (graph=="cases" && ln==T) {
+  if (graph=="EVI" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=log(Cases), color=Index>0), size=0.5)+
       scale_color_manual(values=c("grey69", "red3"))+
@@ -50,7 +48,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
       labs(y = "ln(Cases)", x="Days")
      }
 
-  if (graph=="pv_plus" && ln==F) {
+  if (graph=="PPV" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=(cases_1), col=pvs), size=0.5)+
       geom_point(aes(y=(cases_0)), col="grey69", size=0.5)+
@@ -63,7 +61,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
             legend.key.height = unit(0.5, 'cm'))
       }
 
-  if (graph=="pv_plus" && ln==T) {
+  if (graph=="PPV" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=log(cases_1), col=pvs), size=0.5)+
       geom_point(aes(y=log(cases_0)), col="grey69", size=0.5)+
@@ -76,7 +74,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
             legend.key.height = unit(0.5, 'cm'))
   }
 
-  if (graph=="pv_minus" && ln==F) {
+  if (graph=="NPV" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=(cases_0), col=pvn), size=0.5)+
       geom_point(aes(y=(cases_1)), col="grey69", size=0.5)+
@@ -90,7 +88,7 @@ evi.graphs=function(EVI_output,graph=c("cases"), ln=T) {
   }
 
 
-  if (graph=="pv_minus" && ln==T) {
+  if (graph=="NPV" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days))+
       geom_point(aes(y=log(cases_0), col=pvn), size=0.5)+
       geom_point(aes(y=log(cases_1)), col="grey69", size=0.5)+
