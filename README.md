@@ -5,7 +5,7 @@ EVI: the Epidemic Volatility Index as an early-warning tool for epidemic waves
 
 To install the current source from GitHub use:
 
-    install.packages(c("devtools", "remotes")
+    install.packages(c("devtools", "remotes"))
     require(devtools)
     require(remotes)
     remotes::install_github("ku-awdc/EVI")
