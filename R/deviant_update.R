@@ -15,7 +15,7 @@
 #' @examples
 #' data("Italy")
 #' deviant(Italy$Cases)
-#' #This step should take some time and the time elapsed will be printed
+#' #This step should take some time
 #'
 #' @export
 
@@ -31,7 +31,7 @@ deviant_update=function(new_cases, cum = FALSE){
   
   
   
-  start_time = Sys.time()
+ 
   start_cases=14
   r=0.2
   ratio=1/(1+r)
@@ -169,18 +169,14 @@ deviant_update=function(new_cases, cum = FALSE){
   Cases=cases
   Index=ind
   
-  end_time = Sys.time()
-  
-  time_elapsed = end_time - start_time
-  
+    
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
                               lag_all, c_all, se_all, sp_all))
   EVI_output_add<<-(EVI_out[(length(cases)-diff):length(cases),])
   
   EVI_output=rbind(EVI_output,EVI_output_add)
   
-  total_time = c("The elapsed time was", time_elapsed)
   
-  return(c(EVI_output_add, total_time))
+  return(EVI_output_add)
   
 }
