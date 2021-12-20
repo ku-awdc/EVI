@@ -1,6 +1,6 @@
 #' This function  produces  plots of the time series data with the EVI predictions.
 #'
-#' Three types of plots are generated (an EVI_output is required derived from the \code{\link[EVI]{deviant}} function:
+#' Three types of plots are generated (an EVI_output is required derived from the \code{\link[EVI:deviant]{deviant()}} function:
 #' (i) A plot of the confirmed cases with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication.
 #' (ii) A plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing with higher positive predictive value (PPV).
 #' (iii) A plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing with higher negative predictive value (NPV).

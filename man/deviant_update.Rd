@@ -18,7 +18,7 @@ deviant_update(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 \item{lag_max}{Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.}
 }
 \description{
-Once the \code{\link[EVI:deviant]{EVI::deviant()}} function has been used to analyze the already observed time series,
+Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
 the deviant _update function is used to obtain the EVI output and early warnings for the new cases that are recorded.
 After running the deviant_update function the output of the deviant function is also updated with a new row of data for each newly observed time point.
 }

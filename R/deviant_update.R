@@ -1,6 +1,6 @@
 #' This function is used after first running the deviant function
 #'
-#' Once the \code{\link[EVI:deviant]{EVI::deviant()}} function has been used to analyze the already observed time series,
+#' Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
 #' the deviant _update function is used to obtain the EVI output and early warnings for the new cases that are recorded.
 #' After running the deviant_update function the output of the deviant function is also updated with a new row of data for each newly observed time point.
 
