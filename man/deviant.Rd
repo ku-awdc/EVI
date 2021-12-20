@@ -26,7 +26,7 @@ deviant(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 \item{EVI: the estimated EVI for each time point.}
 
 \item{Cases: the rolling average of the newly observed cases for each time point. A 7-day rolling average is calculated by default (i.e., r_a=7). The user has the option to change this by modifying r_a.}
-}
+
 \item{Index: takes values 1 or 0 for the issuance of an early warning or not, respectively.}
 
 \item{ppv: the positive predictive value for each time point.}
