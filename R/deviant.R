@@ -1,6 +1,6 @@
 #' This function produces the Epidemic Volatility Index based output data
 #'
-#' This is the main function of the \code{\link[EVI-package]{EVI-package}}that you should use to analyze a time series of observed cases per unit of time (ideally per day).
+#' This is the main function of the \code{\link[EVI-package]{EVI-package}} that you should use to analyze a time series of observed cases per unit of time (ideally per day).
 #'
 #'
 #' For each time point the stored variables are:
