@@ -5,27 +5,27 @@
 #'
 #' For each time point the stored variables are:
 #'@return \itemize{
-#' \item {Dates: the date for each time point (with origin 01-01-1970).}
+#' \item{Dates: the date for each time point (with origin 01-01-1970).}
 #'
-#'\item {Days: the serial number for each time point.}
+#'\item{Days: the serial number for each time point.}
 #'
-#'\item {EVI: the estimated EVI for each time point.}
+#'\item{EVI: the estimated EVI for each time point.}
 #'
-#'\item {Cases: the rolling average of the newly observed cases for each time point. A 7-day rolling average is calculated by default (i.e., r_a=7). The user has the option to change this by modifying r_a.}
+#'\item{Cases: the rolling average of the newly observed cases for each time point. A 7-day rolling average is calculated by default (i.e., r_a=7). The user has the option to change this by modifying r_a.}
 #'}
-#'\item {Index: takes values 1 or 0 for the issuance of an early warning or not, respectively.}
+#'\item{Index: takes values 1 or 0 for the issuance of an early warning or not, respectively.}
 #'
-#'\item {ppv: the positive predictive value for each time point.}
+#'\item{ppv: the positive predictive value for each time point.}
 #'
-#'\item {npv: the negative predictive value for each time point.}
+#'\item{npv: the negative predictive value for each time point.}
 #'
-#'\item {lag_all: the selected rolling window size for EVI calculation for each time point.}
+#'\item{lag_all: the selected rolling window size for EVI calculation for each time point.}
 #'
-#'\item {c_all: the selected cut-off for issuing an early warning for each time point.}
+#'\item{c_all: the selected cut-off for issuing an early warning for each time point.}
 #'
-#'\item {se_all: the sensitivity (Se) of EVI up to this time point.}
+#'\item{se_all: the sensitivity (Se) of EVI up to this time point.}
 #'
-#'\item {sp_all: the specificity (Sp) of EVI up to this time point.}}
+#'\item{sp_all: the specificity (Sp) of EVI up to this time point.}}
 
 
 
