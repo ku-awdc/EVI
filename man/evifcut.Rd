@@ -7,19 +7,19 @@
 evifcut(evi, cases, cut, r)
 }
 \arguments{
-\item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation}
+\item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
 
-\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
+\item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
 
-\item{cut}{threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
+\item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.}
 
-\item{r}{0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days}
+\item{r}{Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days.}
 }
 \description{
-Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size
+Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size.
 }
 \examples{
-#' data("Italy")
+data("Italy")
 cases = mova(cases=Italy$Cases)
 roll = rollsd(cases=cases)
 ev = evi(rollsd=roll)

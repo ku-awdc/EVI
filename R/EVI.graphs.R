@@ -1,13 +1,13 @@
-#'  This function  produces  plots of the time series data with the EVI predictions.
+#' This function  produces  plots of the time series data with the EVI predictions.
 #'
-#' Three types of plots are generated:
+#' Three types of plots are generated (an EVI_output is required derived from the \code{\link[EVI]{deviant}} function:
 #' (i) A plot of the confirmed cases with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication.
-#' (ii) A plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher positive predictive value (PPV).
-#' (iii) A plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher negative predictive value (NPV).#'
+#' (ii) A plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing with higher positive predictive value (PPV).
+#' (iii) A plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing with higher negative predictive value (NPV).
 #'
-#' @param graph Type of graph to be plotted. Options: "EVI", "PPV", "NPV"; "EVI" {default} is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing for higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing for higher NPV.
-#' @param ln  TRUE or FALSE; If TRUE{default} the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
-#' @param type By default points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsily available type="l" introduces lines on top of points for the "EVI" type of graph.
+#' @param graph Type of graph to be plotted. Options: "EVI", "PPV", "NPV". "EVI" (the default) is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing with higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing with higher NPV.
+#' @param ln  TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
+#' @param type By default, points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.
 #'
 #' @examples
 #' evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T)
@@ -17,10 +17,10 @@
 #' @export
 #'
 #' @references
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
+#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \url{https://doi.org/10.1038/s41598-021-02622-3}
 
 
-evi.graphs=function(EVI_output,graph=c("EVI"), ln=T,type="p") {
+evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
 
   list.of.packages <- c("ggplot2", "cowplot")
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]

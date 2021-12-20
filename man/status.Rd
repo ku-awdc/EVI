@@ -7,9 +7,9 @@
 status(cases, r)
 }
 \arguments{
-\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
+\item{cases}{the time series of the newly observed cases per unit of time (ideally per day).}
 
-\item{r}{0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days}
+\item{r}{Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days.}
 }
 \description{
 Status = 1 when the expected rise in the number of cases occurs and Status = 0 when the expected rise in the number of cases does not occur

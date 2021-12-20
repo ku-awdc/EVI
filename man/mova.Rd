@@ -7,13 +7,12 @@
 mova(cases, r_a = 7)
 }
 \arguments{
-\item{cases}{the time series of the newly observed cases per unit of time (ideally per day)}
+\item{cases}{the time series of the newly observed cases per unit of time (ideally per day).}
 
-\item{r_a}{The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the unnatural variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (e.g. r_a=14 or 30, respectively)}
+\item{r_a}{The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).}
 }
 \description{
-Moving Average
-Calculates the moving average for a time series
+Calculates the moving average for a time series.
 }
 \examples{
 data("Italy")

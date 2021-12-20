@@ -7,12 +7,12 @@
 rollsd(cases, lag_t)
 }
 \arguments{
-\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
+\item{cases}{the time series of the newly observed cases per unit of time (ideally per day).}
 
-\item{lag_t}{integer - the size of the rolling window for which the rolling standard deviation is calculated (minimum/default value = 7, maximum recommended value = 30)}
+\item{lag_t}{integer - the size of the rolling window for which the rolling standard deviation is calculated (minimum/default value = 7, maximum recommended value = 30).}
 }
 \description{
--A function to compute the rolling standard deviation for a time series
+-A function to compute the rolling standard deviation for a time series.
 }
 \examples{
 data("Italy")

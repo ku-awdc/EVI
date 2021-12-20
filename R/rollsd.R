@@ -1,9 +1,9 @@
 #' Rolling standard deviation
 #'
-#' -A function to compute the rolling standard deviation for a time series
-#' 
-#' @param cases numeric vector with a number of cases per unit of time (i.e., daily)
-#' @param lag_t integer - the size of the rolling window for which the rolling standard deviation is calculated (minimum/default value = 7, maximum recommended value = 30)
+#' -A function to compute the rolling standard deviation for a time series.
+#'
+#' @param cases the time series of the newly observed cases per unit of time (ideally per day).
+#' @param lag_t integer - the size of the rolling window for which the rolling standard deviation is calculated (minimum/default value = 7, maximum recommended value = 30).
 #'
 #' @examples
 #' data("Italy")

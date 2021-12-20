@@ -1,10 +1,10 @@
-#'  Function that produces the early warning
+#' Function that produces the early warning
 #'
-#' Index = 1 when an ealy warning warning is issued and Index=0 when when an ealy warning warning is not issued
-
-#' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation
-#' @param cut threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
-#' @param cases numeric vector with a number of cases per unit of time (i.e., daily)
+#' Index = 1 when an early warning is issued and Index=0 when an early warning is not issued
+#'
+#' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.
+#' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
+#' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
 #'
 #' @examples
 #' data("Italy")

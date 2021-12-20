@@ -7,14 +7,14 @@
 indic(evi, cut, cases)
 }
 \arguments{
-\item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation}
+\item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
 
-\item{cut}{threshold value (0<=c<=0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
+\item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
 
-\item{cases}{numeric vector with a number of cases per unit of time (i.e., daily)}
+\item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
 }
 \description{
-Index = 1 when an ealy warning warning is issued and Index=0 when when an ealy warning warning is not issued
+Index = 1 when an early warning is issued and Index=0 when an early warning is not issued
 }
 \examples{
 data("Italy")

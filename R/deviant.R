@@ -1,40 +1,40 @@
-#' This function  produces the Epidemic Volatility index based output data
+#' This function produces the Epidemic Volatility Index based output data
 #'
-#' This is the main function of the EVI package that the users should employ
-#' when they are analyzing a time series of observed cases per unit of time (ideally per day) for the first time
+#' This is the main function of the EVI package that you should use to analyze a time series of observed cases per unit of time (ideally per day).
+#'
 #'
 #' For each time point the stored variables are:
+#'@return \itemize{
+#' \item {Dates: the date for each time point (with origin 01-01-1970).}
 #'
-#' Dates: the date for each time point (with origin 01-01-1970)
+#'\item {Days: the serial number for each time point.}
 #'
-#' Days: the serial number of the time point
+#'\item {EVI: the estimated EVI for each time point.}
 #'
-#' EVI: the estimated EVI at this time point
+#'\item {Cases: the rolling average of the newly observed cases for each time point. A 7-day rolling average is calculated by default (i.e., r_a=7). The user has the option to change this by modifying r_a.}
+#'}
+#'\item {Index: takes values 1 or 0 for the issuance of an early warning or not, respectively.}
 #'
-#' Cases: the rolling average of the newly observed cases at this time point. A 7-day rolling average is calculated by default and the user has the option to change this by modifying r_a
+#'\item {ppv: the positive predictive value for each time point.}
 #'
-#' Index: takes values 1 or 0 for the issuance of an early warning or not, repsectively
+#'\item {npv: the negative predictive value for each time point.}
 #'
-#' pvs: the positive predictive value at this time point
+#'\item {lag_all: the selected rolling window size for EVI calculation for each time point.}
 #'
-#' pvn: the negative predictive value at this time point
+#'\item {c_all: the selected cut-off for issuing an early warning for each time point.}
 #'
-#' lag_all: the selected rolling window size for EVI calculation at this time point
+#'\item {se_all: the sensitivity (Se) of EVI up to this time point.}
 #'
-#' c_all: the selected cut-off (c_all) for issuing an early warning at this time point
-#'
-#' se_all: the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-#'
-#' sp_all:  the sensitivity (Se) and specificity (Sp) of EVI up to this time point
-#' the positive and negative predictive value (ppv and npv, respectively) at this time point
+#'\item {sp_all: the specificity (Sp) of EVI up to this time point.}}
 
 
 
-#' @param new_cases the time series of the newly observed cases per unit of time (ideally per day)
-#' @param cum TRUE or FALSE; TRUE {default} if the time series is recorded as cumulative number of reported cases and FALSE if newly reported cases per unit of time are recorded
-#' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the unnatural variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (e.g. r_a=14 or 30, respectively)
-#' @param r 0<=r<=1, r=0.2 {default}) Definition for the minimum increase in the mean number of cases, one week before and after each time point that if present should be detected (i.e., defines a case). The default is 0.2. This means that we have a case if the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days
-#' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (30 days) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones
+
+#' @param new_cases the time series of the newly observed cases per unit of time (ideally per day).
+#' @param cum TRUE or FALSE; TRUE if the time series is recorded as the cumulative number of the reported cases and FALSE (the default) if newly reported cases per unit of time are recorded.
+#' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).
+#' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
+#' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.
 #'
 #'
 #' @examples
@@ -45,7 +45,7 @@
 #' @export
 #'
 #' @references
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). https://doi.org/10.1038/s41598-021-02622-3
+#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \url{https://doi.org/10.1038/s41598-021-02622-3}
 
 deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #source("mova.r")

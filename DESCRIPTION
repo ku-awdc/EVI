@@ -44,6 +44,3 @@ VignetteBuilder: knitr
 Language: en-GB
 Depends: 
     R (>= 2.10)
-Imports: 
-    ggplot2 (> 3.3.5),
-    cowplot (> 1.1.1)
