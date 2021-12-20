@@ -61,10 +61,10 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
-  pvs=rep(NA, length(cases))
+  ppv=rep(NA, length(cases))
 
   #initiate chain for negative predictive value
-  pvn=rep(NA, length(cases))
+  npv=rep(NA, length(cases))
 
   lag_all=rep(NA, start_cases)
   c_all=rep(NA, start_cases)
@@ -159,10 +159,10 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     se_all=c(se_all,all_se[index])
     sp_all=c(sp_all,all_sp[index])
 
-    pvs[i]=evicut_n$prev*all_se[index]/
+    ppv[i]=evicut_n$prev*all_se[index]/
       (evicut_n$prev*all_se[index]+(1-evicut_n$prev)*(1-all_sp[index]))
 
-    pvn[i]=(1-evicut_n$prev)*all_sp[index]/
+    npv[i]=(1-evicut_n$prev)*all_sp[index]/
       ((1-evicut_n$prev)*all_sp[index]+evicut_n$prev*(1-all_se[index]))
 
 
@@ -174,15 +174,15 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   EVI=ev[((length(ev)-diff):length(ev))]
   Cases=cases[((length(cases)-diff):length(cases))]
   Index=ind[((length(ind)-diff):length(ind))]
-  pvs=pvs[((length(pvs)-diff):length(pvs))]
-  pvn=pvn[((length(pvn)-diff):length(pvn))]
+  ppv=ppv[((length(ppv)-diff):length(ppv))]
+  npv=npv[((length(npv)-diff):length(npv))]
   lag_all=lag_all[((length(lag_all)-diff):length(lag_all))]
   c_all=c_all[((length(c_all)-diff):length(c_all))]
   se_all=se_all[((length(se_all)-diff):length(se_all))]
   sp_all=sp_all[((length(sp_all)-diff):length(sp_all))]
 
 
-  EVI_out_add=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
+  EVI_out_add=as.data.frame(cbind(Days, EVI, Cases, Index, ppv, npv,
                               lag_all, c_all, se_all, sp_all))
 
   EVI_output=rbind(EVI_output,EVI_out_add)

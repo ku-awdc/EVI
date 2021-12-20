@@ -79,10 +79,10 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
-  pvs=rep(NA, length(cases))
+  ppv=rep(NA, length(cases))
 
   #initiate chain for negative predictive value
-  pvn=rep(NA, length(cases))
+  npv=rep(NA, length(cases))
 
   lag_all=rep(NA, start_cases)
   c_all=rep(NA, start_cases)
@@ -177,10 +177,10 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     se_all=c(se_all,all_se[index])
     sp_all=c(sp_all,all_sp[index])
 
-    pvs[i]=evicut_n$prev*all_se[index]/
+    ppv[i]=evicut_n$prev*all_se[index]/
       (evicut_n$prev*all_se[index]+(1-evicut_n$prev)*(1-all_sp[index]))
 
-    pvn[i]=(1-evicut_n$prev)*all_sp[index]/
+    npv[i]=(1-evicut_n$prev)*all_sp[index]/
       ((1-evicut_n$prev)*all_sp[index]+evicut_n$prev*(1-all_se[index]))
 
 
@@ -195,7 +195,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
 
 
-  EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, pvs, pvn,
+  EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, ppv, npv,
                               lag_all, c_all, se_all, sp_all))
   EVI_output<<-(EVI_out)
 

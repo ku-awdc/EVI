@@ -1,4 +1,4 @@
-evifcut_cEVI<-function (evi, cases, cut, r)
+evifcut_cEVI<-function (evi, cases, r)
 {
   w_s = 7
   ratio = 1/(1 + r)
