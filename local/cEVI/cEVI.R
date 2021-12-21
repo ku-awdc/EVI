@@ -8,7 +8,7 @@ require(EVI)
 data("Italy")
 
 library(readxl)
-Italy_613 <- read_excel("cEVI/Italy_613.xlsx")
+Austria <- read_excel("cEVI/Austria_200.xlsx")
 Italy_300<-Italy_613[1:300,]
 View(Italy_300)
 
