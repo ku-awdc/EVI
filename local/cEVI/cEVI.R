@@ -7,8 +7,13 @@ require(EVI)
 # Load the mot example
 data("Italy")
 
-# Run cEVI for the first 150 cases of Italy
-tmp_cEVI=deviant_plus(new_cases = Italy$Cases,method = "cEVI")
+library(readxl)
+Italy_613 <- read_excel("cEVI/Italy_613.xlsx")
+Italy_300<-Italy_613[1:300,]
+View(Italy_300)
 
-# Plot Italy example first 150 cases
+# Run cEVI for the first cases of Italy
+tmp_cEVI=deviant_plus(new_cases = Italy_300$ncases,method = "cEVI")
+
+# Plot Italy example first cases
 evi.graphs(tmp_cEVI)

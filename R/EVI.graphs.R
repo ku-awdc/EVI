@@ -35,10 +35,10 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   EVI_output$cases_0=EVI_output$Cases*(1-EVI_output$Index)
   EVI_output$cases_0[EVI_output$cases_0 == 0] <- NA
 
-  EVI_output$pvn=EVI_output$pvn*(1-EVI_output$Index)
-  EVI_output$pvn[EVI_output$pvn == 0] <- NA
-  EVI_output$pvs=EVI_output$pvs*EVI_output$Index
-  EVI_output$pvs[EVI_output$pvs == 0] <- NA
+  EVI_output$npv=EVI_output$npv*(1-EVI_output$Index)
+  EVI_output$npv[EVI_output$npv == 0] <- NA
+  EVI_output$ppv=EVI_output$ppv*EVI_output$Index
+  EVI_output$ppv[EVI_output$ppv == 0] <- NA
   EVI_output$variable<-"x"
 
   if (graph=="EVI" && ln==F) {
@@ -66,7 +66,7 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   if (graph=="PPV" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
       list(
-      geom_point(aes(y=(cases_1), col=pvs), size=0.5),
+      geom_point(aes(y=(cases_1), col=ppv), size=0.5),
       geom_point(aes(y=(cases_0)), col="grey69", size=0.5),
       labs(y = "Cases", x=""),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
@@ -81,7 +81,7 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   if (graph=="PPV" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
       list(
-      geom_point(aes(y=log(cases_1), col=pvs), size=0.5),
+      geom_point(aes(y=log(cases_1), col=ppv), size=0.5),
       geom_point(aes(y=log(cases_0)), col="grey69", size=0.5),
       labs(y = "ln(Cases)", x=""),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
@@ -96,7 +96,7 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   if (graph=="NPV" && ln==F) {
     sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
       list(
-      geom_point(aes(y=(cases_0), col=pvn), size=0.5),
+      geom_point(aes(y=(cases_0), col=npv), size=0.5),
       geom_point(aes(y=(cases_1)), col="grey69", size=0.5),
       labs(y = "Cases"),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
@@ -112,7 +112,7 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   if (graph=="NPV" && ln==T) {
     sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
       list(
-      geom_point(aes(y=log(cases_0), col=pvn), size=0.5),
+      geom_point(aes(y=log(cases_0), col=npv), size=0.5),
       geom_point(aes(y=log(cases_1)), col="grey69", size=0.5),
       labs(y = "ln(Cases)"),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),

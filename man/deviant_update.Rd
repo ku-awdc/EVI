@@ -19,8 +19,8 @@ deviant_update(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 }
 \description{
 Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
-the deviant _update function is used to obtain the EVI output and early warnings for the new cases that are recorded.
-After running the deviant_update function the output of the deviant function is also updated with a new row of data for each newly observed time point.
+the deviant_update() function is used to obtain the EVI output and early warnings for the new cases that are recorded.
+After running the deviant_update() function the output of the deviant function is also updated with a new row of data for each newly observed time point.
 }
 \examples{
 # If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:

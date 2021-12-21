@@ -1,8 +1,8 @@
 #' This function is used after first running the deviant function
 #'
 #' Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
-#' the deviant _update function is used to obtain the EVI output and early warnings for the new cases that are recorded.
-#' After running the deviant_update function the output of the deviant function is also updated with a new row of data for each newly observed time point.
+#' the deviant_update() function is used to obtain the EVI output and early warnings for the new cases that are recorded.
+#' After running the deviant_update() function the output of the deviant function is also updated with a new row of data for each newly observed time point.
 
 
 #' @param new_cases the time series of the newly observed cases per unit of time (ideally per day).
