@@ -1,4 +1,4 @@
-deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="EVI"){
+deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #source("mova.r")
   #source("medvol.r")
   #source("evi.r")
@@ -8,34 +8,30 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="
   #source("rollsd.r")
 
   start_time = Sys.time()
-  start_cases=14
-  lag_1=7
-  c_1=0.01
-  w_s =7
+  start_cases=18
+  lag_1=3
+  c_1=0.001
+  w_s=7
 
   if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
 
   #calculate the moving average of new confirmed cases
   cases=mova(new_cases,r_a)
-
-  roll=rollsd(cases[1:start_cases],lag_1)
-  ev=evi(roll)
-  ind=indic(ev,c_1, cases[1:start_cases])
+  #roll=rollsd(cases[1:start_cases],lag_1)
+  #ev=evi(roll)
+  cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1,c_n = c_1)
+  ind=indic_cEVI(cevi, cases[1:start_cases])
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
   ppv=rep(NA, length(cases))
-
   #initiate chain for negative predictive value
   npv=rep(NA, length(cases))
 
   lag_all=rep(NA, start_cases)
   c_all=rep(NA, start_cases)
-
   se_all=rep(NA, start_cases)
   sp_all=rep(NA, start_cases)
-
-
   lag_all[1:start_cases]=lag_1
   c_all[1:start_cases]=c_1
 
@@ -45,10 +41,9 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="
     case_t=cases[1:i]
     #case_t=cases[max(1,(i-33)):i]
     #lag_s=7
-    lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 1)
+    lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 2)
     #lag_s=seq(lag_1,min(length(case_t),50), 1)
-    c_s=seq(0.01,0.5, 0.01)
-    if(method=="cEVI") c_s=seq(0.01,0.5, 0.05)
+    c_s=seq(0.001,0.5, 0.06)
     #all_j=NA
 
     all_lag=NA
@@ -56,50 +51,30 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="
     all_se=NA
     all_sp=NA
 
-    if(method=="EVI"){
-    for (j in lag_s){
-      roll_t=rollsd(case_t,j)
-      ev_t=evi(roll_t)
-      for (l in c_s){
-        evicut_t=evifcut(ev_t, case_t, l, r)
-        new_j=j
-        new_l=l
-        new_se=evicut_t$sens
-        new_sp=evicut_t$spec
-        all_lag[[length(all_lag) + 1]] <- new_j
-        all_cut[[length(all_cut) + 1]] <- new_l
-        all_se[[length(all_se) + 1]] <- new_se
-        all_sp[[length(all_sp) + 1]] <- new_sp
-
-      }
-    }
-    }
-
-    if(method=="cEVI"){
       for (l in c_s) {
         for (j in lag_s) {
           # roll_t <- rollsd(case_t,j)
           #  ev_t <- evi(roll_t)
-          cEVI <- rep(NA, length(cases))
+          cevi <- rep(NA, length(cases))
           for(k in (j+1):(length(cases)-(j+1))){
-            enu=mean(cases[(k+1):(k+w_s)]-cases[(k):(k-(w_s-1))],na.rm = T)
-            den1=sd(cases[(k):(k-(w_s-1))])^2/(length(cases[(k):(k-(w_s-1))]))
-            den2=sd(cases[(k+1):(k+w_s)])^2/(length(cases[(k+1):(k+w_s)]))
+            enu=mean(cases[(k+1):(k+j)]-cases[(k):(k-(j-1))],na.rm = T)
+            den1=sd(cases[(k):(k-(j-1))])^2/(length(cases[(k):(k-(j-1))]))
+            den2=sd(cases[(k+1):(k+j)])^2/(length(cases[(k+1):(k+j)]))
 
             # Spectral variances more appropriate but more time consuming
             #den1=spectrum0.ar(cases[(i+1):(i+w_s)])$spec/(length(cases[(i+1):(i+w_s)])) # Spectral variances
             #den2=spectrum0.ar(cases[(i):(i-(w_s-1))])$spec/(length(cases[(i):(i-(w_s-1))]))
             test=enu/sqrt(den1+den2)
-            cEVI[k+j+1]=as.numeric((1-pnorm(test))<=l)#*as.numeric(evi[i] >= rate)
+            cevi[k+j+1]=as.numeric((1-pnorm(test))<=l)#*as.numeric(evi[i] >= rate)
           }
-          evicut_t <- evifcut_cEVI(evi=cEVI,cases = case_t, r = r)
+          evicut_t <- evifcut_cEVI(evi=cevi,cases = case_t, r = r)
           all_lag[[length(all_lag) + 1]] <- j
           all_cut[[length(all_cut) + 1]] <- l
           all_se[[length(all_se) + 1]] <- evicut_t[[1]]
           all_sp[[length(all_sp) + 1]] <- evicut_t[[2]]
         }
       }
-    }
+
 
 
     sesp=as.data.frame(cbind(all_lag,all_cut,all_se,all_sp))
@@ -115,18 +90,13 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="
     lag_n=sesp$all_lag[index]
     c_n=sesp$all_cut[index]
 
-    roll_n=rollsd(cases[1:i],lag_n)
+    # Fix final indicator based on cevi procedure.
 
+    cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n)
+    ind_n=indic_cEVI(evi = cevi,cases = case_t)
+    evicut_n=evifcut_cEVI(cevi, case_t, r)
 
-    # Fix final indicator based on cEVI procedure.
-    ev_n=evi(roll_n)
-    ind_n=indic(ev_n,c_n,  case_t)
-    evicut_n=evifcut_cEVI(ev_n, case_t, r)
-
-    roll=c(roll,roll_n[i])
-    ev=c(ev,ev_n[i])
     ind=c(ind, ind_n[i])
-
     lag_all=c(lag_all,lag_n)
     c_all=c(c_all,c_n)
 
@@ -141,7 +111,7 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method="
   }
 
   Days=(1:length(cases))
-  EVI=ev
+  EVI=cevi
   Cases=cases
   Index=ind
 
