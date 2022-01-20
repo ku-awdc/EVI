@@ -25,6 +25,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "pkost@uth.gr")
     )
+Maintainer: Eleftherios Meletis <emeletis@outlook.com>
 Description: 
     This is an R package implementing the epidemic volatility index (EVI), as 
     discussed by Kostoulas et. al. (2021). EVI is a new, conceptually simple, early warning tool for oncoming epidemic waves. 
