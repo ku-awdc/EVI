@@ -24,6 +24,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "pkost@uth.gr")
     )
+Author: Polychronis Kostoulas <pkost@uth.gr>
 Maintainer: Eleftherios Meletis <emeletis@outlook.com>
 Description: 
     This is an R package implementing the epidemic volatility index (EVI), as 
