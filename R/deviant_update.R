@@ -28,7 +28,7 @@
 #' @export
 #'
 #' @references
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \url{https://doi.org/10.1038/s41598-021-02622-3}
+#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 
 
 deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
