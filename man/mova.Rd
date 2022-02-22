@@ -16,8 +16,6 @@ Calculates the moving average for a time series.
 }
 \examples{
 data("Italy")
-7-day moving average
 mova(cases=Italy$Cases, r_a=7)
-14-day moving average
 mova(cases=Italy$Cases, r_a=14)
 }

@@ -7,6 +7,7 @@
 #'
 #' An EVI_output is required as input, derived from the \code{\link[EVI:deviant]{deviant()}} function.
 #'
+#' @param EVI_output output of the \code{\link[EVI:deviant]{deviant()}} function
 #' @param graph Type of graph to be plotted. Options: "EVI", "PPV", "NPV". "EVI" (the default) is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing with higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing with higher NPV.
 #' @param ln  TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
 #' @param type By default, points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.
@@ -18,17 +19,15 @@
 #' evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T, type="l") # For the line EVI plot
 #' @export
 #'
+#' @import ggplot2
+#' @import cowplot
+#'
 #' @references
 #' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 
 
-evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
+evi.graphs <- function(EVI_output,graph=c("EVI"), ln=T, type="p") {
 
-  list.of.packages <- c("ggplot2", "cowplot")
-  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-  if(length(new.packages)) install.packages(new.packages)
-  require(ggplot2)
-  require(cowplot)
   #EVI_output=temp
   EVI_output$cases_1=EVI_output$Cases*EVI_output$Index
   EVI_output$cases_1[EVI_output$cases_1 == 0] <- NA
@@ -42,32 +41,32 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   EVI_output$variable<-"x"
 
   if (graph=="EVI" && ln==F) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=(Cases), color=Index>0), size=0.5),
+      geom_point(aes_string(y=("Cases"), color="Index>0"), size=0.5),
       scale_color_manual(values=c("grey69", "red3")),
       theme(legend.position = "none"),
       labs(y = "Cases", x="Days"),
-    if (type=="l")  geom_path(aes(y=Cases,colour=factor(Index>0)))
+    if (type=="l")  geom_path(aes_string(y="Cases",colour="factor(Index>0)"))
     )
       }
 
   if (graph=="EVI" && ln==T) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=log(Cases), color=Index>0), size=0.5),
+      geom_point(aes_string(y="log(Cases)", color="Index>0"), size=0.5),
       scale_color_manual(values=c("grey69", "red3")),
       theme(legend.position = "none"),
       labs(y = "ln(Cases)", x="Days"),
-      if (type=="l")  geom_path(aes(y=log(Cases),colour=factor(Index>0)))
+      if (type=="l")  geom_path(aes_string(y="log(Cases)",colour="factor(Index>0)"))
       )
      }
 
   if (graph=="PPV" && ln==F) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=(cases_1), col=ppv), size=0.5),
-      geom_point(aes(y=(cases_0)), col="grey69", size=0.5),
+      geom_point(aes_string(y="(cases_1)", col="ppv"), size=0.5),
+      geom_point(aes_string(y="(cases_0)"), col="grey69", size=0.5),
       labs(y = "Cases", x=""),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
       labs(color= "PPV"),
@@ -79,10 +78,10 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
       }
 
   if (graph=="PPV" && ln==T) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=log(cases_1), col=ppv), size=0.5),
-      geom_point(aes(y=log(cases_0)), col="grey69", size=0.5),
+      geom_point(aes(y="log(cases_1)", col="ppv"), size=0.5),
+      geom_point(aes(y="log(cases_0)"), col="grey69", size=0.5),
       labs(y = "ln(Cases)", x=""),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
       labs(color= "PPV"),
@@ -94,10 +93,10 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
     }
 
   if (graph=="NPV" && ln==F) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=(cases_0), col=npv), size=0.5),
-      geom_point(aes(y=(cases_1)), col="grey69", size=0.5),
+      geom_point(aes_string(y="(cases_0)", col="npv"), size=0.5),
+      geom_point(aes_string(y="(cases_1)"), col="grey69", size=0.5),
       labs(y = "Cases"),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
       labs(color= "NPV"),
@@ -110,10 +109,10 @@ evi.graphs=function(EVI_output,graph=c("EVI"), ln=T, type="p") {
 
 
   if (graph=="NPV" && ln==T) {
-    sp3<-ggplot(EVI_output, aes(x=Days,group=variable))+
+    sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y=log(cases_0), col=npv), size=0.5),
-      geom_point(aes(y=log(cases_1)), col="grey69", size=0.5),
+      geom_point(aes_string(y="log(cases_0)", col="npv"), size=0.5),
+      geom_point(aes_string(y="log(cases_1)"), col="grey69", size=0.5),
       labs(y = "ln(Cases)"),
       scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
       labs(color= "NPV"),

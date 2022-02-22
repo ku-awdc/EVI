@@ -15,11 +15,12 @@
 #' @examples
 #' # If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:
 #'
-#' deviant(new_cases=Italy$Cases[1:148], cum=F, r_a=7, r=0.2, lag_max=30)
+#' data("Italy")
+#' deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
 #'
 #' # When the number of cases for the next day is observed we want to obtain the estimates for this day without having to reanalyze the entire time series. This is done by using the deviant_update function:
 #'
-#' deviant_update(new_cases=Italy$Cases[1:149], cum=F, r_a=7, r=0.2, lag_max=30)
+#' deviant_update(new_cases=Italy$Cases[1:149], cum=FALSE, r_a=7, r=0.2, lag_max=30)
 #'
 #' # The result of running the deviant_update function is to update the output of the deviant_function by adding an additional row with estimates for the new data.
 #' # In this example the EVI_output file will now have 149 rows. If two additional days are analyzed two additional rows will be added and so on.

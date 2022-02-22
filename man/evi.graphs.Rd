@@ -7,6 +7,8 @@
 evi.graphs(EVI_output, graph = c("EVI"), ln = T, type = "p")
 }
 \arguments{
+\item{EVI_output}{output of the \code{\link[EVI:deviant]{deviant()}} function}
+
 \item{graph}{Type of graph to be plotted. Options: "EVI", "PPV", "NPV". "EVI" (the default) is giving a plot of the confirmed cases, with red dots corresponding to time points that an early warning was issued and grey dots corresponding to time points without an early warning indication. "PPV" is giving a plot of the confirmed cases with colored dots corresponding to time points with an early warning. Color intensity is increasing with higher PPV. "NPV" is giving a plot of the confirmed cases with colored dots corresponding to time points without an early warning. Color intensity is increasing with higher NPV.}
 
 \item{ln}{TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.}
@@ -29,5 +31,5 @@ evi.graphs(EVI_output=EVI_output, graph="NPV", ln=T)
 evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T, type="l") # For the line EVI plot
 }
 \references{
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \url{https://doi.org/10.1038/s41598-021-02622-3}
+Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 }

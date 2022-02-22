@@ -38,8 +38,10 @@
 #'
 #' @examples
 #' data("Italy")
-#' deviant(new_cases=Italy$Cases, cum=F, r_a=7, r=0.2, lag_max=30)
+#' deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30)
 #' #This step should take some time and the time elapsed will be printed
+#'
+#' @importFrom stats sd
 #'
 #' @export
 #'
@@ -196,7 +198,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, ppv, npv,
                               lag_all, c_all, se_all, sp_all))
-  EVI_output<<-(EVI_out)
+  EVI_output<-(EVI_out)
 
   end_time = Sys.time()
 
