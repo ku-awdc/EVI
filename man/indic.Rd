@@ -4,7 +4,7 @@
 \alias{indic}
 \title{Function that produces the early warning}
 \usage{
-indic(evi, cut, cases)
+indic(evi, cut, cases, method = "EVI")
 }
 \arguments{
 \item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
@@ -12,6 +12,8 @@ indic(evi, cut, cases)
 \item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
 
 \item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
+
+\item{method}{Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development.}
 }
 \description{
 Index = 1 when an early warning is issued and Index=0 when an early warning is not issued

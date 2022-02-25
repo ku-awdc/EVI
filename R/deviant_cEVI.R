@@ -142,8 +142,8 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     # Fix final indicator based on cevi procedure.
 
     cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n) #
-    ind_n=indic_cEVI(evi = cevi,cases = case_t) #
-    evicut_n=evifcut_cEVI(cevi, case_t, r) #
+    ind_n=indic(evi = cevi,cases = case_t, method="cEVI") #
+    evicut_n=evifcut(cevi, case_t, r, method="cEVI") #
 
     ind=c(ind, ind_n[i])
     lag_all=c(lag_all,lag_n)

@@ -6,6 +6,7 @@
 #' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
 #' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.
 #' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
+#' @param method Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development.
 #'
 #' @examples
 #' data("Italy")
@@ -16,7 +17,7 @@
 
 #' @export
 
-evifcut = function(evi, cases, cut, r) {
+evifcut = function(evi, cases, cut, r, method) {
 
   w_s=7
   ratio = 1/(1+r)
@@ -24,7 +25,7 @@ evifcut = function(evi, cases, cut, r) {
   true_p=rep(NA, length(cases))
 
 
-
+if(method=="EVI"){
   for (i in w_s:(length(cases)-w_s)){
     if (evi[i]>=cut && cases[i]>mean(cases[i:(i-6)]))
     {test_p[i]=1}
@@ -37,6 +38,18 @@ evifcut = function(evi, cases, cut, r) {
     {true_p[i]=0}
 
   }
+  }
+
+if(method=="cEVI"){
+  for (i in w_s:(length(cases)-w_s)){
+
+    if ((!is.na(evi[i]) & evi[i]  == 1) && cases[i]>mean(cases[i:(i-7)]))
+    {test_p[i] <- 1}else{test_p[i] <- 0}
+
+    if (mean(cases[(i):(i-w_s+1)]) <= ratio * mean(cases[(i+1):(i+w_s)],na.rm=T))
+    {true_p[i] <- 1}else{true_p[i] <- 0}
+  }
+}
 
   sens=length(which(test_p==1 & true_p==1))/length(which(true_p==1))
   spec=length(which(test_p==0 & true_p==0))/length(which(true_p==0))

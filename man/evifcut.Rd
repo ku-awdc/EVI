@@ -4,7 +4,7 @@
 \alias{evifcut}
 \title{Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size}
 \usage{
-evifcut(evi, cases, cut, r)
+evifcut(evi, cases, cut, r, method)
 }
 \arguments{
 \item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
@@ -14,6 +14,8 @@ evifcut(evi, cases, cut, r)
 \item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.}
 
 \item{r}{Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days.}
+
+\item{method}{Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development.}
 }
 \description{
 Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size.

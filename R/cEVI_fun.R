@@ -4,6 +4,15 @@
 #' @param cases the time series of the newly observed cases per unit of time (ideally per day).
 #' @param lag_n Integer. Restriction of the window size for the rolling window size.
 #' @param c_n threshold alpha-level value (0 <= c <= 0.5) for issuing an early warning. If cevi <= c_n an early warning is issued and otherwise is not.
+
+#'
+#' For each time point the stored variables are:
+#'@return \itemize{
+#' \item{Dates: the date for each time point (with origin 01-01-1970).}
+#'
+#'\item{Days: the serial number for each time point.}
+#'
+#'\item{EVI: the estimated EVI for each time point.}
 #'
 cEVI_fun<-function(cases,lag_n,c_n){
 
