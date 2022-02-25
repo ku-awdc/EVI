@@ -13,6 +13,11 @@
 #'
 #'\item{EVI: the estimated EVI for each time point.}
 #'
+#' @export
+#'
+#' @references
+#' Pateras K, Meletis E, ..., Kostoulas P
+
 cEVI_fun<-function(cases,lag_n,c_n){
 
 cevi <- rep(NA, length(cases))

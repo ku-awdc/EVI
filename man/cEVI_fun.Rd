@@ -26,3 +26,6 @@ For each time point the stored variables are:}
 \description{
 This function produces the 'convergence' Epidemic Volatility Index based on input  data
 }
+\references{
+Pateras K, Meletis E, ..., Kostoulas P
+}
