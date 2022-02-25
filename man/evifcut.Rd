@@ -15,7 +15,7 @@ evifcut(evi, cases, cut, r, method)
 
 \item{r}{Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20\% higher than the mean number of the newly observed cases in the past 7 days.}
 
-\item{method}{Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development.}
+\item{method}{Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development. (beta)}
 }
 \description{
 Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size.

@@ -5,7 +5,7 @@
 #' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.
 #' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
 #' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
-#' @param method Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development.
+#' @param method Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development. (beta)
 #'
 #' @examples
 #' data("Italy")
@@ -15,7 +15,7 @@
 #' ind=indic(evi=ev, cut=0.01, cases=cases)
 #'
 #' @export
-indic = function(evi, cut, cases, method="EVI") {
+indic = function(evi=NULL, cut=NULL, cases, method="EVI") {
   if(method=="EVI"){
   ind=rep(NA,length(evi))
   for (i in 3:length(evi)){

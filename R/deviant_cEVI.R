@@ -1,4 +1,4 @@
-#' This function produces the convergence Epidemic Volatility Index based output data
+#' This function produces the convergence Epidemic Volatility Index based output data (beta)
 #'
 #'
 #'
@@ -69,7 +69,7 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #roll=rollsd(cases[1:start_cases],lag_1)
   #ev=evi(roll)
   cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
-  ind=indic(cevi, cases[1:start_cases], method="cEVI")
+  ind=indic(evi=cevi, cases=cases[1:start_cases], method="cEVI")
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
@@ -116,7 +116,7 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
             test=enu/sqrt(den1+den2)
             cevi[k+j+1]=as.numeric((1-pnorm(test))<=l)#*as.numeric(evi[i] >= rate)
           }
-          evicut_t <- evifcut_cEVI(evi=cevi,cases = case_t, r = r)
+          evicut_t <- evifcut(evi=cevi,cases = case_t, r = r,method = cEVI)
           all_lag[[length(all_lag) + 1]] <- j
           all_cut[[length(all_cut) + 1]] <- l
           all_se[[length(all_se) + 1]] <- evicut_t[[1]]

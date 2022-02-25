@@ -2,7 +2,7 @@
 % Please edit documentation in R/deviant_cEVI.R
 \name{deviant_cEVI}
 \alias{deviant_cEVI}
-\title{This function produces the convergence Epidemic Volatility Index based output data}
+\title{This function produces the convergence Epidemic Volatility Index based output data (beta)}
 \usage{
 deviant_cEVI(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 }
@@ -42,7 +42,7 @@ deviant_cEVI(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 \item{sp_all: the specificity (Sp) of EVI up to this time point.}}
 }
 \description{
-This function produces the convergence Epidemic Volatility Index based output data
+This function produces the convergence Epidemic Volatility Index based output data (beta)
 }
 \details{
 For each time point the stored variables are:
