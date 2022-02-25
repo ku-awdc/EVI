@@ -47,7 +47,7 @@
 #' @references
 #' Pateras K, Meletis E, ..., Kostoulas P
 
-deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
+deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #source("mova.r")
   #source("medvol.r")
   #source("evi.r")
@@ -69,7 +69,7 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #roll=rollsd(cases[1:start_cases],lag_1)
   #ev=evi(roll)
   cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
-  ind=indic_cEVI(cevi, cases[1:start_cases])
+  ind=indic(cevi, cases[1:start_cases], method="cEVI")
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
