@@ -116,7 +116,7 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
             test=enu/sqrt(den1+den2)
             cevi[k+j+1]=as.numeric((1-pnorm(test))<=l)#*as.numeric(evi[i] >= rate)
           }
-          evicut_t <- evifcut(evi=cevi,cases = case_t, r = r,method = cEVI)
+          evicut_t <- evifcut(evi=cevi,cases = case_t, r = r,method = "cEVI")
           all_lag[[length(all_lag) + 1]] <- j
           all_cut[[length(all_cut) + 1]] <- l
           all_se[[length(all_se) + 1]] <- evicut_t[[1]]
@@ -143,7 +143,7 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
     cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n) #
     ind_n=indic(evi = cevi,cases = case_t, method="cEVI") #
-    evicut_n=evifcut(cevi, case_t, r, method="cEVI") #
+    evicut_n=evifcut(evi = cevi, cases = case_t, r = r, method="cEVI") #
 
     ind=c(ind, ind_n[i])
     lag_all=c(lag_all,lag_n)

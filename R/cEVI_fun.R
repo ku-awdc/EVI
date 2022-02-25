@@ -4,7 +4,6 @@
 #' @param cases the time series of the newly observed cases per unit of time (ideally per day).
 #' @param lag_n Integer. Restriction of the window size for the rolling window size.
 #' @param c_n threshold alpha-level value (0 <= c <= 0.5) for issuing an early warning. If cevi <= c_n an early warning is issued and otherwise is not.
-
 #'
 #' For each time point the stored variables are:
 #'@return \itemize{

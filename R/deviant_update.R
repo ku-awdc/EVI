@@ -58,7 +58,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   roll=rollsd(cases[1:start_cases],lag_1)
   ev=evi(roll)
-  ind=indic(ev,c_1, cases[1:start_cases])
+  ind=indic(ev,c_1, cases[1:start_cases], method="EVI")
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
@@ -99,7 +99,7 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
       roll_t=rollsd(case_t,j)
       ev_t=evi(roll_t)
       for (l in c_s){
-        evicut_t=evifcut(ev_t, case_t, l, r)
+        evicut_t=evifcut(ev_t, case_t, l, r, method="EVI")
         new_j=j
         new_l=l
         new_se=evicut_t$sens
@@ -147,8 +147,8 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     roll_n=rollsd(cases[1:i],lag_n)
 
     ev_n=evi(roll_n)
-    ind_n=indic(ev_n,c_n, case_t)
-    evicut_n=evifcut(ev_n, case_t, c_n, r)
+    ind_n=indic(ev_n,c_n, case_t, method="EVI")
+    evicut_n=evifcut(ev_n, case_t, c_n, r, method="EVI")
 
     roll=c(roll,roll_n[i])
     ev=c(ev,ev_n[i])
