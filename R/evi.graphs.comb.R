@@ -21,10 +21,8 @@
 #' cEVI_output=deviant_cEVI(new_cases=Italy$Cases, cum=FALSE)
 #'
 #' # Plot the EVI combination graph
-#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, graph="EVI", ln=T)
-#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="PPV", ln=T)
-#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="NPV", ln=T)
-#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="EVI", ln=T, type="l") # For the line EVI plot
+#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T)
+#' evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T, type="l") # For the line EVI plot
 #' @export
 #'
 #' @import ggplot2
@@ -54,26 +52,34 @@ evi.graphs.comb <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
   EVI_output$ppv[EVI_output$ppv == 0] <- NA
   EVI_output$variable<-"x"
   EVI_output$Index[is.na(EVI_output$Index)]<-0
-
+  EVI_output$Index<-factor(EVI_output$Index,labels = c("No warning","Warning 1","Warning 2","Warning 1+2"))
   if (ln==F) {
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-        geom_point(aes_string(y=("Cases"), color="factor(Index)"), size=size.evi),
-        scale_color_manual(values=c("grey69", "yellow", "orange2", "red3")),
+        geom_point(aes_string(y=("Cases"), color="Index"), size=size.evi),
+        scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
         theme(legend.position = "none"),
-        labs(y = "Cases", x="Days"),
-        if (type=="l")  geom_path(aes_string(y="Cases",colour="factor(Index)"),size=size.evi)
+        labs(title = paste0("Graph combining outputs ",EVI1.lab," and ",EVI2.lab), y = "Cases", x="Days"),
+        theme(legend.position = "bottom",
+              legend.title = element_text(size=10),
+              legend.text = element_text(size=8),
+              legend.key.height = unit(0, 'cm')),
+        if (type=="l")  geom_path(aes_string(y="Cases",colour="Index"),size=size.evi)
       )
   }
 
   if (ln==T) {
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-        geom_point(aes_string(y="log(Cases)", color="factor(Index)"), size=size.evi),
-        scale_color_manual(values=c("grey69", "yellow", "orange2", "red3")),
+        geom_point(aes_string(y="log(Cases)", color="Index"), size=size.evi),
+        scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
         theme(legend.position = "none"),
-        labs(y = "ln(Cases)", x="Days"),
-        if (type=="l")  geom_path(aes_string(y="log(Cases)",colour="factor(Index)"), size=size.evi)
+        labs(title = paste0("Graph combining outputs ",EVI1.lab," and ",EVI2.lab), y = "Cases", x="Days"),
+        theme(legend.position = "bottom",
+              legend.title = element_text(size=10),
+              legend.text = element_text(size=8),
+              legend.key.height = unit(0, 'cm')),
+        if (type=="l")  geom_path(aes_string(y="log(Cases)",colour="Index"), size=size.evi)
       )
   }
   print(sp3)

@@ -17,6 +17,8 @@ Austria <- read_excel("cEVI/Austria_150.xlsx")
 # Run cEVI for the first cases of Italy
 tmp_EVI_at=deviant(new_cases = Austria$ncases)
 tmp_cEVI_at=deviant_cEVI(new_cases = Austria$ncases,lag_max = 40)
+
+evi.graphs.comb(tmp_EVI_at,tmp_EVI_at)
 # 2 min for Austria 150
 # 2 min for Italy 150
 
