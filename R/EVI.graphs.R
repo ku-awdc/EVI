@@ -126,15 +126,3 @@ evi.graphs <- function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   print(sp3)
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
