@@ -12,7 +12,7 @@
 #'
 #' \item{Days: the serial number for each time point.}
 #'
-#' \item{EVI: the estimated EVI for each time point.}
+#' \item{EVI: the estimated EVI for each time point.}}
 #'
 #' @references
 #' Pateras K, Meletis E, Kostoulas P, The convergence epidemic volatility index an early warning tool for indentifying waves in an epidemic, 2022

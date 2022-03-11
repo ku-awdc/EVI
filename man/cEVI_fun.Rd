@@ -21,7 +21,7 @@ For each time point the stored variables are:}
 
 \item{Days: the serial number for each time point.}
 
-\item{EVI: the estimated EVI for each time point.}
+\item{EVI: the estimated EVI for each time point.}}
 }
 \description{
 This function produces the convergence Epidemic Volatility Index based on input data.
