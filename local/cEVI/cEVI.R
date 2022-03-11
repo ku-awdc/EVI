@@ -1,6 +1,7 @@
 # Load functions and rest of EVI package
 remotes::install_github("ku-awdc/EVI",force=T)
 require(EVI)
+?cEVI_fun
 
 #source("cEVI/deviant_cEVI.R")
 #source("cEVI/evifcut_cEVI.R")

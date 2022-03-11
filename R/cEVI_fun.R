@@ -6,14 +6,12 @@
 #' @param c_n threshold alpha-level value (0 <= c <= 0.5) for issuing an early warning. If cevi <= c_n an early warning is issued and otherwise is not.
 #'
 #' For each time point the stored variables are:
-#'@return \itemize{
+#' @return \itemize{
 #' \item{Dates: the date for each time point (with origin 01-01-1970).}
 #'
-#'\item{Days: the serial number for each time point.}
+#' \item{Days: the serial number for each time point.}
 #'
-#'\item{EVI: the estimated EVI for each time point.}
-#'
-#' @export
+#' \item{EVI: the estimated EVI for each time point.}
 #'
 #' @references
 #' Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
