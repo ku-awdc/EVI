@@ -2,7 +2,7 @@
 % Please edit documentation in R/cEVI_fun.R
 \name{cEVI_fun}
 \alias{cEVI_fun}
-\title{This function produces the 'convergence' Epidemic Volatility Index based on input  data}
+\title{Calculation of the convergence Epidemic Volatility Index}
 \usage{
 cEVI_fun(cases, lag_n, c_n)
 }
@@ -24,8 +24,8 @@ For each time point the stored variables are:}
 \item{EVI: the estimated EVI for each time point.}
 }
 \description{
-This function produces the 'convergence' Epidemic Volatility Index based on input  data
+This function produces the convergence Epidemic Volatility Index based on input data.
 }
 \references{
-Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
+Pateras K, Meletis E, Kostoulas P, The convergence epidemic volatility index an early warning tool for indentifying waves in an epidemic, 2022
 }

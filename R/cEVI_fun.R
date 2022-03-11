@@ -1,5 +1,6 @@
-#' This function produces the 'convergence' Epidemic Volatility Index based on input  data
+#' Calculation of the convergence Epidemic Volatility Index
 #'
+#' This function produces the convergence Epidemic Volatility Index based on input data.
 #'
 #' @param cases the time series of the newly observed cases per unit of time (ideally per day).
 #' @param lag_n Integer. Restriction of the window size for the rolling window size.
@@ -14,7 +15,7 @@
 #' \item{EVI: the estimated EVI for each time point.}
 #'
 #' @references
-#' Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
+#' Pateras K, Meletis E, Kostoulas P, The convergence epidemic volatility index an early warning tool for indentifying waves in an epidemic, 2022
 
 cEVI_fun<-function(cases,lag_n,c_n){
 

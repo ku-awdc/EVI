@@ -1,6 +1,6 @@
 #' This function produces the convergence Epidemic Volatility Index based output data (beta)
 #'
-#'
+#' This is a secondary function of the \code{\link[EVI:EVI-package]{EVI-package}} that you should use to analyze a time series of observed cases per unit of time (ideally per day). This function is based on ongoing work and should be used with caution.
 #'
 #' For each time point the stored variables are:
 #'@return \itemize{
