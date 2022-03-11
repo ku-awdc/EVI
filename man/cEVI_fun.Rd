@@ -27,5 +27,5 @@ For each time point the stored variables are:}
 This function produces the 'convergence' Epidemic Volatility Index based on input  data
 }
 \references{
-Pateras K, Meletis E, ..., Kostoulas P
+Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
 }
