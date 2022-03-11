@@ -2,10 +2,10 @@
 remotes::install_github("ku-awdc/EVI",force=T)
 require(EVI)
 
-source("cEVI/deviant_cEVI.R")
-source("cEVI/evifcut_cEVI.R")
-source("cEVI/indic_cEVI.R")
-source("cEVI/cEVI_fun.R")
+#source("cEVI/deviant_cEVI.R")
+#source("cEVI/evifcut_cEVI.R")
+#source("cEVI/indic_cEVI.R")
+#source("cEVI/cEVI_fun.R")
 
 
 # Load the mot example
@@ -14,12 +14,12 @@ library(readxl)
 Austria <- read_excel("cEVI/Austria_150.xlsx")
 
 # Run cEVI for the first cases of Italy
-#tmp_EVI_at=deviant(new_cases = Austria$ncases)
-#tmp_cEVI_at=deviant_cEVI(new_cases = Austria$ncases,lag_max = 40)
+tmp_EVI_at=deviant(new_cases = Austria$ncases)
+tmp_cEVI_at=deviant_cEVI(new_cases = Austria$ncases,lag_max = 40)
 # 2 min for Austria 150
 # 2 min for Italy 150
 
-#tmp_EVI_ita=deviant(new_cases = Italy$Cases)
+tmp_EVI_ita=deviant(new_cases = Italy$Cases)
 tmp_cEVI_ita=deviant_cEVI(new_cases = Italy$Cases, lag_max = 40)
 # 1.60 min for Austria 150
 # 1.61 min for Italy 150

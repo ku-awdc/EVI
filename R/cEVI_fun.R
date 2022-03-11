@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @references
-#' Pateras K, Meletis E, ..., Kostoulas P
+#' Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
 
 cEVI_fun<-function(cases,lag_n,c_n){
 
