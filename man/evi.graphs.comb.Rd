@@ -45,10 +45,8 @@ EVI_output=deviant(new_cases=Italy$Cases, cum=FALSE)
 cEVI_output=deviant_cEVI(new_cases=Italy$Cases, cum=FALSE)
 
 # Plot the EVI combination graph
-evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, graph="EVI", ln=T)
-evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="PPV", ln=T)
-evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="NPV", ln=T)
-evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output,  graph="EVI", ln=T, type="l") # For the line EVI plot
+evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T)
+evi.graphs.comb(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T, type="l") # For the line EVI plot
 }
 \references{
 Pateras K, Meletis E, Kostoulas P, The convergence epidemic volatility index an early warning tool for indentifying waves in an epidemic, 2022

@@ -1,7 +1,7 @@
 #' Moving Average
 #'
 #' This function calculates the moving average of a time series.
-#' 
+#'
 #' @return
 #' Returns as a vector the moving average for a time series.
 #'
@@ -18,11 +18,21 @@
 #' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 #'
 mova=function(cases, r_a=7){
-  ncases=rep(NA, length(cases))
-  for (i in 1:length(cases)){
-    ncases[i]=mean(cases[((i+1)-min(r_a,i)):i])
+
+  # Use C++ code unless option has been set to disable it:
+  if(!isTRUE(getOption("EVI_disable_cpp"))){
+
+    return( Rcpp_movea(cases, r_a) )
+
+  }else{
+
+    ncases=rep(NA, length(cases))
+    for (i in 1:length(cases)){
+      ncases[i]=mean(cases[((i+1)-min(r_a,i)):i])
+    }
+    return(ncases)
+
   }
-  return(ncases)
 }
 
 

@@ -1,7 +1,7 @@
 Package: EVI
 Title: Epidemic Volatility Index as an Early-Warning Tool
-Version: 0.1.1-4
-Date: 2022-03-30
+Version: 0.2.1-1
+Date: 2022-04-04
 Authors@R: 
     c(
     person(given = "Eletherios",
@@ -39,7 +39,8 @@ Depends:
     R (>= 3.5.0)
 Imports:
     ggplot2,
-    cowplot
+    cowplot,
+    Rcpp
 Suggests: 
     knitr,
     markdown,
@@ -49,3 +50,5 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-US
+LinkingTo: 
+    Rcpp
