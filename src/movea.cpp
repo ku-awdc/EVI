@@ -2,6 +2,31 @@
 
 #include "movea.h"
 
+// Potentially susceptible to catastrophic cancellation but very fast:
+Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
+{
+  
+  Rcpp::NumericVector ncases(cases.length());
+  double sum = cases[0L];
+  ncases[0L] = cases[0L];
+  
+  for(int i=1L; i<ncases.length(); ++i)
+  {
+    if(i >= r_a)
+    {
+      sum -= cases[i-r_a];
+    }
+    sum += cases[i];
+    
+    ncases[i] = sum / static_cast<double>((i < r_a) ? (i+1L) : r_a);
+  }
+  
+  return ncases;
+}
+
+
+// Alternative implementation that is not susceptible to catastrophic cancellation:
+/*
 Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
 {
   
@@ -20,3 +45,4 @@ Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
   
   return ncases;
 }
+*/
