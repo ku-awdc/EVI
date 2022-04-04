@@ -1,52 +1,3 @@
-#' This function produces the convergence Epidemic Volatility Index based output data
-#'
-#'
-#'
-#' For each time point the stored variables are:
-#'@return \itemize{
-#' \item{Dates: the date for each time point (with origin 01-01-1970).}
-#'
-#'\item{Days: the serial number for each time point.}
-#'
-#'\item{EVI: the estimated EVI for each time point.}
-#'
-#'\item{Cases: the rolling average of the newly observed cases for each time point. A 7-day rolling average is calculated by default (i.e., r_a=7). The user has the option to change this by modifying r_a.}
-#'
-#'\item{Index: takes values 1 or 0 for the issuance of an early warning or not, respectively.}
-#'
-#'\item{ppv: the positive predictive value for each time point.}
-#'
-#'\item{npv: the negative predictive value for each time point.}
-#'
-#'\item{lag_all: the selected rolling window size for EVI calculation for each time point.}
-#'
-#'\item{c_all: the selected cut-off for issuing an early warning for each time point.}
-#'
-#'\item{se_all: the sensitivity (Se) of EVI up to this time point.}
-#'
-#'\item{sp_all: the specificity (Sp) of EVI up to this time point.}}
-
-
-
-#' @param new_cases the time series of the newly observed cases per unit of time (ideally per day).
-#' @param cum TRUE or FALSE; TRUE if the time series is recorded as the cumulative number of the reported cases and FALSE (the default) if newly reported cases per unit of time are recorded.
-#' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).
-#' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
-#' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.
-#'
-#'
-#' @examples
-#' data("Italy")
-#' deviant_cEVI(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30)
-#' #This step should take some time and the time elapsed will be printed
-#'
-#' @importFrom stats sd
-#'
-#' @export
-#'
-#' @references
-#' Pateras K, Meletis E, ..., Kostoulas P
-
 deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   #source("mova.r")
   #source("medvol.r")
@@ -68,8 +19,8 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   cases=mova(new_cases,r_a)
   #roll=rollsd(cases[1:start_cases],lag_1)
   #ev=evi(roll)
-  cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
-  ind=indic(evi=cevi, cases=cases[1:start_cases], method="cEVI")
+  cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1,c_n = c_1)
+  ind=indic_cEVI(cevi, cases[1:start_cases])
   status=status(cases[1:start_cases],r)
 
   #initiate chain for positive predictive value
@@ -85,14 +36,14 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   c_all[1:start_cases]=c_1
 
 
-  for (i.case in (start_cases+1): length(cases)){
+  for (i in (start_cases+1): length(cases)){
 
-    case_t=cases[1:i.case]
+    case_t=cases[1:i]
     #case_t=cases[max(1,(i-33)):i]
     #lag_s=7
     lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 2)
     #lag_s=seq(lag_1,min(length(case_t),50), 1)
-    c_s=seq(0.001,0.401, 0.05)
+    c_s=seq(0.001,0.5, 0.06)
     #all_j=NA
 
     all_lag=NA
@@ -100,33 +51,25 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     all_se=NA
     all_sp=NA
 
-      for (i.c_s in c_s) {
-        for (i.lag_s in lag_s) {
-          # roll_t <- rollsd(case_t,i.lag_s)
+      for (l in c_s) {
+        for (j in lag_s) {
+          # roll_t <- rollsd(case_t,j)
           #  ev_t <- evi(roll_t)
           cevi <- rep(NA, length(cases))
-          for(k in (i.lag_s+1):(length(cases)-(i.lag_s+1))){
-
-            enu=mean(cases[(k+1):(k+i.lag_s+1)]-
-                       cases[(k):(k-(i.lag_s))],na.rm = T)
-            tail(cases,10)
-
-            den1=sd(cases[(k+1):(k-(i.lag_s+1))])^2/
-              (length(cases[(k+1):(k-(i.lag_s+1))]))
-
-            den2=sd(cases[(k):(k+i.lag_s)])^2/
-              (length(cases[(k):(k+i.lag_s)]))
+          for(k in (j+1):(length(cases)-(j+1))){
+            enu=mean(cases[(k+1):(k+j)]-cases[(k):(k-(j-1))],na.rm = T)
+            den1=sd(cases[(k):(k-(j-1))])^2/(length(cases[(k):(k-(j-1))]))
+            den2=sd(cases[(k+1):(k+j)])^2/(length(cases[(k+1):(k+j)]))
 
             # Spectral variances more appropriate but more time consuming
             #den1=spectrum0.ar(cases[(i+1):(i+w_s)])$spec/(length(cases[(i+1):(i+w_s)])) # Spectral variances
             #den2=spectrum0.ar(cases[(i):(i-(w_s-1))])$spec/(length(cases[(i):(i-(w_s-1))]))
-
             test=enu/sqrt(den1+den2)
-            cevi[k+i.lag_s+1]=as.numeric((1-pnorm(test))<=i.c_s)#*as.numeric(evi[i] >= rate)
+            cevi[k+j+1]=as.numeric((1-pnorm(test))<=l)#*as.numeric(evi[i] >= rate)
           }
-          evicut_t <- evifcut(evi=cevi,cases = case_t, r = r,method = "cEVI")
-          all_lag[[length(all_lag) + 1]] <- i.lag_s
-          all_cut[[length(all_cut) + 1]] <- i.c_s
+          evicut_t <- evifcut_cEVI(evi=cevi,cases = case_t, r = r)
+          all_lag[[length(all_lag) + 1]] <- j
+          all_cut[[length(all_cut) + 1]] <- l
           all_se[[length(all_se) + 1]] <- evicut_t[[1]]
           all_sp[[length(all_sp) + 1]] <- evicut_t[[2]]
         }
@@ -149,11 +92,11 @@ deviant_plus=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
     # Fix final indicator based on cevi procedure.
 
-    cevi=cEVI_fun(cases = cases[1:i.case],lag_n = lag_n, c_n = c_n) #
-    ind_n=indic(evi = cevi,cases = case_t, method="cEVI") #
-    evicut_n=evifcut(evi = cevi, cases = case_t, r = r, method="cEVI") #
+    cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n)
+    ind_n=indic_cEVI(evi = cevi,cases = case_t)
+    evicut_n=evifcut_cEVI(cevi, case_t, r)
 
-    ind=c(ind, ind_n[i.case])
+    ind=c(ind, ind_n[i])
     lag_all=c(lag_all,lag_n)
     c_all=c(c_all,c_n)
 

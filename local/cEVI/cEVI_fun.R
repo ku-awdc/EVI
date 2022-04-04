@@ -1,22 +1,10 @@
-#' This function produces the 'convergence' Epidemic Volatility Index based on input  data
-#'
-#'
-#' @param cases the time series of the newly observed cases per unit of time (ideally per day).
-#' @param lag_n Integer. Restriction of the window size for the rolling window size.
-#' @param c_n threshold alpha-level value (0 <= c <= 0.5) for issuing an early warning. If cevi <= c_n an early warning is issued and otherwise is not.
-#'
 cEVI_fun<-function(cases,lag_n,c_n){
 
 cevi <- rep(NA, length(cases))
 for(k in (lag_n+1):(length(cases)-(lag_n+1))){
-  enu=mean(cases[(k+1):(k+lag_n+1)]-
-             cases[(k):(k-(lag_n))],na.rm = T)
-
-  den1=sd(cases[(k+1):(k+lag_n+1)])^2/
-    (length(cases[(k+1):(k+lag_n+1)]))
-
-  den2=sd(cases[(k):(k-(lag_n))])^2/
-    (length(cases[(k):(k-(lag_n))]))
+  enu=mean(cases[(k+1):(k+lag_n)]-cases[(k):(k-(lag_n-1))],na.rm = T)
+  den1=sd(cases[(k):(k-(lag_n-1))])^2/(length(cases[(k):(k-(lag_n-1))]))
+  den2=sd(cases[(k+1):(k+lag_n)])^2/(length(cases[(k+1):(k+lag_n)]))
 
   # Spectral variances more appropriate but more time consuming
   #den1=spectrum0.ar(cases[(i+1):(i+w_s)])$spec/(length(cases[(i+1):(i+w_s)])) # Spectral variances

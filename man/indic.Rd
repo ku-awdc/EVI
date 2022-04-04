@@ -2,9 +2,9 @@
 % Please edit documentation in R/indic.R
 \name{indic}
 \alias{indic}
-\title{Function that produces the early warning}
+\title{Issue of an Early Warning}
 \usage{
-indic(evi = NULL, cut = NULL, cases, method = "EVI")
+indic(evi, cut, cases)
 }
 \arguments{
 \item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
@@ -12,17 +12,21 @@ indic(evi = NULL, cut = NULL, cases, method = "EVI")
 \item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
 
 \item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
-
-\item{method}{Select a method. Available methods c("EVI", "cEVI"). cEVI is currently under development. (beta)}
+}
+\value{
+A vector of 0s and 1s is produced, where a 1 (Index = 1) is recorded when an early warning is issued and a 0 (Index = 0) when an early warning is not issued.
 }
 \description{
-Index = 1 when an early warning is issued and Index=0 when an early warning is not issued
+This function produces the early warning signal (Index).
 }
 \examples{
 data("Italy")
-cases = mova(cases=Italy$Cases, r_a=7)
-roll = rollsd(cases=cases, lag_t=7)
-ev = evi(rollsd=roll)
-ind=indic(evi=ev, cut=0.01, cases=cases)
+cases = mova(cases = Italy$Cases, r_a = 7)
+roll = rollsd(cases = cases, lag_t = 7)
+ev = evi(rollsd = roll)
+ind=indic(evi = ev, cut = 0.01, cases = cases)
 
+}
+\references{
+Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 }

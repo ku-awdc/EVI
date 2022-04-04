@@ -48,9 +48,13 @@ This is the main function of the \code{\link[EVI:EVI-package]{EVI-package}} that
 For each time point the stored variables are:
 }
 \examples{
-data("Italy")
-deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30)
-#This step should take some time and the time elapsed will be printed
+     \dontrun{
+        # Epidemic Volatility Index (EVI) Explained:
+	       vignette('EVI', package='EVI')
+	       
+       # For information on how to cite EVI:
+       citation('EVI')
+    }
 
 }
 \references{
