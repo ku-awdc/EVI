@@ -5,6 +5,7 @@
 // Potentially susceptible to catastrophic cancellation but very fast:
 Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
 {
+  // TODO: re-implement using running mean algorithm to avoid catastrophic cancellation
   
   Rcpp::NumericVector ncases(cases.length());
   double sum = cases[0L];
