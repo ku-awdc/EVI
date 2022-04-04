@@ -22,7 +22,13 @@ mova=function(cases, r_a=7){
   # Use C++ code unless option has been set to disable it:
   if(!isTRUE(getOption("EVI_disable_cpp"))){
 
-    return( Rcpp_movea(cases, r_a) )
+    nocases <- Rcpp_movea(cases, r_a)
+
+    # Note that the C++ implementation leaves floating point error on zero -
+    # if this is a problem we can do e.g.:
+    # nocases <- ifelse(nocases < min(cases[cases != 0])/(r_a*10), 0.0, nocases)
+
+    return(nocases)
 
   }else{
 

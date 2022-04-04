@@ -2,10 +2,37 @@
 
 #include "movea.h"
 
-// Potentially susceptible to catastrophic cancellation but very fast:
+// Reasonably fast implementation that is robust to catastrophic cancellation:
 Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
 {
-  // TODO: re-implement using running mean algorithm to avoid catastrophic cancellation
+  Rcpp::NumericVector ncases(cases.length());
+  double rmu = cases[0L];
+  ncases[0L] = cases[0L];
+  
+  for(int i=1L; i<ncases.length(); ++i)
+  {
+    if(i >= r_a)
+    {
+      rmu += (rmu - cases[i-r_a]) / static_cast<double>(r_a-1L);
+      rmu -= (rmu - cases[i]) / static_cast<double>(r_a);
+    }
+    else
+    {
+      rmu -= (rmu - cases[i]) / static_cast<double>(i+1L);
+    }
+    
+    ncases[i] = rmu;
+  }
+  
+  return ncases;
+}
+
+
+// Alternative faster implementation that is potentially susceptible to catastrophic cancellation:
+// Note: this would likely be even faster if cases and sum were int
+/*
+Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
+{
   
   Rcpp::NumericVector ncases(cases.length());
   double sum = cases[0L];
@@ -24,9 +51,10 @@ Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
   
   return ncases;
 }
+*/
 
 
-// Alternative implementation that is not susceptible to catastrophic cancellation:
+// Alternative slower implementation:
 /*
 Rcpp::NumericVector movea(const Rcpp::NumericVector& cases, const int r_a)
 {
