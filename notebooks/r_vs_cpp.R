@@ -18,7 +18,7 @@ options(EVI_disable_cpp=TRUE)
 system.time({
   r <- mova(cases = repit$Cases, r_a = 7)
 })
-# On my system: 24 seconds
+# On my system: 25 seconds
 
 stopifnot(all(abs(cpp-r) < .Machine$double.eps^0.5))
 
