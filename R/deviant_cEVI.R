@@ -47,7 +47,7 @@
 #' @references
 #' Pateras Konstantinos, Meletis Eleftherios and Kostoulas Polychronis, The convergence epidemic index, an early warning tool for identifying waves in an epidemic, 2022
 
-deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
+deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, method = "cEVI"){
   #source("mova.r")
   #source("medvol.r")
   #source("evi.r")
@@ -65,7 +65,8 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
 
   #calculate the moving average of new confirmed cases
-  cases=mova(new_cases,r_a)
+#  cases=mova(new_cases,r_a)
+  cases=new_cases
   #roll=rollsd(cases[1:start_cases],lag_1)
   #ev=evi(roll)
   cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
@@ -87,6 +88,8 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   for (i in (start_cases+1): length(cases)){
 
+
+    if(method=="cEVI"){
     case_t=cases[1:i]
     #case_t=cases[max(1,(i-33)):i]
     #lag_s=7
@@ -99,6 +102,8 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
     all_cut=NA
     all_se=NA
     all_sp=NA
+
+
 
       for (l in c_s) {
         for (j in lag_s) {
@@ -124,7 +129,43 @@ deviant_cEVI=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
         }
       }
 
+    }
 
+    if(method=="EVI"){
+      case_t=cases[1:i]
+      #case_t=cases[max(1,(i-33)):i]
+      #lag_s=7
+      lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 1)
+      #lag_s=seq(lag_1,min(length(case_t),50), 1)
+      c_s=seq(0.01,0.5, 0.01)
+      #all_j=NA
+
+      all_lag=NA
+      all_cut=NA
+      all_se=NA
+      all_sp=NA
+
+
+
+      for (j in lag_s){
+        roll_t=rollsd(case_t,j)
+        ev_t=evi(roll_t)
+        for (l in c_s){
+          evicut_t=evifcut(ev_t, case_t, l, r,)
+          new_j=j
+          new_l=l
+          new_se=evicut_t$sens
+          new_sp=evicut_t$spec
+          all_lag[[length(all_lag) + 1]] <- new_j
+          all_cut[[length(all_cut) + 1]] <- new_l
+          all_se[[length(all_se) + 1]] <- new_se
+          all_sp[[length(all_sp) + 1]] <- new_sp
+
+
+        }
+      }
+
+    }
 
     sesp=as.data.frame(cbind(all_lag,all_cut,all_se,all_sp))
 

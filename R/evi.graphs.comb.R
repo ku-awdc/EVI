@@ -34,7 +34,7 @@
 
 
 evi.graphs.comb <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
-                            EVI1.lab="EVI1",EVI2.lab="EVI2") {
+                            EVI1.lab="EVI1",EVI2.lab="EVI2",EVI3.lab="EVI+",EVI.country=NULL) {
 
   #EVI_output=temp
   EVI1_output$Index=EVI1_output$Index
@@ -52,14 +52,14 @@ evi.graphs.comb <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
   EVI_output$ppv[EVI_output$ppv == 0] <- NA
   EVI_output$variable<-"x"
   EVI_output$Index[is.na(EVI_output$Index)]<-0
-  EVI_output$Index<-factor(EVI_output$Index,labels = c("No warning","Warning 1","Warning 2","Warning 1+2"))
+  EVI_output$Index<-factor(EVI_output$Index,labels = c("No warning",paste(EVI1.lab,"alone"),paste(EVI2.lab,"alone"),EVI3.lab))
   if (ln==F) {
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
         geom_point(aes_string(y=("Cases"), color="Index"), size=size.evi),
         scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
         theme(legend.position = "none"),
-        labs(title = paste0("Graph combining outputs ",EVI1.lab," and ",EVI2.lab), y = "Cases", x="Days"),
+        labs(title = paste0("Graph combining outputs ",EVI1.lab,", ", EVI2.lab," and ", EVI3.lab," - ",EVI.country), y = "Cases", x="Days"),
         theme(legend.position = "bottom",
               legend.title = element_text(size=10),
               legend.text = element_text(size=8),
@@ -74,7 +74,7 @@ evi.graphs.comb <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
         geom_point(aes_string(y="log(Cases)", color="Index"), size=size.evi),
         scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
         theme(legend.position = "none"),
-        labs(title = paste0("Graph combining outputs ",EVI1.lab," and ",EVI2.lab), y = "Cases", x="Days"),
+        labs(title = paste0("Graph combining outputs ",EVI1.lab,", ",EVI2.lab," and ",EVI3.lab," - ",EVI.country), y = "log(Cases)", x="Days"),
         theme(legend.position = "bottom",
               legend.title = element_text(size=10),
               legend.text = element_text(size=8),
