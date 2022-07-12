@@ -2,7 +2,7 @@
 % Please edit documentation in R/deviant_update.R
 \name{deviant_update}
 \alias{deviant_update}
-\title{Deviant Updater function}
+\title{This function is used after first running the deviant function}
 \usage{
 deviant_update(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 }
@@ -17,22 +17,23 @@ deviant_update(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30)
 
 \item{lag_max}{Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.}
 }
-\value{
-After running the deviant_update() function the output of the deviant function (EVI_output) is also updated with a new row of data for each newly observed time point.
-}
 \description{
-This function is used after first running the deviant function.
 Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
-the deviant_update() function is used to obtain the EVI output and issue early warnings for the new cases that are recorded.
+the deviant_update() function is used to obtain the EVI output and early warnings for the new cases that are recorded.
+After running the deviant_update() function the output of the deviant function is also updated with a new row of data for each newly observed time point.
 }
 \examples{
-     \dontrun{
-        # Epidemic Volatility Index (EVI) Explained:
-	       vignette('EVI', package='EVI')
-	       
-       # For information on how to cite EVI:
-       citation('EVI')
-    }
+# If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:
+
+data("Italy")
+deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+
+# When the number of cases for the next day is observed we want to obtain the estimates for this day without having to reanalyze the entire time series. This is done by using the deviant_update function:
+
+deviant_update(new_cases=Italy$Cases[1:149], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+
+# The result of running the deviant_update function is to update the output of the deviant_function by adding an additional row with estimates for the new data.
+# In this example the EVI_output file will now have 149 rows. If two additional days are analyzed two additional rows will be added and so on.
 
 }
 \references{

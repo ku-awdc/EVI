@@ -2,7 +2,7 @@
 % Please edit documentation in R/indic.R
 \name{indic}
 \alias{indic}
-\title{Issue of an Early Warning}
+\title{Function that produces the early warning}
 \usage{
 indic(evi, cut, cases)
 }
@@ -13,20 +13,14 @@ indic(evi, cut, cases)
 
 \item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
 }
-\value{
-A vector of 0s and 1s is produced, where a 1 (Index = 1) is recorded when an early warning is issued and a 0 (Index = 0) when an early warning is not issued.
-}
 \description{
-This function produces the early warning signal (Index).
+Index = 1 when an early warning is issued and Index=0 when an early warning is not issued
 }
 \examples{
 data("Italy")
-cases = mova(cases = Italy$Cases, r_a = 7)
-roll = rollsd(cases = cases, lag_t = 7)
-ev = evi(rollsd = roll)
-ind=indic(evi = ev, cut = 0.01, cases = cases)
+cases = mova(cases=Italy$Cases, r_a=7)
+roll = rollsd(cases=cases, lag_t=7)
+ev = evi(rollsd=roll)
+ind=indic(evi=ev, cut=0.01, cases=cases)
 
-}
-\references{
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 }

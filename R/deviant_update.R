@@ -1,27 +1,30 @@
-#' Deviant Updater function
+#' This function is used after first running the deviant function
 #'
-#' This function is used after first running the deviant function.
 #' Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
-#' the deviant_update() function is used to obtain the EVI output and issue early warnings for the new cases that are recorded.
-#' 
-#' @return
-#' After running the deviant_update() function the output of the deviant function (EVI_output) is also updated with a new row of data for each newly observed time point.
-#'
-#'
+#' the deviant_update() function is used to obtain the EVI output and early warnings for the new cases that are recorded.
+#' After running the deviant_update() function the output of the deviant function is also updated with a new row of data for each newly observed time point.
+
+
 #' @param new_cases the time series of the newly observed cases per unit of time (ideally per day).
 #' @param cum TRUE if the time series is recorded as the cumulative number of the reported cases and FALSE (the default) if newly reported cases per unit of time are recorded.
 #' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).
 #' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
 #' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.
 #'
+#'
 #' @examples
-#'      \dontrun{
-#'         # Epidemic Volatility Index (EVI) Explained:
-#' 	       vignette('EVI', package='EVI')
-#' 	       
-#'	       # For information on how to cite EVI:
-#'	       citation('EVI')
-#'	    }
+#' # If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:
+#'
+#' data("Italy")
+#' deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+#'
+#' # When the number of cases for the next day is observed we want to obtain the estimates for this day without having to reanalyze the entire time series. This is done by using the deviant_update function:
+#'
+#' deviant_update(new_cases=Italy$Cases[1:149], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+#'
+#' # The result of running the deviant_update function is to update the output of the deviant_function by adding an additional row with estimates for the new data.
+#' # In this example the EVI_output file will now have 149 rows. If two additional days are analyzed two additional rows will be added and so on.
+
 #'
 #' @export
 #'
@@ -49,8 +52,6 @@ deviant_update=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
 
-  if (!exists("EVI_output"))
-    stop("Please run the deviant function first")
 
   #calculate the moving average of new confrimed cases
   cases=mova(new_cases,r_a)

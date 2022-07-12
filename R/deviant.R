@@ -37,13 +37,9 @@
 #'
 #'
 #' @examples
-#'      \dontrun{
-#'         # Epidemic Volatility Index (EVI) Explained:
-#' 	       vignette('EVI', package='EVI')
-#' 	       
-#'	       # For information on how to cite EVI:
-#'	       citation('EVI')
-#'	    }
+#' data("Italy")
+#' deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30)
+#' #This step should take some time and the time elapsed will be printed
 #'
 #' @importFrom stats sd
 #'
@@ -75,7 +71,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
   if (cum == TRUE) new_cases = c(new_cases[1], diff(new_cases))
 
 
-  #calculate the moving average of new confirmed cases
+  #calculate the moving average of new confrimed cases
   cases=mova(new_cases,r_a)
 
   roll=rollsd(cases[1:start_cases],lag_1)
@@ -202,10 +198,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30){
 
   EVI_out=as.data.frame(cbind(Days, EVI, Cases, Index, ppv, npv,
                               lag_all, c_all, se_all, sp_all))
-  
-  EVI_output = EVI_out
-  
-  EVI_output<<-(EVI_output)
+  EVI_output<-(EVI_out)
 
   end_time = Sys.time()
 

@@ -1,10 +1,7 @@
-#' Sensitivity-Specificity estimation for each cut-off value and rolling window size
+#' Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size
 #'
-#' This function calculates the sensitivity and the specificity for each cut-off value and rolling window size.
+#' Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size.
 #'
-#' @return
-#' Returns a list of the estimated Sensitivity, Specificity, apparent and true prevalence for each cut-off value and rolling window size
-#' 
 #' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.
 #' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
 #' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.
@@ -12,16 +9,12 @@
 #'
 #' @examples
 #' data("Italy")
-#' cases = mova(cases = Italy$Cases)
-#' roll = rollsd(cases = cases)
-#' ev = evi(rollsd = roll)
-#' evifcut(evi = ev, cases = cases, cut = 0.01, r = 0.2)
+#' cases = mova(cases=Italy$Cases)
+#' roll = rollsd(cases=cases)
+#' ev = evi(rollsd=roll)
+#' evifcut(evi=ev, cases=cases, cut=0.01, r=0.2)
 
 #' @export
-#' 
-#' @references
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
-
 
 evifcut = function(evi, cases, cut, r) {
 
