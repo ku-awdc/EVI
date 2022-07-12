@@ -1,0 +1,50 @@
+#' Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size based on cEVI
+#'
+#' Function that calculates the sensitivity and the specificity for each cut-off value and rolling window size.
+#'
+#' @param cevi numeric vector - object that corresponds to either a 0 for no an early warning or an 1 for an early warning based on cEVI.
+#' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
+#' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.
+#' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
+#'
+#' @examples
+#' data("Italy")
+#' cases = mova(cases=Italy$Cases)
+#' evifcut_cEVI(cevi=cevi, cases=cases, cut=0.01, r=0.2)
+
+#' @export
+
+evifcut_cEVI = function(cevi, cases, cut, r) {
+
+  w_s = 7
+  ratio = 1/(1 + r)
+  test_p = rep(NA, length(cases))
+  true_p = rep(NA, length(cases))
+  for (i in w_s:(length(cases)-w_s)){
+    if ((!is.na(cevi[i]) & cevi[i]  == 1) && cases[i]>mean(cases[i:(i-7)])){
+      test_p[i] <- 1
+    }else{
+      test_p[i] <- 0
+    }
+
+    cond2<-mean(cases[(i):(i-w_s+3)],na.rm=T) <= ratio * mean(cases[(i+1):(i+w_s)],na.rm=T)
+    if (!is.na(cond2) & cond2==TRUE){
+      true_p[i] <- 1
+    }else{
+      true_p[i] <- 0
+    }
+  }
+  sens = length(which(test_p == 1 & true_p == 1))/length(which(true_p ==
+                                                                 1))
+  spec = length(which(test_p == 0 & true_p == 0))/length(which(true_p ==
+                                                                 0))
+  sens[is.nan(sens)] <- 0
+  spec[is.nan(spec)] <- 0
+  testsin = length(which(test_p == 1))/(length(cases) - w_s)
+  prev = length(which(true_p == 1))/(length(cases) - w_s)
+  evifcut <- list(sens = sens, spec = spec, testsin = testsin,
+                  prev = prev)
+  return(evifcut)
+
+
+}
