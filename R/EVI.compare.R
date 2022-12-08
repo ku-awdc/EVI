@@ -12,7 +12,13 @@
 #' @param EVI1_output e.g. output of the \code{\link[EVI:deviant]{deviant()}} function
 #' @param EVI2_output e.g. output of the \code{\link[EVI:deviant]{deviant_cEVI()}} function
 #' @param ln  TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
-#' @param type By default, points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.
+#' @param type By default, points are plotted on EVI graphs (type="p"). In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.
+#' @param size.evi Argument that controls the size of the evi lines (numeric). Default size.evi=1.
+#' @param gray If TRUE then grayscale alternatives of the EVI.graphs will be ploted.
+#' @param lg If TRUE then add the names of the 2 indexes in EVI1.lab and EVI2.lab and their combination in EVI3.lab. If FALSE, then the name of the country will be printed.
+#' @param EVI1.lab Add the name of the first index as character.
+#' @param EVI2.lab Add the name of the second index as character.
+#' @param EVI3.lab Add the name of the combination of the first and second index as character.
 #'
 #' @examples
 #'
@@ -33,21 +39,19 @@
 #' Pateras K, Meletis E, Denwood M, Paolo E, Kostoulas P, The convergence epidemic volatility index an early warning tool for identifying waves in an epidemic, 2022
 
 
-evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
-                            EVI1.lab="EVI1",EVI2.lab="EVI2",EVI3.lab="EVI+",EVI.country=NULL) {
-
+evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,lg=T,gray=F,
+                        EVI1.lab="EVI1",EVI2.lab="EVI2",EVI3.lab="EVI+",EVI.country=NULL) {
+  
   #EVI_output=temp
   EVI1_output$Index=EVI1_output$Index
   EVI2_output$Index=EVI2_output$Index*2
   EVI_output=EVI1_output
   EVI_output$Index=EVI_output$Index+EVI2_output$Index
-  if(length(table(EVI_output$Index))<3)
-    EVI_output$Index[1:3]<-1:3
   EVI_output$cases_1=EVI_output$Cases*EVI_output$Index
   EVI_output$cases_1[EVI_output$cases_1 == 0] <- NA
   EVI_output$cases_0=EVI_output$Cases*(1-EVI_output$Index)
   EVI_output$cases_0[EVI_output$cases_0 == 0] <- NA
-
+  
   EVI_output$npv=EVI_output$npv*(1-EVI_output$Index)
   EVI_output$npv[EVI_output$npv == 0] <- NA
   EVI_output$ppv=EVI_output$ppv*EVI_output$Index
@@ -59,10 +63,10 @@ evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
         geom_point(aes_string(y=("Cases"), color="Index"), size=size.evi),
-        #scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
-        scale_colour_grey(start = 1,end = 0),
-        scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
-        labs(title = paste0("Graph combining outputs ",EVI1.lab,", ", EVI2.lab," and ", EVI3.lab," - ",EVI.country), y = "Cases", x="Days"),
+        if (gray==F) scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
+        if (gray==T) scale_colour_grey(start = 1,end = 0),        theme(legend.position = "none",plot.title = element_text(hjust = 0.5)),
+        if (lg==T) labs(title = paste0("Graph combining outputs ",EVI1.lab,", ", EVI2.lab," and ", EVI3.lab," - ",EVI.country), y = "Cases", x="Days"),
+        if (lg==F) labs(title = paste(EVI.country)),
         theme(legend.position = "bottom",
               legend.title = element_blank(),
               legend.text = element_text(size=8),
@@ -70,14 +74,17 @@ evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
         if (type=="l")  geom_path(aes_string(y="Cases",colour="Index"),size=size.evi)
       )
   }
-
+  
   if (ln==T) {
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
         geom_point(aes_string(y="log(Cases)", color="Index"), size=size.evi),
-        #scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
-        scale_colour_grey(start = 1,end = 0),
-        labs(title = paste0("Graph combining outputs ",EVI1.lab,", ",EVI2.lab," and ",EVI3.lab," - ",EVI.country), y = "log(Cases)", x="Days"),
+        scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
+        theme(legend.position = "none",plot.title = element_text(hjust = 0.5)),
+        if (gray==F) scale_color_manual(values=c("grey69", "yellow3", "orange3", "red4")),
+        if (gray==T) scale_colour_grey(start = 1,end = 0),
+        if (lg==T) labs(title = paste0("Graph combining outputs ",EVI1.lab,", ", EVI2.lab," and ", EVI3.lab," - ",EVI.country), y = "Cases", x="Days"),
+        if (lg==F) labs(title = paste(EVI.country)),
         theme(legend.position = "bottom",
               legend.title = element_blank(),
               legend.text = element_text(size=8),
@@ -86,5 +93,5 @@ evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
       )
   }
   print(sp3)
-
+  
 }
