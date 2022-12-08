@@ -7,7 +7,7 @@
 #'
 #' For each time point the stored variables are:
 #'@return \itemize{
-#' \item{comb.evi.graph: A graph with two EVI indexes shown simulteounsly.}}
+#' \item{evi.compare: A graph with two EVI indexes shown simulteounsly.}}
 
 #' @param EVI1_output e.g. output of the \code{\link[EVI:deviant]{deviant()}} function
 #' @param EVI2_output e.g. output of the \code{\link[EVI:deviant]{deviant_cEVI()}} function
