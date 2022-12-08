@@ -21,8 +21,8 @@
 #' cEVI_output=deviant_cEVI(new_cases=Italy$Cases, cum=FALSE)
 #'
 #' # Plot the EVI combination graph
-#' EVI.compare(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T)
-#' EVI.compare(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T, type="l") # For the line EVI plot
+#' evi.compare(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T)
+#' evi.compare(EVI1_output=EVI_output, EVI2_output=cEVI_output, ln=T, type="l") # For the line EVI plot
 #' @export
 #'
 #' @import ggplot2
@@ -33,7 +33,7 @@
 #' Pateras K, Meletis E, Denwood M, Paolo E, Kostoulas P, The convergence epidemic volatility index an early warning tool for identifying waves in an epidemic, 2022
 
 
-EVI.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
+evi.compare <- function(EVI1_output,EVI2_output, ln=T, type="p",size.evi=1,
                             EVI1.lab="EVI1",EVI2.lab="EVI2",EVI3.lab="EVI+",EVI.country=NULL) {
 
   #EVI_output=temp
