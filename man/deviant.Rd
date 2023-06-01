@@ -4,7 +4,15 @@
 \alias{deviant}
 \title{This function produces the Epidemic Volatility Index based output data (beta)}
 \usage{
-deviant(new_cases, cum = FALSE, r_a = 7, r = 0.2, lag_max = 30, past = 365)
+deviant(
+  new_cases,
+  cum = FALSE,
+  r_a = 7,
+  r = 0.2,
+  lag_max = 30,
+  past = 365,
+  method = "EVI"
+)
 }
 \arguments{
 \item{new_cases}{the time series of the newly observed cases per unit of time (ideally per day).}
