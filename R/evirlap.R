@@ -25,6 +25,12 @@
 #' # Plot the EVI combination graph
 #' evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T)
 #' evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T, type="l") # For the line EVI plot
+#'
+#' # Austria first 150 case example
+#' tmp_EVI_at=deviant(new_cases = Austria$ncases)
+#' tmp_cEVI_at=deviant(new_cases = Austria$ncases,lag_max = 40,method = "cEVI")
+#' evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
+#'
 #' @export
 #'
 #' @import ggplot2
