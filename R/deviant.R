@@ -50,7 +50,7 @@
 #' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
 #' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 #'
-deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=365, method="EVI"){
+deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(new_cases), method="EVI"){
   #source("mova.r")
   #source("medvol.r")
   #source("evi.r")
@@ -98,8 +98,8 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=365, met
 
   for (i in (start_cases+1): length(cases)){
 
-    case_t=cases[1:i]
-    #case_t=cases[max(1,(i-33)):i]
+    #case_t=cases[1:i]
+    case_t=cases[max(1,(i-past)):i]
     #lag_s=7
     lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 1)
     #lag_s=seq(lag_1,min(length(case_t),50), 1)
@@ -162,15 +162,15 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=365, met
     lag_n=sesp$all_lag[index]
     c_n=sesp$all_cut[index]
 
-    roll_n=rollsd(cases[1:i],lag_n)
+    roll_n=rollsd(case_t,lag_n)
 
     ev_n=evi(roll_n)
     ind_n=indic(evi = ev_n,cut = c_n, cases = case_t,method = "EVI")
     evicut_n=evifcut(evi = ev_n, cases = case_t, cut = c_n, r = r,method = "EVI")
 
-    roll=c(roll,roll_n[i])
-    ev=c(ev,ev_n[i])
-    ind=c(ind, ind_n[i])
+    roll=c(roll,roll_n[length(ind)])
+    ev=c(ev,ev_n[length(ind)])
+    ind=c(ind, ind_n[length(ind)])
 
     lag_all=c(lag_all,lag_n)
     c_all=c(c_all,c_n)
@@ -224,7 +224,8 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=365, met
     
     for (i in (start_cases+1): length(cases)){
       
-      case_t=cases[1:i]
+      #case_t=cases[1:i]
+      case_t=cases[max(1,(i-past)):i]
       lag_s=seq(lag_1,min(lag_max,(i-i/2-4)), 2)
       c_s=seq(0.001,0.5, 0.06)
       all_lag=NA
@@ -276,11 +277,11 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=365, met
       lag_n=sesp$all_lag[index]
       c_n=sesp$all_cut[index]
       
-      cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n) #
+      cevi=cEVI_fun(cases = case_t,lag_n = lag_n, c_n = c_n) #
       ind_n=indic(cevi = cevi, cases = case_t, method="cEVI") #
       evicut_n=evifcut(cevi = cevi, cases = case_t, r = r, method="cEVI") #
       
-      ind=c(ind, ind_n[i])
+      ind=c(ind, ind_n[length(ind)])
       lag_all=c(lag_all,lag_n)
       c_all=c(c_all,c_n)
       
