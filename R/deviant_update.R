@@ -62,7 +62,7 @@
 
 deviant_update=function(all_cases=NA, new_cases=NA,
                         EVI_input, cum = FALSE, r_a=7,
-                        r=0.2, lag_max=30, method="EVI",past = max(length(all_cases),length(new_cases))){
+                        r=0.2, lag_max=30, method="EVI",past = 364/2){
   
   
   if(method=="EVI"){
