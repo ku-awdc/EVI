@@ -33,7 +33,7 @@
 #' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).
 #' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
 #' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.
-#' @param past Integer. Restriction on the historical data that EVI/cEVI will use. This is set to 365 (default) to account for a year and aid running times. 
+#' @param past Integer. Default The full length of the input data series. Restriction on the historical data that EVI/cEVI will use. This is set to 365 (default) to account for a year and aid running times. 
 #' @param method either "EVI" or "cEVI", default equals to "EVI".
 #'
 #' @examples
@@ -168,9 +168,9 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(n
     ind_n=indic(evi = ev_n,cut = c_n, cases = case_t,method = "EVI")
     evicut_n=evifcut(evi = ev_n, cases = case_t, cut = c_n, r = r,method = "EVI")
 
-    roll=c(roll,roll_n[length(ind)])
-    ev=c(ev,ev_n[length(ind)])
-    ind=c(ind, ind_n[length(ind)])
+    roll=c(roll,roll_n[length(ind_n)])
+    ev=c(ev,ev_n[length(ind_n)])
+    ind=c(ind, ind_n[length(ind_n)])
 
     lag_all=c(lag_all,lag_n)
     c_all=c(c_all,c_n)
@@ -206,8 +206,8 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(n
     }
     cases=mova(new_cases, r_a)
     #cases=new_cases
-    cevi=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
-    ind=indic(cevi=cevi, cases=cases[1:start_cases], method="cEVI")
+    cev=cEVI_fun(cases = cases[1:(start_cases)],lag_n = lag_1, c_n = c_1)
+    ind=indic(cevi=cev, cases=cases[1:start_cases], method="cEVI")
     status=status(cases[1:start_cases],r)
     
     #initiate chain for positive predictive value
@@ -225,8 +225,9 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(n
     for (i in (start_cases+1): length(cases)){
       
       #case_t=cases[1:i]
-      case_t=cases[max(1,(i-past)):i]
-      lag_s=seq(lag_1,min(lag_max,(i-i/2-4)), 2)
+      i_n<-max(1,(i-past)):i
+      case_t=cases[i_n]
+      lag_s=seq(lag_1,min(lag_max,(length(i_n)-length(i_n)/2-4)), 2)
       c_s=seq(0.001,0.5, 0.06)
       all_lag=NA
       all_cut=NA
@@ -277,11 +278,12 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(n
       lag_n=sesp$all_lag[index]
       c_n=sesp$all_cut[index]
       
-      cevi=cEVI_fun(cases = case_t,lag_n = lag_n, c_n = c_n) #
-      ind_n=indic(cevi = cevi, cases = case_t, method="cEVI") #
+      cevi_n=cEVI_fun(cases = case_t,lag_n = lag_n, c_n = c_n) #
+      ind_n=indic(cevi = cevi_n, cases = case_t, method="cEVI") #
       evicut_n=evifcut(cevi = cevi, cases = case_t, r = r, method="cEVI") #
       
-      ind=c(ind, ind_n[length(ind)])
+      cev=c(cev,cevi_n[length(ind_n)])
+      ind=c(ind, ind_n[length(ind_n)])
       lag_all=c(lag_all,lag_n)
       c_all=c(c_all,c_n)
       
@@ -295,7 +297,7 @@ deviant=function(new_cases, cum = FALSE, r_a=7, r=0.2, lag_max=30, past=length(n
     }
     
     Days=(1:length(cases))
-    EVI=cevi
+    EVI=cev
     Cases=cases
     Index=ind
   }

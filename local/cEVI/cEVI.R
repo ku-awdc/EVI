@@ -2,6 +2,15 @@
 remotes::install_github("ku-awdc/EVI",force=T)
 require(EVI)
 
+tmp_EVI_at=deviant(new_cases = Italy$Cases,past = 40)
+tmp_cEVI_at=deviant(new_cases = Italy$Cases,lag_max = 40,method = "cEVI",past = 40)
+evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
+
+tmp_EVI_at=deviant_update(EVI_input = tmp_EVI_at, new_cases = Italy$Cases,past = 40,method = "EVI")
+tmp_cEVI_at=deviant_update(EVI_input = tmp_cEVI_at, new_cases = Italy$Cases,lag_max = 40,past = 40,method = "cEVI")
+evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
+
+
 # Load the mot example
 data("Italy")
 library(readxl)

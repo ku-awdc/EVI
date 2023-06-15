@@ -12,8 +12,9 @@
 #' @param r_a The window size for the moving average that will be analyzed. If set to 1 the actual observations are analyzed. However, due to the variability of the reported cases between working days and weekends it is recommended that the 7-day moving average is analyzed (i.e. r_a = 7), which is the default for this argument. Users could prefer a longer interval of 14 days or one month (i.e., r_a=14 or 30, respectively).
 #' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
 #' @param lag_max Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.
-#' @param past Integer. Restriction on the historical data that EVI/cEVI will use. This is fixed and equal to the index used in the deviant function. 
+#' @param past Integer. Default the full length of the input data series. Restriction on the historical data that EVI/cEVI will use. This is fixed and equal to the index used in the deviant function. 
 #' @param method either "EVI" or "cEVI", default equals to "EVI".
+
 #'
 #' @examples
 #' ## Single update ##
@@ -61,7 +62,7 @@
 
 deviant_update=function(all_cases=NA, new_cases=NA,
                         EVI_input, cum = FALSE, r_a=7,
-                        r=0.2, lag_max=30, method="EVI"){
+                        r=0.2, lag_max=30, method="EVI",past = max(length(all_cases),length(new_cases))){
   
   
   if(method=="EVI"){
@@ -82,11 +83,11 @@ deviant_update=function(all_cases=NA, new_cases=NA,
     stop("Please provide either new cases or all cases (old+new) as input")
   
   if(!is.na(sum(all_cases))){
-    #calculate the moving average of new confrimed cases
+    #calculate the moving average of new confirmed cases
     cases=mova(c(EVI_input$new_cases,new_cases),r_a)
   }
   if(!is.na(sum(new_cases))){
-    #calculate the moving average of new confrimed cases
+    #calculate the moving average of new confirmed cases
     cases=mova(c(EVI_input$new_cases,new_cases),r_a)
   }
   
@@ -119,7 +120,7 @@ deviant_update=function(all_cases=NA, new_cases=NA,
   diff= length(cases)-(nrow(EVI_input) +1)
   
   for (i in (nrow(EVI_input)+1): length(cases)){
-    case_t=cases[1:i]
+    case_t=cases[max(1,(i-past)):i]
     lag_s=seq(lag_1,min(lag_max,(length(case_t)-1)), 1)
     c_s=seq(0.01,0.5, 0.01)
     all_lag<-all_cut<-all_se<-all_sp<-NA
@@ -145,8 +146,9 @@ deviant_update=function(all_cases=NA, new_cases=NA,
     }
     
     if(method=="cEVI"){
-      case_t=cases[1:i]
-      lag_s=seq(lag_1,min(lag_max,(i-i/2-4)), 2)
+      i_n<-max(1,(i-past)):i
+      case_t=cases[i_n]
+      lag_s=seq(lag_1,min(lag_max,(length(i_n)-length(i_n)/2-4)), 2)
       c_s=seq(0.001,0.5, 0.06)
       all_lag<-all_cut<-all_se<-all_sp<-NA
       
@@ -185,19 +187,19 @@ deviant_update=function(all_cases=NA, new_cases=NA,
     
 
     if (method=="EVI"){
-      roll_n=rollsd(cases[1:i],lag_n)
+      roll_n=rollsd(case_t,lag_n)
       ev_n=evi(roll_n)
       ind_n=indic(evi = ev_n,cut = c_n, cases = case_t, method=method)
       evicut_n=evifcut(evi = ev_n, cases = case_t, cut = c_n, r = r, method=method)
     }else if (method=="cEVI"){
-      cevi=cEVI_fun(cases = cases[1:i],lag_n = lag_n, c_n = c_n) #
-      ind_n=indic(cevi = cevi,cut = c_n , cases = case_t, method=method) #
-      evicut_n=evifcut(cevi = cevi, cases = case_t, r = r, method=method) #
+      ev_n=cEVI_fun(cases = case_t,lag_n = lag_n, c_n = c_n) #
+      ind_n=indic(cevi = ev_n,cut = c_n , cases = case_t, method=method) #
+      evicut_n=evifcut(cevi = ev_n, cases = case_t, r = r, method=method) #
     }
     
-    roll=c(roll,roll_n[i])
-    ev=c(ev,ev_n[i])
-    ind=c(ind, ind_n[i])
+    roll=c(roll,roll_n[length(ind_n)])
+    ev=c(ev,ev_n[length(ind_n)])
+    ind=c(ind, ind_n[length(ind_n)])
     
     lag_all=c(lag_all,lag_n)
     c_all=c(c_all,c_n)
