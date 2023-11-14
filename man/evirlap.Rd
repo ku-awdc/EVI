@@ -24,6 +24,16 @@ evirlap(
 \item{ln}{TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.}
 
 \item{type}{By default, points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.}
+
+\item{size.index}{Size of the points, default=1}
+
+\item{Index1.lab}{Text for index 1, "EVI1"}
+
+\item{Index2.lab}{Text for index 2, "EVI2"}
+
+\item{Index3.lab}{Text for index conjuction, "EVI-"}
+
+\item{Index.country}{Label for country/area/region under analysis}
 }
 \value{
 \itemize{
@@ -51,7 +61,13 @@ cEVI_output=deviant(new_cases=Italy$Cases, cum=FALSE, method="cEVI")
 # Plot the EVI combination graph
 evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T)
 evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T, type="l") # For the line EVI plot
+
+# Austria first 150 case example
+tmp_EVI_at=deviant(new_cases = Austria$ncases)
+tmp_cEVI_at=deviant(new_cases = Austria$ncases,lag_max = 40,method = "cEVI")
+evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
+
 }
 \references{
-Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 }

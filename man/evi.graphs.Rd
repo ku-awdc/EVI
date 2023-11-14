@@ -25,11 +25,15 @@ Three types of plots are generated:
 An EVI_output is required as input, derived from the \code{\link[EVI:deviant]{deviant()}} function.
 }
 \examples{
-evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T)
-evi.graphs(EVI_output=EVI_output, graph="PPV", ln=T)
-evi.graphs(EVI_output=EVI_output, graph="NPV", ln=T)
-evi.graphs(EVI_output=EVI_output, graph="EVI", ln=T, type="l") # For the line EVI plot
+data("Italy")
+EVI_output<-deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30,method="EVI")
+
+evi.graphs(EVI_output=EVI_output, graph="EVI", ln=TRUE)
+evi.graphs(EVI_output=EVI_output, graph="PPV", ln=TRUE)
+evi.graphs(EVI_output=EVI_output, graph="NPV", ln=TRUE)
+evi.graphs(EVI_output=EVI_output, graph="EVI", ln=TRUE, type="l") # For the line EVI plot
 }
 \references{
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 }

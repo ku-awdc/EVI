@@ -1,7 +1,7 @@
 Package: EVI
 Title: Epidemic Volatility Index as an Early-Warning Tool
-Version: 0.1.1-1
-Date: 2022-02-22
+Version: 0.2.0-0
+Date: 2023-07-12
 Authors@R: 
     c(
     person(given = "Eletherios",
@@ -10,7 +10,7 @@ Authors@R:
            email = "emeletis@outlook.com"),
     person(given = "Konstantinos",
            family = "Pateras",
-           role = c("aut"),
+           role = c("aut", "cre"),
            email = "kostas.pateras@gmail.com"),
     person(given = "Paolo",
            family = "Eusebi",
@@ -22,16 +22,16 @@ Authors@R:
            email = "md@sund.ku.dk"),
     person(given = "Polychronis",
            family = "Kostoulas",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "pkost@uth.gr")
     )
 Author: Polychronis Kostoulas <pkost@uth.gr>
-Maintainer: Eleftherios Meletis <emeletis@outlook.com>
+Maintainer: Konstantinos Pateras <kostas.pateras@gmail.com>
 Description: 
     This is an R package implementing the epidemic volatility index (EVI), as 
-    discussed by Kostoulas et. al. (2021). EVI is a new, conceptually simple, early warning tool for oncoming epidemic waves. 
+    discussed by Kostoulas et. al. (2021) and variations Pateras et al (2023). EVI is a new, conceptually simple, early warning tool for oncoming epidemic waves. 
     EVI is based on the volatility of newly reported cases per unit of time,
-    ideally per day, and issues an early warning when the volatility change rate exceeds a threshold. 
+    ideally per day, and issues an early warning when the volatility change rate exceeds a threshold.
 URL: https://www.nature.com/articles/s41598-021-02622-3
 License: GPL (>= 3)
 Encoding: UTF-8

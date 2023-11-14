@@ -15,7 +15,7 @@ Calculates the relative change in the standard deviation between two consecutive
 \examples{
 data("Italy")
 cases = mova(cases=Italy$Cases)
-roll = rollsd(cases=cases)
+roll = rollsd(cases=cases, lag_t=7)
 ev = evi(rollsd=roll)
 
 }

@@ -3,9 +3,8 @@
 #' Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
 #' the deviant_update() function is used to obtain the EVI output and early warnings for the new cases that are recorded.
 #' After running the deviant_update() function the output of the deviant function is also updated with a new row of data for each newly observed time point.
-
-
-#' @param new_cases the time series of the previous and newly observed cases per unit of time (ideally per day).
+#'
+#' @param all_cases the time series of the previous and newly observed cases per unit of time (ideally per day).
 #' @param new_cases the time series of the newly observed cases per unit of time (ideally per day).
 #' @param EVI_input the previous EVI function output  
 #' @param cum TRUE if the time series is recorded as the cumulative number of the reported cases and FALSE (the default) if newly reported cases per unit of time are recorded.
@@ -18,46 +17,60 @@
 #'
 #' @examples
 #' ## Single update ##
-#' # If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:
+#' # If we have first observed only the 148 cases from the 
+#' # Italian data we run the deviant function on these cases:
 #'
 #' data("Italy")
-#' deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+#' EVI_output0<-deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
 #'
-#' # When the number of cases for the next day is observed we want to obtain the estimates for this day without having to reanalyze the entire time series. This is done by using the deviant_update function:
+#' # When the number of cases for the next day is observed we want to obtain 
+#' # the estimates for this day without having to reanalyze the entire time series.
+#'  
+#' # This is done by using the deviant_update function:
 #'
-#' deviant_update(new_cases=Italy$Cases[1:149], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+#' EVI_output0<-deviant_update(new_cases=Italy$Cases[149], 
+#'                             EVI_input=EVI_output0,
+#'                             cum=FALSE, r_a=7, r=0.2, lag_max=30)
 #'
-#' # The result of running the deviant_update function is to update the output of the deviant_function by adding an additional row with estimates for the new data.
-#' # In this example the EVI_output file will now have 149 rows. If two additional days are analyzed two additional rows will be added and so on.
+#' # The result of running the deviant_update function is to update the output of 
+#' # the deviant_function by adding an additional row with estimates for the new data.
+#' 
+#' # In this example the EVI_output file will now have 149 rows. If two additional 
+#' # days are analyzed two additional rows will be added and so on.
 #' 
 #' 
 #' 
 #' # Multiple update steps when new data come using either an EVI or cEVI updater ##
-#' data("Italy")
-#'EVI_output<-deviant(new_cases=Italy$Cases[1:50], cum=FALSE, r_a=7, r=0.2, lag_max=30,method = "EVI")
+#'data("Italy")
+#'EVI_output<-deviant(new_cases=Italy$Cases[1:50], cum=FALSE, 
+#'                    r_a=7, r=0.2, lag_max=30,method = "EVI")
 #'
-#'EVI_output2<-deviant_update(new_cases = c(100,93,80,54,12),EVI_input=EVI_output,method = "EVI")
+#'EVI_output2<-deviant_update(new_cases = c(100,93,80,54,12), 
+#'                            EVI_input=EVI_output,method = "EVI")
 #'
 #'EVI_output2
 #'
 #'# Same as above EVI_output2
 #'
-#'EVI_output2<-deviant_update(all_cases = c(Italy$Cases[1:50],100,93,80,54,12),EVI_input=EVI_output,method = "EVI")
+#'EVI_output2<-deviant_update(all_cases = c(Italy$Cases[1:50],100,93,80,54,12),
+#'EVI_input=EVI_output,method = "EVI")
 #'
 #'EVI_output2
 #'
-#'EVI_output3<-deviant_update(new_cases = c(2,2,10,1,0),EVI_input=EVI_output2, method = "cEVI")
+#'EVI_output3<-deviant_update(new_cases = c(2,2,10,1,0),EVI_input=EVI_output2, 
+#'method = "cEVI")
 #'
 #'EVI_output3
 #'
-#'# Even though EVI and cEVI can be used interchangeably, we suggest users to stick to the initial method.
+#'# Even though EVI and cEVI can be used interchangeably, we suggest users to 
+#'# stick to the initial method.
 #'
-#'
+#' @importFrom stats pt
 #' @export
 #'
 #' @references
-#' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+#' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
+#' Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 
 
 deviant_update=function(all_cases=NA, new_cases=NA,
@@ -84,12 +97,14 @@ deviant_update=function(all_cases=NA, new_cases=NA,
   
   if(!is.na(sum(all_cases))){
     #calculate the moving average of new confirmed cases
-    cases=mova(c(EVI_input$new_cases,new_cases),r_a)
+    cases=mova(c(all_cases),r_a)
   }
   if(!is.na(sum(new_cases))){
     #calculate the moving average of new confirmed cases
     cases=mova(c(EVI_input$new_cases,new_cases),r_a)
   }
+  
+  
   
   roll=rollsd(cases[1:start_cases],lag_1)
   ev=evi(roll)
@@ -164,7 +179,7 @@ deviant_update=function(all_cases=NA, new_cases=NA,
             den2=sd(case_t[(k+2):(k+j+1)])^2/(length(case_t[(k+2):(k+j+1)]))
             teststat=enu/sqrt(den1+den2)
             Nn=length((k+1):(k+j))
-            cevi[k+j+1]<-as.numeric((1-pt(q = teststat,df = Nn))<=l)
+            cevi[k+j+1]<-as.numeric((1-stats::pt(q = teststat,df = Nn))<=l)
           }
           evicut_t <- evifcut(cevi=cevi,cases = case_t, r = r,method = "cEVI")
           all_lag[[length(all_lag) + 1]] <- j
@@ -191,13 +206,13 @@ deviant_update=function(all_cases=NA, new_cases=NA,
       ev_n=evi(roll_n)
       ind_n=indic(evi = ev_n,cut = c_n, cases = case_t, method=method)
       evicut_n=evifcut(evi = ev_n, cases = case_t, cut = c_n, r = r, method=method)
+      roll=c(roll,roll_n[length(ind_n)])
     }else if (method=="cEVI"){
       ev_n=cEVI_fun(cases = case_t,lag_n = lag_n, c_n = c_n) #
       ind_n=indic(cevi = ev_n,cut = c_n , cases = case_t, method=method) #
       evicut_n=evifcut(cevi = ev_n, cases = case_t, r = r, method=method) #
     }
     
-    roll=c(roll,roll_n[length(ind_n)])
     ev=c(ev,ev_n[length(ind_n)])
     ind=c(ind, ind_n[length(ind_n)])
     
@@ -231,7 +246,7 @@ deviant_update=function(all_cases=NA, new_cases=NA,
   
   EVI_input=rbind(EVI_input,EVI_out_add)
   
-  EVI_output<<-(EVI_input)
+  EVI_output<-(EVI_input)
   
   return(EVI_output)
   

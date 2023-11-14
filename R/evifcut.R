@@ -6,6 +6,7 @@
 #' Returns a list of the estimated Sensitivity, Specificity, apparent and true prevalence for each cut-off value and rolling window size
 #'
 #' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.
+#' @param cevi numeric vector - object (obtained from the cevi function and stored as cev) that corresponds to either a positive or negative test.
 #' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
 #' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c, an early warning is issued and otherwise is not.
 #' @param r Definition for the minimum difference in the mean number of cases, one week before and after each time point that, if present, should be detected. This is the case definition and the default is 0.2 (with 0 <= r <= 1). A value of r=0.2 means that we have a case when the mean number of the newly observed cases in the next 7 days is at least 20% higher than the mean number of the newly observed cases in the past 7 days.
@@ -22,8 +23,8 @@
 #' @export
 #'
 #' @references
-#' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+#' Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+#' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 
 
 evifcut=function (evi=NA, cevi=NA, cases, cut=NA, r,method="EVI")
@@ -41,8 +42,7 @@ evifcut=function (evi=NA, cevi=NA, cases, cut=NA, r,method="EVI")
       else {
         test_p[i] = 0
       }
-      if (mean(cases[(i - (w_s - 1)):i]) <= ratio * mean(cases[(i +
-                                                                1):(i + w_s)])) {
+      if (mean(cases[(i - (w_s - 1)):i],na.rm=T) <= ratio * mean(cases[(i + 1):(i + w_s)],na.rm = T)) {
         true_p[i] = 1
       }
       else {

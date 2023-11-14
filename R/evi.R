@@ -8,7 +8,7 @@
 #' @examples
 #' data("Italy")
 #' cases = mova(cases=Italy$Cases)
-#' roll = rollsd(cases=cases)
+#' roll = rollsd(cases=cases, lag_t=7)
 #' ev = evi(rollsd=roll)
 #'
 #' @export

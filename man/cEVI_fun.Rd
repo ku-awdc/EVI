@@ -27,8 +27,8 @@ For each time point the stored variables are:}
 This sencondary function produces the convergence Epidemic Volatility Index based on input data.
 }
 \examples{
-cEVI_fun(c(0,0,1,3,4,10,40,90,105),7,0.1)
+cEVI_fun(cases=c(0,0,1,3,4,10,40,90,105,160,210,301,510,670,680,650,670,665),lag_n=3,c_n=0.1)
 }
 \references{
-Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 }

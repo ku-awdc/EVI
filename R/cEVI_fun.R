@@ -15,11 +15,11 @@
 #'
 #' \item{EVI: the estimated EVI for each time point.}}
 #' @examples
-#' cEVI_fun(c(0,0,1,3,4,10,40,90,105),7,0.1)
+#' cEVI_fun(cases=c(0,0,1,3,4,10,40,90,105,160,210,301,510,670,680,650,670,665),lag_n=3,c_n=0.1)
 #' @export
 #'
 #' @references
-#' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
+#' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 
 cEVI_fun<-function(cases,lag_n,c_n){
 

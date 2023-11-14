@@ -12,10 +12,13 @@ deviant_update(
   r_a = 7,
   r = 0.2,
   lag_max = 30,
-  method = "EVI"
+  method = "EVI",
+  past = 364/2
 )
 }
 \arguments{
+\item{all_cases}{the time series of the previous and newly observed cases per unit of time (ideally per day).}
+
 \item{new_cases}{the time series of the newly observed cases per unit of time (ideally per day).}
 
 \item{EVI_input}{the previous EVI function output}
@@ -30,7 +33,7 @@ deviant_update(
 
 \item{method}{either "EVI" or "cEVI", default equals to "EVI".}
 
-\item{past}{Integer. Restriction on the historical data that EVI/cEVI will use. This is fixed and equal to the index used in the deviant function.}
+\item{past}{Integer. Default the full length of the input data series. Restriction on the historical data that EVI/cEVI will use. This is fixed and equal to the index used in the deviant function.}
 }
 \description{
 Once the \code{\link[EVI:deviant]{deviant()}} function has been used to analyze the already observed time series,
@@ -39,43 +42,56 @@ After running the deviant_update() function the output of the deviant function i
 }
 \examples{
 ## Single update ##
-# If we have first observed only the 148 cases from the Italian data we run the deviant function on these cases:
+# If we have first observed only the 148 cases from the 
+# Italian data we run the deviant function on these cases:
 
 data("Italy")
-deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+EVI_output0<-deviant(new_cases=Italy$Cases[1:148], cum=FALSE, r_a=7, r=0.2, lag_max=30)
 
-# When the number of cases for the next day is observed we want to obtain the estimates for this day without having to reanalyze the entire time series. This is done by using the deviant_update function:
+# When the number of cases for the next day is observed we want to obtain 
+# the estimates for this day without having to reanalyze the entire time series.
+ 
+# This is done by using the deviant_update function:
 
-deviant_update(new_cases=Italy$Cases[1:149], cum=FALSE, r_a=7, r=0.2, lag_max=30)
+EVI_output0<-deviant_update(new_cases=Italy$Cases[149], 
+                            EVI_input=EVI_output0,
+                            cum=FALSE, r_a=7, r=0.2, lag_max=30)
 
-# The result of running the deviant_update function is to update the output of the deviant_function by adding an additional row with estimates for the new data.
-# In this example the EVI_output file will now have 149 rows. If two additional days are analyzed two additional rows will be added and so on.
+# The result of running the deviant_update function is to update the output of 
+# the deviant_function by adding an additional row with estimates for the new data.
+
+# In this example the EVI_output file will now have 149 rows. If two additional 
+# days are analyzed two additional rows will be added and so on.
 
 
 
 # Multiple update steps when new data come using either an EVI or cEVI updater ##
 data("Italy")
-EVI_output<-deviant(new_cases=Italy$Cases[1:50], cum=FALSE, r_a=7, r=0.2, lag_max=30,method = "EVI")
+EVI_output<-deviant(new_cases=Italy$Cases[1:50], cum=FALSE, 
+                   r_a=7, r=0.2, lag_max=30,method = "EVI")
 
-EVI_output2<-deviant_update(new_cases = c(100,93,80,54,12),EVI_input=EVI_output,method = "EVI")
+EVI_output2<-deviant_update(new_cases = c(100,93,80,54,12), 
+                           EVI_input=EVI_output,method = "EVI")
 
 EVI_output2
 
 # Same as above EVI_output2
 
-EVI_output2<-deviant_update(all_cases = c(Italy$Cases[1:50],100,93,80,54,12),EVI_input=EVI_output,method = "EVI")
+EVI_output2<-deviant_update(all_cases = c(Italy$Cases[1:50],100,93,80,54,12),
+EVI_input=EVI_output,method = "EVI")
 
 EVI_output2
 
-EVI_output3<-deviant_update(new_cases = c(2,2,10,1,0),EVI_input=EVI_output2, method = "cEVI")
+EVI_output3<-deviant_update(new_cases = c(2,2,10,1,0),EVI_input=EVI_output2, 
+method = "cEVI")
 
 EVI_output3
 
-# Even though EVI and cEVI can be used interchangeably, we suggest users to stick to the initial method.
-
+# Even though EVI and cEVI can be used interchangeably, we suggest users to 
+# stick to the initial method.
 
 }
 \references{
-Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
+Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 }

@@ -10,7 +10,7 @@ deviant(
   r_a = 7,
   r = 0.2,
   lag_max = 30,
-  past = 365,
+  past = 364/2,
   method = "EVI"
 )
 }
@@ -25,7 +25,7 @@ deviant(
 
 \item{lag_max}{Integer. Restriction of the maximum window size for the rolling window size. The default is set to one month (lag_max=30) to prevent excess volatility of past epidemic waves from affecting the most recent volatility estimates and the ability of EVI to warn for upcoming waves that may be smaller and of lower volatility than previous ones.}
 
-\item{past}{Integer. Restriction on the historical data that EVI/cEVI will use. This is set to 365 (default) to account for a year and aid running times.}
+\item{past}{Integer. Default The full length of the input data series. Restriction on the historical data that EVI/cEVI will use. This is set to 365 (default) to account for a year and aid running times.}
 
 \item{method}{either "EVI" or "cEVI", default equals to "EVI".}
 }
@@ -63,10 +63,11 @@ For each time point the stored variables are:
 data("Italy")
 deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30,method="EVI")
 #This step should take some time and the time elapsed will be printed
-deviant(new_cases=Italy$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30,method="cEVI")
 
+data("Austria")
+deviant(new_cases=Austria$Cases, cum=FALSE, r_a=7, r=0.2, lag_max=30,method="EVI")
 }
 \references{
-Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
 }

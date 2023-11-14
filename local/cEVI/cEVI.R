@@ -1,6 +1,8 @@
 # Load functions and rest of EVI package
 remotes::install_github("ku-awdc/EVI",force=T)
 require(EVI)
+data("Italy")
+document()
 
 tmp_EVI_at=deviant(new_cases = Italy$Cases,past = 40)
 tmp_cEVI_at=deviant(new_cases = Italy$Cases,lag_max = 40,method = "cEVI",past = 40)
@@ -14,7 +16,7 @@ evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
 # Load the mot example
 data("Italy")
 library(readxl)
-Austria <- read_excel("cEVI/Austria_150.xlsx")
+Austria <- read_excel("EVI_official/EVI/local/cEVI/Austria_150.xlsx")
 
 # Run cEVI for the first cases of Italy
 tmp_EVI_at=deviant(new_cases = Austria$ncases)
@@ -70,4 +72,19 @@ dev.off()
 pdf("ex_other_all_cEVI_500.pdf",width=6,height=6)
 evi.graphs(tmp_cEVI_dg_all,ln = T, type="l")
 dev.off()
+Austria<-Austria_150
+names(Austria)<-c("Date","Cases","Cum_Cases")
+save("Austria",file = "data/Austria.rda")
 
+
+EVI_output0<-deviant_update(new_cases = Italy$Cases[149],
+                            EVI_input=EVI_out,
+                            cum=FALSE, r_a=7, r=0.2, lag_max=30)
+
+
+
+
+EVI_output<-deviant(new_cases=Italy$Cases[1:49], cum=FALSE,
+                    r_a=7, r=0.2, lag_max=30,method = "EVI")
+EVI_output2<-deviant_update(all_cases = c(Italy$Cases[1:50],34,234,5,2,3,234,12),
+                            EVI_input=EVI_output,method = "EVI")

@@ -6,6 +6,7 @@
 #' A vector of 0s and 1s is produced, where a 1 (Index = 1) is recorded when an early warning is issued and a 0 (Index = 0) when an early warning is not issued.
 #'
 #' @param evi numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.
+#' @param cevi numeric vector - object (obtained from the cevi function and stored as cev) that corresponds to a positive and negative test.
 #' @param cut threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.
 #' @param cases numeric vector with the number of new cases per unit of time (i.e., daily).
 #' @param method either "EVI" or "cEVI", default equals to "EVI".
@@ -22,8 +23,8 @@
 #' @export
 #'
 #' @references
-#' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-#' Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+#' Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+#' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 
 indic=function (evi=NA, cevi=NA, cut=NA, cases, method="EVI")
 {

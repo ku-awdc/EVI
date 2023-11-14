@@ -9,6 +9,8 @@ indic(evi = NA, cevi = NA, cut = NA, cases, method = "EVI")
 \arguments{
 \item{evi}{numeric vector - object (obtained from the evi function and stored as ev) that corresponds to the relative change in the standard deviation.}
 
+\item{cevi}{numeric vector - object (obtained from the cevi function and stored as cev) that corresponds to a positive and negative test.}
+
 \item{cut}{threshold value (0 <= c <= 0.5) for issuing an early warning. If evi >= c an early warning is issued and otherwise is not.}
 
 \item{cases}{numeric vector with the number of new cases per unit of time (i.e., daily).}
@@ -32,6 +34,6 @@ ind=indic(evi = ev, cut = 0.01, cases = cases)
 
 }
 \references{
-Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023). \doi{10.1016/j.idm.2023.05.001}
-Kostoulas, P., Meletis, E., Pateras, K. et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
+Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 }

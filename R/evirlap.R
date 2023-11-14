@@ -15,6 +15,11 @@
 #' @param Index2 e.g. output of the \code{\link[EVI:deviant]{deviant(method = "cEVI")}} function
 #' @param ln  TRUE or FALSE; If TRUE (the default) the output of the graph will be presented on the logarithmic scale. IF FALSE the output data will be presented on the original scale.
 #' @param type By default, points are plotted on EVI graphs. In cases where, changes are very sudden or data sparsely available, type="l" introduces lines on top of points for the "EVI" type of graph.
+#' @param Index1.lab Text for index 1, "EVI1"
+#' @param Index2.lab Text for index 2, "EVI2"
+#' @param Index3.lab Text for index conjuction, "EVI-"
+#' @param Index.country Label for country/area/region under analysis
+#' @param size.index Size of the points, default=1
 #'
 #' @examples
 #'
@@ -38,7 +43,7 @@
 #'
 #'
 #' @references
-#' Pateras K., Meletis, E., Denwood M., et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
+#' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 
 
 evirlap <- function(Index1,Index2, ln=T, type="p",size.index=1,

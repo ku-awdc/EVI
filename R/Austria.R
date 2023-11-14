@@ -2,6 +2,7 @@
 #'
 #' A data frame containing the number of cases for the first 149 days of the Covid-19 pandemic
 #' in Austria
+#' @usage data(Austria)
 #'
 #' @format A data frame with 149 rows and 3 variables:
 #' \describe{
