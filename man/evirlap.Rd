@@ -55,16 +55,18 @@ For each time point the stored variables are:
 \examples{
 
 # Run basic functions to acquire early warnings results
+data('Italy')
 EVI_output=deviant(new_cases=Italy$Cases, cum=FALSE, method="EVI")
 cEVI_output=deviant(new_cases=Italy$Cases, cum=FALSE, method="cEVI")
 
 # Plot the EVI combination graph
-evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T)
-evirlap(Index1=EVI_output, Index2=cEVI_output, ln=T, type="l") # For the line EVI plot
+evirlap(Index1=EVI_output, Index2=cEVI_output, ln=TRUE)
+evirlap(Index1=EVI_output, Index2=cEVI_output, ln=TRUE, type="l") # For the line EVI plot
 
 # Austria first 150 case example
-tmp_EVI_at=deviant(new_cases = Austria$ncases)
-tmp_cEVI_at=deviant(new_cases = Austria$ncases,lag_max = 40,method = "cEVI")
+data('Austria')
+tmp_EVI_at=deviant(new_cases = Austria$Cases)
+tmp_cEVI_at=deviant(new_cases = Austria$Cases,lag_max = 40,method = "cEVI")
 evirlap(Index1 = tmp_EVI_at,Index2 = tmp_cEVI_at)
 
 }

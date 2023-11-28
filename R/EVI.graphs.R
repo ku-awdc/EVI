@@ -29,7 +29,6 @@
 #' Kostoulas P, Meletis E, Pateras K, et al. The epidemic volatility index, a novel early warning tool for identifying new waves in an epidemic. Sci Rep 11, 23775 (2021). \doi{10.1038/s41598-021-02622-3}
 #' Pateras K, Meletis E, Denwood M, et al. The convergence epidemic index (cEVI) an early warning tool for identifying waves in an epidemic. Inf Dis Mod, (2023)
 
-
 evi.graphs <- function(EVI_output,graph=c("EVI"), ln=T, type="p") {
 
   #EVI_output=temp
@@ -84,15 +83,15 @@ evi.graphs <- function(EVI_output,graph=c("EVI"), ln=T, type="p") {
   if (graph=="PPV" && ln==T) {
     sp3<-ggplot(EVI_output, aes_string(x="Days",group="variable"))+
       list(
-      geom_point(aes(y="log(cases_1)", col="ppv"), size=0.5),
-      geom_point(aes(y="log(cases_0)"), col="grey69", size=0.5),
-      labs(y = "ln(Cases)", x=""),
-      scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
-      labs(color= "PPV"),
-      theme(legend.position = c(0.95, 0.3),
-            legend.title = element_text(size=10),
-            legend.text = element_text(size=8),
-            legend.key.height = unit(0.5, 'cm'))
+        geom_point(aes_string(y="log(cases_1)", col="ppv"), size=0.5),
+        geom_point(aes_string(y="log(cases_0)"), col="grey69", size=0.5),
+        labs(y = "ln(Cases)", x=""),
+        scale_color_gradient(low = "green", high = "red", limits=c(0, 1)),
+        labs(color= "PPV"),
+        theme(legend.position = c(0.95, 0.3),
+              legend.title = element_text(size=10),
+              legend.text = element_text(size=8),
+              legend.key.height = unit(0.5, 'cm'))
       )
     }
 

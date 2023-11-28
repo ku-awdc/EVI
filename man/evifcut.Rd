@@ -29,7 +29,7 @@ This function calculates the sensitivity and the specificity for each cut-off va
 ## EVI Example ##
 data("Italy")
 cases = mova(cases = Italy$Cases)
-roll = rollsd(cases = cases)
+roll = rollsd(cases = cases,lag_t = 7)
 ev = evi(rollsd = roll)
 evifcut(evi = ev, cases = cases, cut = 0.01, r = 0.2)
 }
